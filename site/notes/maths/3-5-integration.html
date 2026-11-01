@@ -1,0 +1,73 @@
+<h1>3.5 Integration</h1>
+<h2>Standard integrals</h2>
+<table>
+<thead>
+<tr>
+<th>f(x)</th>
+<th>∫ f(x) dx</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>eᵃˣ⁺ᵇ</td>
+<td>(1/a)eᵃˣ⁺ᵇ</td>
+</tr>
+<tr>
+<td>1/(ax + b)</td>
+<td>(1/a) ln|ax + b|</td>
+</tr>
+<tr>
+<td>sin(ax + b)</td>
+<td>−(1/a) cos(ax + b)</td>
+</tr>
+<tr>
+<td>cos(ax + b)</td>
+<td>(1/a) sin(ax + b)</td>
+</tr>
+<tr>
+<td>sec²(ax + b)</td>
+<td>(1/a) tan(ax + b)</td>
+</tr>
+<tr>
+<td>1/(a² + x²)</td>
+<td>(1/a) tan⁻¹(x/a)</td>
+</tr>
+<tr>
+<td>f′(x)/f(x)</td>
+<td>ln|f(x)|</td>
+</tr>
+</tbody>
+</table>
+<h2>Techniques</h2>
+<ul>
+<li><strong>Trig identities</strong>: ∫cos²x dx = ∫½(1 + cos 2x) dx; ∫tan²x dx = ∫(sec²x − 1) dx.</li>
+<li><strong>Partial fractions</strong>: split the fraction first, then integrate each part (often giving ln terms).</li>
+<li><strong>Integration by parts</strong>: <strong>∫u dv/dx dx = uv − ∫v du/dx dx</strong>.</li>
+<li>Choose u as the part that gets simpler when differentiated (e.g. x, or ln x).</li>
+<li>Example: ∫x eˣ dx = x eˣ − ∫eˣ dx = <strong>eˣ(x − 1) + c</strong>.</li>
+<li>
+<p>∫ln x dx: take u = ln x and dv/dx = 1, giving <strong>x ln x − x + c</strong>.</p>
+</li>
+<li>
+<p><strong>Substitution</strong>: change the variable and <strong>dx</strong>, and change the <strong>limits</strong> for a definite integral.</p>
+</li>
+<li>Example: ∫₀¹ x(1 + x²)³ dx with u = 1 + x², du = 2x dx. This becomes ½∫₁² u³ du = ½[u⁴/4]₁² = <strong>15/8</strong>.</li>
+</ul>
+<h2>Numerical integration: the trapezium rule</h2>
+<ul>
+<li><strong>∫ₐᵇ y dx ≈ (h/2)[y₀ + 2(y₁ + … + yₙ₋₁) + yₙ]</strong>, where h = (b − a)/n (n strips).</li>
+<li>It gives an <strong>overestimate</strong> if the curve is concave up (convex) and an <strong>underestimate</strong> if it is concave down. Justify with a sketch.</li>
+</ul>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>In substitution questions, change dx to du <strong>and</strong> change the limits.</li>
+<li>For ∫f′/f, check that the numerator is a multiple of the derivative of the denominator.</li>
+<li>Give exact answers (e.g. ln 3, π/4) unless decimals are requested.</li>
+<li>In the trapezium rule, h is the <strong>strip width</strong>, and the number of ordinates is one more than the number of strips.</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>Find ∫ x sin x dx. <em>(sin x − x cos x + c)</em></li>
+<li>Find the exact value of ∫₀^(π/4) sin²x dx. <em>(π/8 − ¼)</em></li>
+<li>Find ∫ (2x + 3)/(x² + 3x + 1) dx. <em>(ln|x² + 3x + 1| + c)</em></li>
+</ol>

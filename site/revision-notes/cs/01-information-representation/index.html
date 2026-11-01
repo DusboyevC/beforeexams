@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Information representation: AS &amp; A Level Computer Science 9618 revision notes | BeforeExams</title>
+<meta name="description" content="What you must be able to do Convert between binary, denary, hexadecimal and BCD, and use two&#x27;s complement for negative numbers. Add and subtract…">
+<meta property="og:title" content="Information representation: AS &amp; A Level Computer Science 9618 revision notes | BeforeExams">
+<meta property="og:description" content="What you must be able to do Convert between binary, denary, hexadecimal and BCD, and use two&#x27;s complement for negative numbers. Add and subtract…">
+<meta property="og:url" content="https://beforexams.netlify.app/revision-notes/cs/01-information-representation/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BeforeExams">
+<link rel="canonical" href="https://beforexams.netlify.app/revision-notes/cs/01-information-representation/">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/style.css">
+<script>try{if(localStorage.getItem("be-theme")==="light")document.documentElement.classList.remove("dark")}catch(e){}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Information representation", "educationalLevel": "AS & A Level", "about": "Computer Science", "author": [{"@type": "Person", "name": "DusboyevC"}, {"@type": "Person", "name": "Magnetars"}], "url": "https://beforexams.netlify.app/revision-notes/cs/01-information-representation/"}</script>
+</head>
+<body data-view="static" data-glow="cs">
+<header class="topbar"><div class="wrap topbar-inner">
+<a href="/" class="brand" aria-label="BeforeExams home"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x="4" y="4" width="25" height="9" rx="3.2" fill="#F57C00"/><rect x="8" y="6.9" width="8" height="2.2" rx="1.1" fill="#1A1A18"/><rect x="7" y="15.5" width="29" height="9" rx="3.2" fill="#4FC79A"/><rect x="11" y="18.4" width="8" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/><rect x="3" y="27" width="31" height="10" rx="3.2" fill="#0F5C46"/><rect x="7" y="30.4" width="9" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/></svg><span class="font-brand brand-word">Before<span>Exams</span></span></a>
+<nav class="topbar-actions" aria-label="Main"><a href="/#library" class="nav-link">Library</a><a href="/revision-notes/" class="nav-link">Notes</a><a href="/about/" class="nav-link">About</a></nav>
+</div></header>
+<main class="page"><div class="wrap static-page"><p class="label-caps eyebrow"><a href="/subjects/a-level-computer-science-9618/">AS &amp; A Level Computer Science 9618</a></p><article class="notes"><h1>1 Information representation</h1>
+<h2>What you must be able to do</h2>
+<ul>
+<li>Convert between binary, denary, hexadecimal and BCD, and use two's complement for negative numbers.</li>
+<li>Add and subtract binary integers and spot overflow.</li>
+<li>Use the binary prefixes (kibi, mebi …) and the decimal prefixes (kilo, mega …) correctly.</li>
+<li>Explain ASCII, extended ASCII and Unicode.</li>
+<li>Calculate bitmap image and sound file sizes, and explain what changing each setting does.</li>
+<li>Compare bitmap and vector graphics.</li>
+<li>Explain lossy and lossless compression, including run-length encoding (RLE).</li>
+</ul>
+<h2>1.1 Number systems</h2>
+<h3>Key terms (learn these word for word)</h3>
+<ul>
+<li><strong>Bit</strong>: a binary digit, 0 or 1.</li>
+<li><strong>Nibble</strong>: 4 bits. <strong>Byte</strong>: 8 bits.</li>
+<li><strong>Denary</strong>: base 10. <strong>Binary</strong>: base 2. <strong>Hexadecimal</strong>: base 16 (digits 0–9 and A–F).</li>
+<li><strong>Binary Coded Decimal (BCD)</strong>: each denary digit is stored separately as its own 4-bit binary number.</li>
+<li><strong>Two's complement</strong>: a way of storing signed integers in which the most significant bit has a negative place value.</li>
+<li><strong>Overflow</strong>: the result of a calculation is too large to be stored in the number of bits available.</li>
+</ul>
+<h3>Binary and decimal prefixes</h3>
+<table>
+<thead>
+<tr>
+<th>Binary prefix</th>
+<th>Value</th>
+<th>Decimal prefix</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>kibi (Ki)</td>
+<td>2¹⁰ = 1024</td>
+<td>kilo (k)</td>
+<td>10³ = 1000</td>
+</tr>
+<tr>
+<td>mebi (Mi)</td>
+<td>2²⁰</td>
+<td>mega (M)</td>
+<td>10⁶</td>
+</tr>
+<tr>
+<td>gibi (Gi)</td>
+<td>2³⁰</td>
+<td>giga (G)</td>
+<td>10⁹</td>
+</tr>
+<tr>
+<td>tebi (Ti)</td>
+<td>2⁴⁰</td>
+<td>tera (T)</td>
+<td>10¹²</td>
+</tr>
+</tbody>
+</table>
+<p>Exam trap: 1 KiB = 1024 bytes, but 1 kB = 1000 bytes. Read which one the question uses.</p>
+<h3>Conversions</h3>
+<p><strong>Binary → denary</strong>: add the place values that have a 1.
+<code>1011 0110</code> → 128 + 32 + 16 + 4 + 2 = <strong>182</strong></p>
+<p><strong>Denary → binary</strong>: subtract the largest place value that fits, write 1, and repeat. Or divide by 2 repeatedly and read the remainders from the bottom up.</p>
+<p><strong>Binary ↔ hex</strong>: split the binary into nibbles from the right. Each nibble is one hex digit.
+<code>1011 0110</code> → B (11) and 6 → <strong>B6</strong></p>
+<p><strong>Hex → denary</strong>: multiply each digit by its place value (16², 16¹, 16⁰).
+<code>3A9</code> → 3×256 + 10×16 + 9 = <strong>937</strong></p>
+<h3>Two's complement (8-bit)</h3>
+<p>Place values: <strong>−128</strong>, 64, 32, 16, 8, 4, 2, 1. Range: −128 to +127.</p>
+<p>To store a negative number such as −45:</p>
+<ol>
+<li>Write +45 in binary: <code>0010 1101</code></li>
+<li>Flip every bit: <code>1101 0010</code></li>
+<li>Add 1: <strong><code>1101 0011</code></strong></li>
+</ol>
+<p>To read a two's complement number, add the place values with −128 for the first bit:
+<code>1011 0111</code> → −128 + 32 + 16 + 4 + 2 + 1 = <strong>−73</strong></p>
+<p>A positive number always starts with 0 and a negative number always starts with 1.</p>
+<h3>Binary addition and subtraction</h3>
+<ul>
+<li>Rules: 0+0=0, 0+1=1, 1+1=0 carry 1, 1+1+1=1 carry 1.</li>
+<li><strong>Subtraction</strong>: add the two's complement of the number being subtracted. A − B = A + (−B).</li>
+<li><strong>Overflow</strong> happens when a carry goes out of the most significant bit (unsigned), or when two positives give a negative answer, or two negatives give a positive answer (two's complement).</li>
+</ul>
+<p>Worked example (8-bit two's complement): 0110 0100 (100) + 0100 0110 (70) = 1010 1010. The sign bit is now 1, so the answer reads as −86 instead of 170. <strong>Overflow has occurred</strong>, because 170 is bigger than the maximum of +127.</p>
+<h3>BCD</h3>
+<ul>
+<li>Each denary digit gets its own nibble: 59 → <code>0101 1001</code>.</li>
+<li>Patterns 1010 to 1111 are invalid in BCD.</li>
+<li><strong>Uses</strong>: digital clocks and calculators, and financial data, because each digit can be displayed directly and there are no rounding errors with decimal fractions.</li>
+</ul>
+<h3>Why programmers use hexadecimal</h3>
+<ul>
+<li>It is shorter and easier to read than binary, and there are fewer errors when copying it.</li>
+<li>It converts to and from binary easily, because one hex digit equals 4 bits.</li>
+<li><strong>Uses</strong>: MAC addresses, HTML/CSS colour codes, memory dumps and error codes, assembly language and machine-code listings, and URL encoding.</li>
+</ul>
+<h3>Character sets</h3>
+<ul>
+<li><strong>Character set</strong>: the list of characters a computer can represent, with the unique binary code for each one.</li>
+<li><strong>ASCII</strong>: 7 bits, 128 characters (English letters, digits, punctuation and control characters). Codes run in sequence: 'A' = 65, 'a' = 97, '0' = 48.</li>
+<li><strong>Extended ASCII</strong>: 8 bits, 256 characters. It adds accented letters and symbols.</li>
+<li><strong>Unicode</strong>: uses up to 4 bytes per character, so it can represent characters from every language and emojis. The first 128 codes are the same as ASCII.</li>
+<li><strong>Trade-off</strong>: Unicode needs more bits per character, so text files are larger than in ASCII.</li>
+</ul>
+<h2>1.2 Multimedia</h2>
+<h3>Bitmap images</h3>
+<ul>
+<li><strong>Pixel</strong>: the smallest addressable element of a picture.</li>
+<li><strong>Image resolution</strong>: the number of pixels in the image (width × height).</li>
+<li><strong>Screen resolution</strong>: the number of pixels the screen can display (width × height).</li>
+<li><strong>Colour depth / bit depth</strong>: the number of bits used to store the colour of each pixel. n bits give 2ⁿ colours.</li>
+<li><strong>File header</strong>: data stored at the start of the file about the image, such as width, height, colour depth and file type.</li>
+</ul>
+<p><strong>File size (bits) = width × height × colour depth.</strong> Divide by 8 for bytes, then by 1024 for KiB.</p>
+<p>Worked example: 1024 × 768 pixels with 24-bit colour.
+1024 × 768 × 24 = 18 874 368 bits ÷ 8 = 2 359 296 bytes ÷ 1024 = 2304 KiB ÷ 1024 = <strong>2.25 MiB</strong></p>
+<table>
+<thead>
+<tr>
+<th>Change</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Higher resolution</td>
+<td>More detail and a sharper image; larger file.</td>
+</tr>
+<tr>
+<td>Greater colour depth</td>
+<td>More colours and more realistic shades; larger file.</td>
+</tr>
+</tbody>
+</table>
+<h3>Vector graphics</h3>
+<ul>
+<li><strong>Drawing object</strong>: a shape, such as a line, circle or rectangle, defined by mathematical formulae.</li>
+<li><strong>Property</strong>: data about an object, e.g. coordinates, line colour, line thickness and fill colour.</li>
+<li><strong>Drawing list</strong>: the set of commands that define every object in the image.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Bitmap</th>
+<th>Vector</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Stored as a grid of pixels</td>
+<td>Stored as objects and their properties</td>
+</tr>
+<tr>
+<td>Goes pixelated when enlarged</td>
+<td>Can be scaled with no loss of quality</td>
+</tr>
+<tr>
+<td>Best for photographs and complex colour</td>
+<td>Best for logos, diagrams and line art</td>
+</tr>
+<tr>
+<td>File size depends on resolution and colour depth</td>
+<td>File size depends on the number of objects</td>
+</tr>
+</tbody>
+</table>
+<h3>Sound</h3>
+<ul>
+<li>Sound is analogue. It is <strong>sampled</strong> at regular intervals: the amplitude is measured and stored as a binary number by an ADC.</li>
+<li><strong>Sampling rate</strong>: the number of samples taken per second (Hz).</li>
+<li><strong>Sampling resolution</strong>: the number of bits used to store each sample.</li>
+<li><strong>File size (bits) = sampling rate × sampling resolution × length in seconds (× number of channels).</strong></li>
+</ul>
+<p>Worked example: 44 100 Hz, 16-bit, stereo, 30 s.
+44 100 × 16 × 2 × 30 = 42 336 000 bits = 5 292 000 bytes ≈ <strong>5.05 MiB</strong></p>
+<table>
+<thead>
+<tr>
+<th>Change</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Higher sampling rate</td>
+<td>Closer to the original sound and a more accurate recording; larger file.</td>
+</tr>
+<tr>
+<td>Higher sampling resolution</td>
+<td>Each amplitude is stored more accurately, with less quantisation error and a greater dynamic range; larger file.</td>
+</tr>
+</tbody>
+</table>
+<h2>1.3 Compression</h2>
+<h3>Key terms</h3>
+<ul>
+<li><strong>Lossless compression</strong>: the file is made smaller with no data lost. The original can be reconstructed exactly.</li>
+<li><strong>Lossy compression</strong>: the file is made smaller by permanently removing data that is judged unnecessary. The original cannot be reconstructed.</li>
+</ul>
+<h3>Why compress?</h3>
+<ul>
+<li>Smaller files take less storage space.</li>
+<li>They transfer and download faster, use less bandwidth and stream with less buffering.</li>
+<li>They are under the size limits for email attachments and uploads.</li>
+</ul>
+<h3>Run-length encoding (RLE), a lossless method</h3>
+<ul>
+<li>A run of identical data items is replaced by <strong>one copy plus a count</strong>.</li>
+<li>Text: <code>AAAABBBCCD</code> → <code>4A3B2C1D</code>.</li>
+<li>Bitmap: a row such as W W W W B B W becomes <code>4W 2B 1W</code>.</li>
+<li>RLE works best when there are long runs, such as images with large areas of one colour. It can make a file <strong>bigger</strong> if there are few repeats.</li>
+</ul>
+<h3>Lossy methods</h3>
+<ul>
+<li><strong>Images (e.g. JPEG)</strong>: reduce the colour depth or resolution, and group similar colours together. The human eye does not notice small changes in colour.</li>
+<li><strong>Sound (e.g. MP3)</strong>: perceptual coding removes sounds humans cannot hear (outside about 20 Hz–20 kHz) and quieter sounds masked by louder ones played at the same time. The sampling rate or resolution can also be reduced.</li>
+</ul>
+<h3>Which to choose?</h3>
+<table>
+<thead>
+<tr>
+<th>Use lossless when…</th>
+<th>Use lossy when…</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Every bit must survive, e.g. text documents, program code and executable files, spreadsheets, medical images</td>
+<td>A small loss of quality is acceptable and size matters most, e.g. photos for websites and video streaming</td>
+</tr>
+</tbody>
+</table>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li><strong>Show your working</strong> in conversions and file-size questions. Marks are given for method.</li>
+<li>In file-size answers, state the <strong>unit</strong> and say which prefix you used (KiB or kB).</li>
+<li>"Explain why the file is larger" needs a link: "more bits per pixel, so more data is stored for every pixel."</li>
+<li>For overflow, say <em>why</em>: the result exceeds the largest value that can be held in the number of bits.</li>
+<li>When asked about Unicode versus ASCII, give <strong>both</strong> a benefit (more characters, all languages) and a drawback (more storage).</li>
+<li>In RLE questions, apply the method <strong>exactly</strong> as the question defines it. Some questions use a flag character or a set order, such as count then character.</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>Convert −20 into 8-bit two's complement. <em>(1110 1100)</em></li>
+<li>What is the largest denary number an unsigned 12-bit register can hold? <em>(4095)</em></li>
+<li>A 500 × 400 image uses 256 colours. Find its size in bytes. <em>(8 bits per pixel → 200 000 bytes)</em></li>
+<li>Give two reasons why RLE might not reduce the size of a photograph. <em>(Few runs of identical pixels; overhead of storing counts.)</em></li>
+</ol></article><nav class="notes-nav"><span></span><a class="mini" href="/revision-notes/cs/02-communication/">Communication →</a></nav></div></main>
+<footer class="foot"><div class="wrap"><div class="foot-grid"><div class="foot-brand"><a class="brand" href="/" aria-label="BeforeExams home"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x="4" y="4" width="25" height="9" rx="3.2" fill="#F57C00"/><rect x="8" y="6.9" width="8" height="2.2" rx="1.1" fill="#1A1A18"/><rect x="7" y="15.5" width="29" height="9" rx="3.2" fill="#4FC79A"/><rect x="11" y="18.4" width="8" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/><rect x="3" y="27" width="31" height="10" rx="3.2" fill="#0F5C46"/><rect x="7" y="30.4" width="9" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/></svg><span class="font-brand brand-word">Before<span>Exams</span></span></a><p>Free revision for Cambridge IGCSE and AS &amp; A Level students.</p><p class="foot-mail">Email: <a href="mailto:dusboyevc@gmail.com">dusboyevc@gmail.com</a></p></div><nav class="foot-col" aria-label="Library"><h2>Library</h2><a href="/#/?mode=topicals" data-foot-mode="topicals">Topical questions</a><a href="/#/?mode=papers" data-foot-mode="papers">Past papers</a><a href="/#/?mode=notes" data-foot-mode="notes">Revision notes</a><a href="/#/?mode=guide" data-foot-mode="guide">Exam guide</a><a href="/#/?mode=trends" data-foot-mode="trends">Topic trends</a></nav><nav class="foot-col" aria-label="IGCSE"><h2>IGCSE</h2><a href="/subjects/igcse-physics-0625/">Physics</a><a href="/subjects/igcse-chemistry-0620/">Chemistry</a><a href="/subjects/igcse-biology-0610/">Biology</a><a href="/subjects/igcse-mathematics-0580/">Mathematics</a><a href="/subjects/igcse-computer-science-0478/">Computer Science</a></nav><nav class="foot-col" aria-label="AS &amp; A Level"><h2>AS &amp; A Level</h2><a href="/subjects/a-level-physics-9702/">Physics</a><a href="/subjects/a-level-chemistry-9701/">Chemistry</a><a href="/subjects/a-level-biology-9700/">Biology</a><a href="/subjects/a-level-mathematics-9709/">Mathematics</a><a href="/subjects/a-level-computer-science-9618/">Computer Science</a></nav><nav class="foot-col" aria-label="BeforeExams"><h2>BeforeExams</h2><a href="/about/">About and authors</a><a href="/revision-notes/">All revision notes</a><a href="/#/account">My account</a><a href="/#/account">Mock tests</a></nav></div><p class="foot-note">Past papers and mark schemes © Cambridge University Press &amp; Assessment. BeforeExams is an independent study site, not affiliated with Cambridge.</p><div class="foot-bar"><span>© 2026 BeforeExams. Made by <b>DusboyevC</b> and <b>Magnetars</b>.</span><a href="/privacy/">Privacy Policy</a></div></div></footer>
+</body>
+</html>

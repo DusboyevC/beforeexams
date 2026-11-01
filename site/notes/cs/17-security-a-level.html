@@ -1,0 +1,79 @@
+<h1>17 Security (A Level)</h1>
+<h2>What you must be able to do</h2>
+<ul>
+<li>Explain symmetric and asymmetric encryption, and how keys are used.</li>
+<li>Describe quantum cryptography.</li>
+<li>Explain the SSL/TLS protocols, the handshake, and where they are used.</li>
+<li>Explain digital signatures and digital certificates, and how each is created and checked.</li>
+</ul>
+<h2>17.1 Encryption, encryption protocols and digital certificates</h2>
+<h3>Key terms</h3>
+<ul>
+<li><strong>Plaintext</strong>: data before encryption. <strong>Ciphertext</strong>: data after encryption.</li>
+<li><strong>Encryption algorithm</strong>: the mathematical process that uses a <strong>key</strong> to turn plaintext into ciphertext.</li>
+<li><strong>Key</strong>: the value used by the algorithm to encrypt or decrypt. Longer keys are harder to brute-force.</li>
+</ul>
+<h3>Symmetric encryption</h3>
+<ul>
+<li>The <strong>same secret key</strong> is used to encrypt and decrypt.</li>
+<li>Benefit: fast, so it suits large amounts of data.</li>
+<li>Problem: <strong>key distribution</strong>. The key must be shared securely; anyone who intercepts it can decrypt everything.</li>
+</ul>
+<h3>Asymmetric (public-key) encryption</h3>
+<ul>
+<li>Each user has a <strong>key pair</strong>: a <strong>public key</strong>, shared openly, and a <strong>private key</strong>, kept secret. They are mathematically linked.</li>
+<li>Data encrypted with the recipient's <strong>public key</strong> can only be decrypted with the recipient's <strong>private key</strong>. So only the intended recipient can read it, which gives <strong>confidentiality</strong>.</li>
+<li>Data encrypted with the sender's <strong>private key</strong> can be decrypted by anyone with the public key. This proves who sent it (<strong>authentication</strong>) and is the basis of digital signatures.</li>
+<li>Benefit: there is no need to share a secret key. Drawback: slower than symmetric encryption.</li>
+<li>In practice, asymmetric encryption is used to exchange a <strong>symmetric session key</strong>, which then encrypts the rest of the data, giving the best of both.</li>
+</ul>
+<h3>Quantum cryptography</h3>
+<ul>
+<li>Uses the properties of <strong>photons</strong> (e.g. their polarisation) to send an encryption key: <strong>quantum key distribution</strong>.</li>
+<li>If an eavesdropper measures the photons, the act of measuring <strong>changes their state</strong>, so the interception is detected and the key is discarded.</li>
+<li>Benefits: in principle, keys cannot be intercepted without detection; it is secure even against future quantum computers.</li>
+<li>Drawbacks: needs special, expensive equipment and dedicated fibre-optic links; limited distance; slow key-transfer rates.</li>
+</ul>
+<h3>SSL / TLS</h3>
+<ul>
+<li><strong>SSL (secure sockets layer)</strong> and its successor <strong>TLS (transport layer security)</strong> provide <strong>encrypted, authenticated</strong> communication between a client (e.g. a browser) and a server. They sit between the application and transport layers.</li>
+<li><strong>TLS has two layers</strong>: the <strong>handshake protocol</strong>, which authenticates the server and agrees encryption methods and keys, and the <strong>record protocol</strong>, which encrypts and transfers the data.</li>
+<li>
+<p><strong>Handshake</strong> (simplified):
+  1. The client sends a "hello", listing the encryption methods and TLS versions it supports.
+  2. The server replies, choosing the method, and sends its <strong>digital certificate</strong>, which contains its public key.
+  3. The client checks the certificate is valid and was issued by a trusted <strong>certificate authority (CA)</strong>.
+  4. The client creates a <strong>session key</strong>, encrypts it with the server's public key and sends it. Only the server can decrypt it with its private key.
+  5. Both sides now use the symmetric session key to encrypt the data.</p>
+</li>
+<li>
+<p><strong>Uses</strong>: HTTPS websites (online banking and shopping), email, VoIP, VPNs.</p>
+</li>
+</ul>
+<h3>Digital signatures</h3>
+<ul>
+<li>Prove <strong>who sent</strong> a message and that it <strong>has not been altered</strong> (integrity).</li>
+<li><strong>Creating</strong>: the sender hashes the message to produce a <strong>message digest</strong>, then encrypts the digest with their <strong>private key</strong>. This encrypted digest is the digital signature, sent with the message.</li>
+<li><strong>Checking</strong>: the receiver decrypts the signature with the sender's <strong>public key</strong> to get the digest. They hash the received message with the same hashing algorithm. If the two digests <strong>match</strong>, the message is authentic and unchanged.</li>
+</ul>
+<h3>Digital certificates</h3>
+<ul>
+<li>An electronic document issued by a trusted <strong>certificate authority (CA)</strong> that links a <strong>public key</strong> to its owner's identity.</li>
+<li>Contents: the owner's name, the owner's <strong>public key</strong>, the CA's name, a serial number, the expiry date, and the <strong>CA's digital signature</strong>.</li>
+<li><strong>How one is obtained</strong>: the organisation sends its public key and proof of identity to a CA. The CA checks the identity, creates the certificate, and signs it with the CA's private key.</li>
+<li><strong>Why it matters</strong>: it stops someone pretending to be a trusted server with their own fake public key.</li>
+</ul>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>Say <strong>whose</strong> key is used: encrypt with the <strong>recipient's public key</strong> for confidentiality; sign with the <strong>sender's private key</strong>.</li>
+<li>A digital signature uses a <strong>hash or message digest</strong>; mention it, because it is a mark point.</li>
+<li>In the TLS handshake, the certificate and <strong>session key</strong> steps earn most of the marks.</li>
+<li>Quantum cryptography: the key idea is that observing photons <strong>changes</strong> them, so eavesdropping is <strong>detected</strong>.</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>Explain why asymmetric encryption solves the key distribution problem.</li>
+<li>Describe how a receiver checks a digital signature.</li>
+<li>List four items in a digital certificate.</li>
+<li>Explain why TLS uses both asymmetric and symmetric encryption.</li>
+</ol>

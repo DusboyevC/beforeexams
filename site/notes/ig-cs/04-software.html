@@ -1,0 +1,101 @@
+<h1>4 Software</h1>
+<h2>Types of software</h2>
+<ul>
+<li><strong>System software</strong>: manages the hardware and gives a platform for applications, e.g. the operating system and utility software (anti-virus, defragmentation, backup, compression).</li>
+<li><strong>Application software</strong>: lets the user carry out specific tasks, e.g. a word processor, web browser, game or spreadsheet.</li>
+<li><strong>Firmware</strong>: software stored permanently in <strong>ROM</strong> that controls the hardware directly, e.g. the <strong>bootloader</strong> (BIOS), which loads the operating system when the computer starts.</li>
+</ul>
+<h2>Operating system functions</h2>
+<ul>
+<li>Managing <strong>files</strong>; handling <strong>interrupts</strong>; providing a <strong>user interface</strong>; managing <strong>peripherals and drivers</strong>; managing <strong>memory</strong>; managing <strong>multitasking</strong>; providing a platform for running applications; providing system <strong>security</strong>; managing <strong>user accounts</strong>.</li>
+</ul>
+<h2>Interrupts</h2>
+<ul>
+<li><strong>Interrupt</strong>: a <strong>signal</strong> sent to the processor to tell it that something needs attention.</li>
+<li><strong>Hardware interrupts</strong>: a key pressed, a mouse moved, the printer out of paper.</li>
+<li>
+<p><strong>Software interrupts</strong>: division by zero, two processes trying to use the same memory.</p>
+</li>
+<li>
+<p><strong>How it is handled</strong>: the interrupt is placed in a queue by priority. At the end of the current FDE cycle, the CPU checks for interrupts. If one has a higher priority, the current task is <strong>paused</strong> and its state saved. The <strong>interrupt service routine (ISR)</strong> is run, then the original task is resumed.</p>
+</li>
+<li>Without interrupts, the computer would not respond to the user or devices until each task had finished.</li>
+</ul>
+<h2>Programming languages</h2>
+<table>
+<thead>
+<tr>
+<th>High-level language</th>
+<th>Low-level language</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Close to human language; easy to read, write and debug</td>
+<td>Close to machine code; hard to understand</td>
+</tr>
+<tr>
+<td><strong>Portable</strong>: runs on different machines</td>
+<td>Machine-specific</td>
+</tr>
+<tr>
+<td>One statement may become many machine-code instructions</td>
+<td>Gives <strong>direct control of the hardware</strong>, e.g. embedded systems and device drivers</td>
+</tr>
+<tr>
+<td>Needs a compiler or interpreter</td>
+<td><strong>Assembly language</strong> needs an <strong>assembler</strong>; machine code needs no translation</td>
+</tr>
+<tr>
+<td></td>
+<td>Efficient: fast, and uses less memory</td>
+</tr>
+</tbody>
+</table>
+<h2>Translators</h2>
+<table>
+<thead>
+<tr>
+<th>Compiler</th>
+<th>Interpreter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Translates the <strong>whole program</strong> at once</td>
+<td>Translates and runs <strong>one line at a time</strong></td>
+</tr>
+<tr>
+<td>Produces an <strong>executable file</strong>, which runs without the translator and is fast</td>
+<td>No executable; the interpreter is needed each time it runs</td>
+</tr>
+<tr>
+<td>Gives an <strong>error report</strong> for the whole program after translation</td>
+<td><strong>Stops at the first error</strong>, so it is easy to find and fix</td>
+</tr>
+<tr>
+<td>Used when the program is <strong>finished</strong>, for distribution (the code stays hidden)</td>
+<td>Used during <strong>development</strong> and debugging</td>
+</tr>
+<tr>
+<td>- <strong>Assembler</strong>: translates <strong>assembly language</strong> into machine code.</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>Integrated development environment (IDE)</h2>
+<ul>
+<li>Provides <strong>code editors</strong>, run-time environments, <strong>translators</strong>, <strong>error diagnostics</strong>, <strong>auto-completion</strong>, auto-correction and <strong>prettyprint</strong> (colour-coding keywords).</li>
+</ul>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>Firmware is stored in <strong>ROM</strong> and loads the OS (the bootloader).</li>
+<li>Interrupt handling: <strong>ISR</strong>, <strong>priority</strong>, the current task <strong>paused and resumed</strong>.</li>
+<li>When asked "why use both a compiler and an interpreter?", say interpreter for development (line by line) and compiler at the end (executable, fast, hides the code).</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>Give two examples each of hardware and software interrupts.</li>
+<li>Explain why a programmer might choose assembly language for a microwave oven.</li>
+<li>Describe two differences between a compiler and an interpreter.</li>
+</ol>

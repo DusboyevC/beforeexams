@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Computational thinking and problem-solving: AS &amp; A Level Computer Science 9618 revision notes | BeforeExams</title>
+<meta name="description" content="What you must be able to do Write and trace linear search, binary search, insertion sort and bubble sort. Implement ADTs: stack, queue, linked list,…">
+<meta property="og:title" content="Computational thinking and problem-solving: AS &amp; A Level Computer Science 9618 revision notes | BeforeExams">
+<meta property="og:description" content="What you must be able to do Write and trace linear search, binary search, insertion sort and bubble sort. Implement ADTs: stack, queue, linked list,…">
+<meta property="og:url" content="https://beforexams.netlify.app/revision-notes/cs/19-computational-thinking/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BeforeExams">
+<link rel="canonical" href="https://beforexams.netlify.app/revision-notes/cs/19-computational-thinking/">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/style.css">
+<script>try{if(localStorage.getItem("be-theme")==="light")document.documentElement.classList.remove("dark")}catch(e){}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Computational thinking and problem-solving", "educationalLevel": "AS & A Level", "about": "Computer Science", "author": [{"@type": "Person", "name": "DusboyevC"}, {"@type": "Person", "name": "Magnetars"}], "url": "https://beforexams.netlify.app/revision-notes/cs/19-computational-thinking/"}</script>
+</head>
+<body data-view="static" data-glow="cs">
+<header class="topbar"><div class="wrap topbar-inner">
+<a href="/" class="brand" aria-label="BeforeExams home"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x="4" y="4" width="25" height="9" rx="3.2" fill="#F57C00"/><rect x="8" y="6.9" width="8" height="2.2" rx="1.1" fill="#1A1A18"/><rect x="7" y="15.5" width="29" height="9" rx="3.2" fill="#4FC79A"/><rect x="11" y="18.4" width="8" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/><rect x="3" y="27" width="31" height="10" rx="3.2" fill="#0F5C46"/><rect x="7" y="30.4" width="9" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/></svg><span class="font-brand brand-word">Before<span>Exams</span></span></a>
+<nav class="topbar-actions" aria-label="Main"><a href="/#library" class="nav-link">Library</a><a href="/revision-notes/" class="nav-link">Notes</a><a href="/about/" class="nav-link">About</a></nav>
+</div></header>
+<main class="page"><div class="wrap static-page"><p class="label-caps eyebrow"><a href="/subjects/a-level-computer-science-9618/">AS &amp; A Level Computer Science 9618</a></p><article class="notes"><h1>19 Computational thinking and problem-solving</h1>
+<h2>What you must be able to do</h2>
+<ul>
+<li>Write and trace linear search, binary search, insertion sort and bubble sort.</li>
+<li>Implement ADTs: stack, queue, linked list, binary tree, dictionary and graph.</li>
+<li>Compare algorithms using Big O notation for time and space.</li>
+<li>Write and trace recursive algorithms, and explain how the call stack is used.</li>
+</ul>
+<h2>19.1 Algorithms</h2>
+<h3>Binary search (the data must be <strong>sorted</strong>)</h3>
+<pre><code>FUNCTION BinarySearch(List, Target, N) RETURNS INTEGER
+   Low ← 1
+   High ← N
+   WHILE Low &lt;= High DO
+      Mid ← (Low + High) DIV 2
+      IF List[Mid] = Target
+         THEN RETURN Mid
+      ENDIF
+      IF List[Mid] &lt; Target
+         THEN Low ← Mid + 1
+         ELSE High ← Mid - 1
+      ENDIF
+   ENDWHILE
+   RETURN -1           // not found
+ENDFUNCTION
+</code></pre>
+<p>Each comparison halves the search area, so it is <strong>O(log n)</strong>. A linear search is <strong>O(n)</strong> but works on unsorted data.</p>
+<h3>Insertion sort</h3>
+<pre><code>FOR i ← 2 TO N
+   Key ← List[i]
+   j ← i - 1
+   WHILE j &gt;= 1 AND List[j] &gt; Key DO
+      List[j + 1] ← List[j]
+      j ← j - 1
+   ENDWHILE
+   List[j + 1] ← Key
+NEXT i
+</code></pre>
+<p>It takes each item in turn and inserts it into its correct place in the sorted part on the left. Worst case <strong>O(n²)</strong>; it is fast, close to <strong>O(n)</strong>, on nearly-sorted data.</p>
+<p>Bubble sort: see chapter 10. It is <strong>O(n²)</strong>.</p>
+<h3>Performance of search and sort algorithms</h3>
+<ul>
+<li>Insertion sort generally makes fewer comparisons than bubble sort, especially on nearly-sorted data.</li>
+<li>Binary search is much faster than linear search for large lists, but only works if the list is sorted.</li>
+</ul>
+<h3>ADTs at A Level</h3>
+<ul>
+<li><strong>Stack, queue, linked list</strong>: see chapter 10. At A Level you also implement them with arrays and pointers (including a free list).</li>
+<li><strong>Binary tree</strong>: each node has data plus a <strong>left pointer</strong> and a <strong>right pointer</strong>. In a <strong>binary search tree</strong>, values smaller than a node go to its left and larger values go to its right.</li>
+<li><strong>Insert</strong>: start at the root and go left or right by comparing values, until there is a null pointer; attach the new node there.</li>
+<li><strong>Search</strong>: compare and go left or right; on average <strong>O(log n)</strong>.</li>
+<li>
+<p><strong>In-order traversal</strong> (left, root, right) outputs the values in sorted order.</p>
+</li>
+<li>
+<p><strong>Dictionary</strong>: a collection of <strong>key–value pairs</strong>; each value is looked up by its unique key, often using hashing.</p>
+</li>
+<li><strong>Graph</strong>: nodes and edges, stored as an <strong>adjacency matrix</strong> (a 2D array) or an <strong>adjacency list</strong>.</li>
+</ul>
+<h3>Big O notation</h3>
+<ul>
+<li>Describes how the time (or memory) an algorithm needs <strong>grows</strong> as the input size n grows, usually for the <strong>worst case</strong>.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Big O</th>
+<th>Name</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>O(1)</td>
+<td>Constant</td>
+<td>Accessing an array element by index</td>
+</tr>
+<tr>
+<td>O(log n)</td>
+<td>Logarithmic</td>
+<td>Binary search</td>
+</tr>
+<tr>
+<td>O(n)</td>
+<td>Linear</td>
+<td>Linear search</td>
+</tr>
+<tr>
+<td>O(n log n)</td>
+<td>Linearithmic</td>
+<td>Merge sort, quicksort (average)</td>
+</tr>
+<tr>
+<td>O(n²)</td>
+<td>Polynomial (quadratic)</td>
+<td>Bubble sort, insertion sort</td>
+</tr>
+<tr>
+<td>O(2ⁿ)</td>
+<td>Exponential</td>
+<td>Brute-forcing every combination</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Space complexity</strong>: how much extra memory the algorithm needs as n grows.</li>
+</ul>
+<h2>19.2 Recursion</h2>
+<ul>
+<li><strong>Recursive subroutine</strong>: one that <strong>calls itself</strong>.</li>
+<li>It must have:
+  1. a <strong>base case</strong>, which stops the recursion and returns without calling itself;
+  2. a <strong>general (recursive) case</strong>, which calls itself with a <strong>smaller</strong> version of the problem that moves towards the base case.</li>
+</ul>
+<pre><code>FUNCTION Factorial(N : INTEGER) RETURNS INTEGER
+   IF N = 0
+      THEN RETURN 1                    // base case
+      ELSE RETURN N * Factorial(N - 1) // general case
+   ENDIF
+ENDFUNCTION
+</code></pre>
+<ul>
+<li><strong>How it runs</strong>: each call is placed on the <strong>call stack</strong> as a stack frame holding its parameters, local variables and return address (<strong>winding</strong>). When the base case is reached, the calls return one by one, popping off the stack (<strong>unwinding</strong>), and each result is used by the call below it.</li>
+<li>Trace Factorial(3): 3 × Factorial(2) → 2 × Factorial(1) → 1 × Factorial(0) → returns 1; then 1 × 1 = 1, 2 × 1 = 2, 3 × 2 = <strong>6</strong>.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Recursion: benefits</th>
+<th>Recursion: drawbacks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shorter, more elegant code for problems that are naturally recursive (trees, factorial, divide and conquer)</td>
+<td>Uses more memory: a stack frame for every call</td>
+</tr>
+<tr>
+<td></td>
+<td>Risk of <strong>stack overflow</strong> if it recurses too deeply or the base case is missing</td>
+</tr>
+<tr>
+<td></td>
+<td>Often slower than an iterative version</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>A compiler implements recursion using a <strong>stack</strong> for return addresses and local values.</li>
+</ul>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>Binary search: say the list must be <strong>sorted</strong>, and remember to change <code>Low</code> or <code>High</code> to <code>Mid ± 1</code>.</li>
+<li>In recursion questions, always identify the <strong>base case</strong> and show the unwinding in your trace.</li>
+<li>Big O measures <strong>growth rate</strong>; ignore constants (O(2n) = O(n)).</li>
+<li>In binary tree insertion, follow the pointers carefully and update the free pointer if an array is used.</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>Why is binary search O(log n)?</li>
+<li>Write the order of nodes visited in an in-order traversal of a binary search tree built by inserting 50, 30, 70, 20, 40. <em>(20, 30, 40, 50, 70)</em></li>
+<li>Explain what happens on the call stack when a recursive function reaches its base case.</li>
+<li>Give one reason to use an iterative rather than a recursive solution.</li>
+</ol></article><nav class="notes-nav"><a class="mini" href="/revision-notes/cs/18-artificial-intelligence/">← Artificial intelligence (AI)</a><a class="mini" href="/revision-notes/cs/20-further-programming/">Further programming →</a></nav></div></main>
+<footer class="foot"><div class="wrap"><div class="foot-grid"><div class="foot-brand"><a class="brand" href="/" aria-label="BeforeExams home"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x="4" y="4" width="25" height="9" rx="3.2" fill="#F57C00"/><rect x="8" y="6.9" width="8" height="2.2" rx="1.1" fill="#1A1A18"/><rect x="7" y="15.5" width="29" height="9" rx="3.2" fill="#4FC79A"/><rect x="11" y="18.4" width="8" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/><rect x="3" y="27" width="31" height="10" rx="3.2" fill="#0F5C46"/><rect x="7" y="30.4" width="9" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/></svg><span class="font-brand brand-word">Before<span>Exams</span></span></a><p>Free revision for Cambridge IGCSE and AS &amp; A Level students.</p><p class="foot-mail">Email: <a href="mailto:dusboyevc@gmail.com">dusboyevc@gmail.com</a></p></div><nav class="foot-col" aria-label="Library"><h2>Library</h2><a href="/#/?mode=topicals" data-foot-mode="topicals">Topical questions</a><a href="/#/?mode=papers" data-foot-mode="papers">Past papers</a><a href="/#/?mode=notes" data-foot-mode="notes">Revision notes</a><a href="/#/?mode=guide" data-foot-mode="guide">Exam guide</a><a href="/#/?mode=trends" data-foot-mode="trends">Topic trends</a></nav><nav class="foot-col" aria-label="IGCSE"><h2>IGCSE</h2><a href="/subjects/igcse-physics-0625/">Physics</a><a href="/subjects/igcse-chemistry-0620/">Chemistry</a><a href="/subjects/igcse-biology-0610/">Biology</a><a href="/subjects/igcse-mathematics-0580/">Mathematics</a><a href="/subjects/igcse-computer-science-0478/">Computer Science</a></nav><nav class="foot-col" aria-label="AS &amp; A Level"><h2>AS &amp; A Level</h2><a href="/subjects/a-level-physics-9702/">Physics</a><a href="/subjects/a-level-chemistry-9701/">Chemistry</a><a href="/subjects/a-level-biology-9700/">Biology</a><a href="/subjects/a-level-mathematics-9709/">Mathematics</a><a href="/subjects/a-level-computer-science-9618/">Computer Science</a></nav><nav class="foot-col" aria-label="BeforeExams"><h2>BeforeExams</h2><a href="/about/">About and authors</a><a href="/revision-notes/">All revision notes</a><a href="/#/account">My account</a><a href="/#/account">Mock tests</a></nav></div><p class="foot-note">Past papers and mark schemes © Cambridge University Press &amp; Assessment. BeforeExams is an independent study site, not affiliated with Cambridge.</p><div class="foot-bar"><span>© 2026 BeforeExams. Made by <b>DusboyevC</b> and <b>Magnetars</b>.</span><a href="/privacy/">Privacy Policy</a></div></div></footer>
+</body>
+</html>

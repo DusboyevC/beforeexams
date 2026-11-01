@@ -1,0 +1,196 @@
+<h1>4 Processor fundamentals</h1>
+<h2>What you must be able to do</h2>
+<ul>
+<li>Describe the Von Neumann model and the stored program concept.</li>
+<li>State the role of every register and bus, and of the ALU, CU, system clock and IAS.</li>
+<li>Explain the factors that affect performance.</li>
+<li>Describe the fetch–execute cycle, including in register transfer notation, and how interrupts are handled.</li>
+<li>Trace and write assembly language programs using the given instruction set and addressing modes.</li>
+<li>Explain how a two-pass assembler works.</li>
+<li>Use logical, arithmetic and cyclic shifts, and bit masking.</li>
+</ul>
+<h2>4.1 Central processing unit (CPU) architecture</h2>
+<h3>Von Neumann model and the stored program concept</h3>
+<ul>
+<li><strong>Stored program concept</strong>: program instructions and data are stored together in the same main memory. Instructions are fetched one at a time and executed in sequence.</li>
+<li>The CPU has a single control unit and uses the same buses for instructions and data.</li>
+</ul>
+<h3>Components</h3>
+<ul>
+<li><strong>ALU (arithmetic logic unit)</strong>: carries out arithmetic (+, −) and logic (AND, OR, comparisons) operations.</li>
+<li><strong>CU (control unit)</strong>: decodes instructions and sends control signals to co-ordinate the other components, using the clock.</li>
+<li><strong>System clock</strong>: produces timing signals that synchronise the components.</li>
+<li><strong>IAS (immediate access store)</strong>: main memory (RAM) that holds the programs and data in use.</li>
+</ul>
+<h3>Registers</h3>
+<table>
+<thead>
+<tr>
+<th>Register</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PC</strong> (program counter)</td>
+<td>Holds the address of the <strong>next</strong> instruction to be fetched</td>
+</tr>
+<tr>
+<td><strong>MAR</strong> (memory address register)</td>
+<td>Holds the address of the memory location to be read from or written to</td>
+</tr>
+<tr>
+<td><strong>MDR</strong> (memory data register)</td>
+<td>Holds the data or instruction just read from memory, or about to be written to memory</td>
+</tr>
+<tr>
+<td><strong>CIR</strong> (current instruction register)</td>
+<td>Holds the instruction currently being decoded and executed</td>
+</tr>
+<tr>
+<td><strong>ACC</strong> (accumulator)</td>
+<td>General purpose register that holds values being processed and the results of the ALU</td>
+</tr>
+<tr>
+<td><strong>IX</strong> (index register)</td>
+<td>Holds a value added to an address in indexed addressing</td>
+</tr>
+<tr>
+<td><strong>Status register</strong></td>
+<td>Holds flags (carry, overflow, negative, zero) set by the result of an operation</td>
+</tr>
+</tbody>
+</table>
+<h3>Buses</h3>
+<ul>
+<li><strong>Address bus</strong>: carries addresses from the CPU to memory or I/O. It is <strong>one-directional</strong>. Its width decides how many locations can be addressed: n lines give 2ⁿ addresses.</li>
+<li><strong>Data bus</strong>: carries data and instructions between the CPU, memory and I/O. It is <strong>two-directional</strong>. Its width is how many bits move at once.</li>
+<li><strong>Control bus</strong>: carries control and timing signals, e.g. read, write, clock and interrupt request. It is two-directional.</li>
+</ul>
+<h3>Factors affecting performance</h3>
+<ul>
+<li><strong>Clock speed</strong>: more cycles per second means more instructions per second (but more heat).</li>
+<li><strong>Number of cores</strong>: more instructions can be processed at the same time, if the software can use them.</li>
+<li><strong>Cache size</strong>: more frequently used data and instructions are held close to the CPU, so fewer slower accesses to RAM are needed.</li>
+<li><strong>Bus width</strong>: a wider data bus moves more bits per transfer, and a wider address bus can address more memory.</li>
+</ul>
+<h3>Ports</h3>
+<ul>
+<li><strong>USB</strong>: a universal standard for many peripherals; supplies power; devices are detected automatically (plug and play).</li>
+<li><strong>HDMI</strong>: carries high-definition video and audio digitally in one cable.</li>
+<li><strong>VGA</strong>: carries analogue video only (older standard).</li>
+</ul>
+<h3>Fetch–execute cycle</h3>
+<p><strong>Fetch</strong></p>
+<ol>
+<li>The address in the PC is copied to the MAR.</li>
+<li>The PC is incremented so it points to the next instruction.</li>
+<li>The instruction at the address in the MAR is copied to the MDR (along the data bus).</li>
+<li>The contents of the MDR are copied to the CIR.</li>
+</ol>
+<p><strong>Decode</strong>: the CU decodes the instruction in the CIR into opcode and operand.</p>
+<p><strong>Execute</strong>: the instruction is carried out, which may involve the ALU, ACC and more memory reads or writes.</p>
+<p><strong>Register transfer notation</strong></p>
+<pre><code>MAR ← [PC]
+PC ← [PC] + 1
+MDR ← [[MAR]]
+CIR ← [MDR]
+</code></pre>
+<p>Square brackets mean "the contents of". [[MAR]] means "the contents of the location whose address is in MAR".</p>
+<h3>Interrupts</h3>
+<ul>
+<li><strong>Interrupt</strong>: a signal sent to the processor to request attention, e.g. hardware failure, I/O finished, a key pressed, a timer, or a software error such as division by zero.</li>
+<li>How it is handled:
+  1. At the end of each fetch–execute cycle the processor checks for interrupts.
+  2. If there is one of higher priority than the current task, the contents of the registers (including the PC) are saved on a stack.
+  3. The <strong>interrupt service routine (ISR)</strong> for that interrupt is loaded and run.
+  4. When the ISR finishes, the saved register values are restored and the original task carries on.</li>
+</ul>
+<h2>4.2 Assembly language</h2>
+<h3>Key terms</h3>
+<ul>
+<li><strong>Machine code</strong>: binary instructions the processor executes directly.</li>
+<li><strong>Assembly language</strong>: a low-level language that uses mnemonics (e.g. LDD, ADD); each statement matches one machine-code instruction.</li>
+<li><strong>Opcode</strong>: the part of the instruction that says what operation to do. <strong>Operand</strong>: the data or address the operation uses.</li>
+</ul>
+<h3>Addressing modes</h3>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Meaning</th>
+<th>Example (what is loaded)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Immediate</strong></td>
+<td>The operand is the actual value</td>
+<td><code>LDM #5</code> loads the number 5</td>
+</tr>
+<tr>
+<td><strong>Direct</strong></td>
+<td>The operand is the address holding the value</td>
+<td><code>LDD 200</code> loads the contents of address 200</td>
+</tr>
+<tr>
+<td><strong>Indirect</strong></td>
+<td>The operand is an address holding <em>another address</em> where the value is</td>
+<td><code>LDI 200</code>: if address 200 holds 350, it loads the contents of 350</td>
+</tr>
+<tr>
+<td><strong>Indexed</strong></td>
+<td>Address = operand + contents of IX</td>
+<td><code>LDX 200</code> with IX = 3 loads the contents of 203</td>
+</tr>
+<tr>
+<td><strong>Relative</strong></td>
+<td>Address = current address + offset</td>
+<td>Used for jumps within a program</td>
+</tr>
+</tbody>
+</table>
+<h3>Typical instructions (always use the instruction table given in the paper)</h3>
+<p><code>LDM #n</code>, <code>LDD addr</code>, <code>LDI addr</code>, <code>LDX addr</code>, <code>LDR #n</code> (load the IX), <code>MOV</code> (copy ACC to IX), <code>STO addr</code>, <code>ADD</code>, <code>SUB</code>, <code>INC</code>, <code>DEC</code>, <code>JMP</code>, <code>CMP</code>, <code>CMI</code>, <code>JPE</code>, <code>JPN</code>, <code>IN</code>, <code>OUT</code>, <code>END</code>, and the bitwise <code>AND</code>, <code>OR</code>, <code>XOR</code>, <code>LSL</code>, <code>LSR</code>.</p>
+<h3>Trace table method</h3>
+<ol>
+<li>One column per register or memory location, plus OUTPUT.</li>
+<li>Go through one instruction at a time and write only the values that <strong>change</strong>.</li>
+<li>Follow jumps carefully. CMP sets a flag; JPE and JPN jump based on that flag.</li>
+<li>Stop at END.</li>
+</ol>
+<h3>Two-pass assembler</h3>
+<ul>
+<li><strong>First pass</strong>: reads the whole program; removes comments and white space; adds <strong>labels and symbolic addresses to the symbol table</strong>; works out the address of each instruction; spots forward references (labels used before they are defined); acts on directives.</li>
+<li><strong>Second pass</strong>: uses the symbol table to <strong>replace every symbolic address and label with an actual address</strong>; translates each mnemonic into a machine-code opcode; produces the object code.</li>
+<li>Two passes are needed because of <strong>forward references</strong>: a jump to a label that appears later can only be resolved once the label's address is known.</li>
+</ul>
+<h2>4.3 Bit manipulation</h2>
+<ul>
+<li><strong>Logical shift</strong>: bits move left or right and the vacated places are filled with <strong>0</strong>. Left by 1 multiplies an unsigned number by 2; right by 1 divides by 2 (the bit shifted off is lost).</li>
+<li><strong>Arithmetic shift</strong>: like a logical shift, but on a right shift the <strong>sign bit is kept</strong> (copied in), so signed numbers keep their sign.</li>
+<li><strong>Cyclic (rotate) shift</strong>: the bit shifted off one end goes back in at the other end, so no bits are lost.</li>
+<li><strong>Masking</strong>:</li>
+<li><strong>AND</strong> with a mask: 0 in the mask <strong>clears</strong> that bit; 1 keeps it. Used to test whether a bit is set.</li>
+<li><strong>OR</strong> with a mask: 1 in the mask <strong>sets</strong> that bit.</li>
+<li>
+<p><strong>XOR</strong> with a mask: 1 in the mask <strong>toggles</strong> that bit.</p>
+</li>
+<li>
+<p><strong>Uses</strong>: device control registers and status flags, where each bit means something, e.g. checking whether bit 3 of a status register is 1.</p>
+</li>
+</ul>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>In the fetch stage, say the PC is <strong>incremented</strong> and state <em>what is copied where</em>. Vague answers like "the instruction is fetched" score nothing.</li>
+<li>Know the difference between MAR (an <strong>address</strong>) and MDR (<strong>data or an instruction</strong>).</li>
+<li>In assembly traces, read the addressing mode on <strong>every</strong> load. LDM #200 and LDD 200 do completely different things.</li>
+<li>In two-pass answers, link the symbol table to the first pass and replacing addresses to the second pass.</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>Explain why the PC is incremented during the fetch stage.</li>
+<li>Address 300 contains 450 and address 450 contains 12. What does <code>LDI 300</code> load into the ACC? <em>(12)</em></li>
+<li>Write a mask and operation that sets bit 0 of a byte without changing the other bits. <em>(OR with 00000001)</em></li>
+<li>Explain why a forward reference makes a second pass necessary.</li>
+</ol>

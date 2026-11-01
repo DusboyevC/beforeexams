@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>System software: AS &amp; A Level Computer Science 9618 revision notes | BeforeExams</title>
+<meta name="description" content="What you must be able to do Explain why a computer needs an operating system and describe its key management tasks. Describe common utility programs…">
+<meta property="og:title" content="System software: AS &amp; A Level Computer Science 9618 revision notes | BeforeExams">
+<meta property="og:description" content="What you must be able to do Explain why a computer needs an operating system and describe its key management tasks. Describe common utility programs…">
+<meta property="og:url" content="https://beforexams.netlify.app/revision-notes/cs/05-system-software/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BeforeExams">
+<link rel="canonical" href="https://beforexams.netlify.app/revision-notes/cs/05-system-software/">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/style.css">
+<script>try{if(localStorage.getItem("be-theme")==="light")document.documentElement.classList.remove("dark")}catch(e){}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "System software", "educationalLevel": "AS & A Level", "about": "Computer Science", "author": [{"@type": "Person", "name": "DusboyevC"}, {"@type": "Person", "name": "Magnetars"}], "url": "https://beforexams.netlify.app/revision-notes/cs/05-system-software/"}</script>
+</head>
+<body data-view="static" data-glow="cs">
+<header class="topbar"><div class="wrap topbar-inner">
+<a href="/" class="brand" aria-label="BeforeExams home"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x="4" y="4" width="25" height="9" rx="3.2" fill="#F57C00"/><rect x="8" y="6.9" width="8" height="2.2" rx="1.1" fill="#1A1A18"/><rect x="7" y="15.5" width="29" height="9" rx="3.2" fill="#4FC79A"/><rect x="11" y="18.4" width="8" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/><rect x="3" y="27" width="31" height="10" rx="3.2" fill="#0F5C46"/><rect x="7" y="30.4" width="9" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/></svg><span class="font-brand brand-word">Before<span>Exams</span></span></a>
+<nav class="topbar-actions" aria-label="Main"><a href="/#library" class="nav-link">Library</a><a href="/revision-notes/" class="nav-link">Notes</a><a href="/about/" class="nav-link">About</a></nav>
+</div></header>
+<main class="page"><div class="wrap static-page"><p class="label-caps eyebrow"><a href="/subjects/a-level-computer-science-9618/">AS &amp; A Level Computer Science 9618</a></p><article class="notes"><h1>5 System software</h1>
+<h2>What you must be able to do</h2>
+<ul>
+<li>Explain why a computer needs an operating system and describe its key management tasks.</li>
+<li>Describe common utility programs and why they are needed.</li>
+<li>Explain program libraries, including DLLs, and their benefits and drawbacks.</li>
+<li>Explain why translators are needed, and compare assemblers, compilers and interpreters.</li>
+<li>Describe the features of an IDE that help with coding, presentation and debugging.</li>
+</ul>
+<h2>5.1 Operating systems</h2>
+<h3>Why an OS is needed</h3>
+<p>The operating system manages the hardware and provides a <strong>platform</strong> for application software to run on. It hides the complexity of the hardware and gives the user an interface.</p>
+<h3>Key management tasks (name the task, then say what it does)</h3>
+<ul>
+<li><strong>Memory management</strong>: allocates memory to programs and processes, and frees it when done. Stops processes from accessing each other's memory (memory protection). Manages virtual memory and paging.</li>
+<li><strong>File management</strong>: organises files in folders and directories; controls access rights; handles naming, saving, copying, moving and deleting; allocates storage space.</li>
+<li><strong>Security management</strong>: user accounts, passwords and authentication; access rights; works with the firewall and anti-malware; recovers data after failure.</li>
+<li><strong>Hardware (peripheral) management</strong>: communicates with devices through <strong>device drivers</strong>; manages input and output and buffers; handles interrupts.</li>
+<li><strong>Process management</strong>: schedules processes so the CPU is shared fairly (multitasking); allocates resources; handles interrupts; deals with deadlock.</li>
+<li><strong>Providing a user interface</strong>: a GUI or a command-line interface.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>GUI (graphical user interface)</th>
+<th>CLI (command-line interface)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Windows, icons, menus and pointer, so it is intuitive for beginners</td>
+<td>Commands are typed, so the user must learn the syntax</td>
+</tr>
+<tr>
+<td>Uses more memory and processing power</td>
+<td>Uses fewer resources</td>
+</tr>
+<tr>
+<td>Slower for repetitive or advanced tasks</td>
+<td>Fast for experts; tasks can be scripted and automated</td>
+</tr>
+</tbody>
+</table>
+<h3>Utility software</h3>
+<ul>
+<li><strong>Disk formatter</strong>: prepares a disk for use by setting up tracks, sectors and the file system. It can also check for bad sectors. Formatting erases existing data.</li>
+<li><strong>Virus checker / anti-malware</strong>: scans files against known virus signatures and suspicious behaviour, then quarantines or deletes infected files. Must be updated regularly.</li>
+<li><strong>Defragmenter</strong>: on a magnetic hard disk, moves file fragments so each file is stored in <strong>contiguous</strong> blocks and free space is grouped together. The read head moves less, so files load faster. (Not needed on SSDs.)</li>
+<li><strong>Disk repair / contents analysis</strong>: checks the disk for errors and bad sectors and repairs them, or marks them so they are not used.</li>
+<li><strong>File compression</strong>: reduces file size to save space and speed up transfer.</li>
+<li><strong>Back-up utility</strong>: copies files to another medium, often on a schedule, as full or incremental backups, so data can be restored after loss.</li>
+</ul>
+<h3>Program libraries</h3>
+<ul>
+<li><strong>Program library</strong>: a collection of pre-written, pre-compiled and tested routines (functions or procedures) that programmers can use in their own programs.</li>
+<li>Benefits: saves development time; the routines are already tested so they are reliable; complex code (e.g. maths or graphics) does not need writing from scratch.</li>
+<li><strong>DLL (dynamic link library)</strong>: library code that is loaded and linked at <strong>run time</strong> rather than copied into the executable when it is compiled.</li>
+<li>Benefits: the executable is smaller; several programs can share one copy in memory, which saves RAM; updating the DLL updates every program that uses it without recompiling.</li>
+<li>Drawbacks: the program fails if the DLL is missing or the wrong version ("DLL hell"); an update that changes the DLL can break other programs; there is an extra dependency to manage.</li>
+</ul>
+<h2>5.2 Language translators</h2>
+<h3>Why translators are needed</h3>
+<p>The processor only executes <strong>machine code</strong> (binary). Programs written in assembly language or a high-level language must be translated into machine code before they can run.</p>
+<ul>
+<li><strong>Assembler</strong>: translates assembly language into machine code (one-to-one).</li>
+<li><strong>Compiler</strong>: translates the whole high-level program into machine code (object code or an executable) in one go, before it runs. It produces a list of all errors at the end.</li>
+<li><strong>Interpreter</strong>: translates and executes the high-level program <strong>one statement (line) at a time</strong>. It stops at the first error.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Compiler</th>
+<th>Interpreter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Translates the whole program before running</td>
+<td>Translates and runs line by line</td>
+</tr>
+<tr>
+<td>Produces an executable file: no translator needed to run it, and the source code stays hidden</td>
+<td>No executable: the interpreter and source code are needed every time</td>
+</tr>
+<tr>
+<td>The compiled program runs fast</td>
+<td>Runs more slowly because each line is translated every time</td>
+</tr>
+<tr>
+<td>Errors are reported together after compilation</td>
+<td>Stops at the first error, so it is easy to see where it is</td>
+</tr>
+<tr>
+<td>Best for distributing the final program</td>
+<td>Best during development and debugging</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Partially compiled and interpreted (e.g. Java)</strong>: source code is compiled into intermediate <strong>bytecode</strong>, which a <strong>virtual machine</strong> interprets on any platform. Benefit: the same bytecode runs on any computer that has the virtual machine (portable).</p>
+<h3>Integrated Development Environment (IDE)</h3>
+<p><strong>Coding</strong></p>
+<ul>
+<li><strong>Context-sensitive prompts / auto-complete</strong>: suggests keywords, variable names and parameters as you type.</li>
+</ul>
+<p><strong>Initial error detection</strong></p>
+<ul>
+<li><strong>Dynamic syntax checks</strong>: syntax errors are highlighted as you type, before translation.</li>
+</ul>
+<p><strong>Presentation</strong></p>
+<ul>
+<li><strong>Prettyprint</strong>: colour-codes keywords, strings and comments, and indents automatically, so code is easier to read.</li>
+<li><strong>Expand and collapse code blocks</strong>: hides blocks such as functions so you can focus on one section.</li>
+</ul>
+<p><strong>Debugging</strong></p>
+<ul>
+<li><strong>Single stepping</strong>: runs the program one statement at a time, so you can see exactly what each line does.</li>
+<li><strong>Breakpoints</strong>: pause execution at a chosen line so the program state can be inspected.</li>
+<li><strong>Report / watch window</strong>: shows the current values of variables as the program runs.</li>
+</ul>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>For an OS task, give the <strong>name</strong> and <strong>one specific action</strong>, e.g. "memory management – allocates memory to each process and prevents processes overwriting each other".</li>
+<li>Defragmentation answers need: fragments joined into <strong>contiguous</strong> blocks → fewer head movements → faster access.</li>
+<li>Compiler versus interpreter questions often ask "why use <strong>both</strong>": an interpreter during development to find errors line by line, and a compiler at the end to produce a fast executable without giving away the source code.</li>
+<li>Match IDE features to their <strong>heading</strong> if the question asks for "a feature for debugging" etc.</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>Describe two benefits and one drawback of using a DLL.</li>
+<li>Explain why a defragmenter improves performance on a hard disk but not on an SSD.</li>
+<li>Give two reasons a programmer would distribute a compiled program rather than the source code.</li>
+<li>Name two IDE debugging features and describe how each helps.</li>
+</ol></article><nav class="notes-nav"><a class="mini" href="/revision-notes/cs/04-processor-fundamentals/">← Processor fundamentals</a><a class="mini" href="/revision-notes/cs/06-security-privacy-integrity/">Security, privacy and data integrity →</a></nav></div></main>
+<footer class="foot"><div class="wrap"><div class="foot-grid"><div class="foot-brand"><a class="brand" href="/" aria-label="BeforeExams home"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x="4" y="4" width="25" height="9" rx="3.2" fill="#F57C00"/><rect x="8" y="6.9" width="8" height="2.2" rx="1.1" fill="#1A1A18"/><rect x="7" y="15.5" width="29" height="9" rx="3.2" fill="#4FC79A"/><rect x="11" y="18.4" width="8" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/><rect x="3" y="27" width="31" height="10" rx="3.2" fill="#0F5C46"/><rect x="7" y="30.4" width="9" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/></svg><span class="font-brand brand-word">Before<span>Exams</span></span></a><p>Free revision for Cambridge IGCSE and AS &amp; A Level students.</p><p class="foot-mail">Email: <a href="mailto:dusboyevc@gmail.com">dusboyevc@gmail.com</a></p></div><nav class="foot-col" aria-label="Library"><h2>Library</h2><a href="/#/?mode=topicals" data-foot-mode="topicals">Topical questions</a><a href="/#/?mode=papers" data-foot-mode="papers">Past papers</a><a href="/#/?mode=notes" data-foot-mode="notes">Revision notes</a><a href="/#/?mode=guide" data-foot-mode="guide">Exam guide</a><a href="/#/?mode=trends" data-foot-mode="trends">Topic trends</a></nav><nav class="foot-col" aria-label="IGCSE"><h2>IGCSE</h2><a href="/subjects/igcse-physics-0625/">Physics</a><a href="/subjects/igcse-chemistry-0620/">Chemistry</a><a href="/subjects/igcse-biology-0610/">Biology</a><a href="/subjects/igcse-mathematics-0580/">Mathematics</a><a href="/subjects/igcse-computer-science-0478/">Computer Science</a></nav><nav class="foot-col" aria-label="AS &amp; A Level"><h2>AS &amp; A Level</h2><a href="/subjects/a-level-physics-9702/">Physics</a><a href="/subjects/a-level-chemistry-9701/">Chemistry</a><a href="/subjects/a-level-biology-9700/">Biology</a><a href="/subjects/a-level-mathematics-9709/">Mathematics</a><a href="/subjects/a-level-computer-science-9618/">Computer Science</a></nav><nav class="foot-col" aria-label="BeforeExams"><h2>BeforeExams</h2><a href="/about/">About and authors</a><a href="/revision-notes/">All revision notes</a><a href="/#/account">My account</a><a href="/#/account">Mock tests</a></nav></div><p class="foot-note">Past papers and mark schemes © Cambridge University Press &amp; Assessment. BeforeExams is an independent study site, not affiliated with Cambridge.</p><div class="foot-bar"><span>© 2026 BeforeExams. Made by <b>DusboyevC</b> and <b>Magnetars</b>.</span><a href="/privacy/">Privacy Policy</a></div></div></footer>
+</body>
+</html>

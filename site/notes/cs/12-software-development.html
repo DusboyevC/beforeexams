@@ -1,0 +1,130 @@
+<h1>12 Software development</h1>
+<h2>What you must be able to do</h2>
+<ul>
+<li>Describe the stages of the program development life cycle and compare waterfall, iterative and RAD models.</li>
+<li>Draw and use structure charts and state-transition diagrams.</li>
+<li>Explain the types of error, testing methods, test data and types of maintenance.</li>
+</ul>
+<h2>12.1 Program development life cycle (PDLC)</h2>
+<ol>
+<li><strong>Analysis</strong>: understand the problem and gather requirements (interviews, questionnaires, observation, documents); produce a requirements specification.</li>
+<li><strong>Design</strong>: plan the solution: algorithms (pseudocode, flowcharts), structure charts, data structures, file and database design, interface design, and test plan.</li>
+<li><strong>Coding</strong>: write the program in a programming language and test modules as they are written.</li>
+<li><strong>Testing</strong>: check the program works and meets the requirements, using a test plan and test data.</li>
+<li><strong>Maintenance</strong>: change the program after it is in use: fix errors, adapt to new needs, improve performance.</li>
+</ol>
+<h3>Development models</h3>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>How it works</th>
+<th>Benefits</th>
+<th>Drawbacks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Waterfall</strong></td>
+<td>Each stage is completed and signed off before the next begins; going back is difficult</td>
+<td>Simple and easy to manage; clear deadlines and documentation; suits projects with fixed, well-understood requirements</td>
+<td>Inflexible to change; the client sees the working program only at the end; errors found late are costly</td>
+</tr>
+<tr>
+<td><strong>Iterative</strong></td>
+<td>The program is built in increments, each going through design, code and test; repeated and extended</td>
+<td>A working version is available early; feedback guides the next iteration; risks are found earlier</td>
+<td>Needs good planning; scope can creep; the overall design must be stable</td>
+</tr>
+<tr>
+<td><strong>RAD (rapid application development)</strong></td>
+<td>Quick prototypes built with heavy user involvement and refined repeatedly; reusable components; time-boxed</td>
+<td>Very responsive to user feedback; fast delivery; the final product meets users' needs</td>
+<td>Needs committed users and skilled developers; less suited to large, complex systems; less documentation</td>
+</tr>
+</tbody>
+</table>
+<h2>12.2 Program design</h2>
+<ul>
+<li><strong>Structure chart</strong>: shows how a problem is decomposed into modules in a hierarchy, and the <strong>parameters</strong> passed between them.</li>
+<li>Data parameter: an arrow with an open circle. Flag (Boolean) parameter: an arrow with a filled circle.</li>
+<li>
+<p>Selection is shown with a diamond, and iteration with a curved arrow.</p>
+</li>
+<li>
+<p><strong>State-transition diagram</strong>: shows the <strong>states</strong> of a system, the <strong>events</strong> (inputs) that cause a change, and the resulting transitions.</p>
+</li>
+<li>States are circles, transitions are arrows labelled with the event (and output). The start state has an arrow coming from nowhere; the final state is a double circle.</li>
+</ul>
+<h2>12.3 Program testing and maintenance</h2>
+<h3>Types of error</h3>
+<ul>
+<li><strong>Syntax error</strong>: breaks the grammar rules of the language, e.g. a misspelled keyword or a missing bracket. The translator finds it, and the program will not run.</li>
+<li><strong>Logic error</strong>: the program runs but gives the wrong result, because the algorithm is wrong, e.g. <code>&lt;</code> instead of <code>&lt;=</code>. Found by testing and dry runs.</li>
+<li><strong>Run-time error</strong>: the program crashes while running, e.g. division by zero, an array index out of range, or a missing file.</li>
+</ul>
+<h3>Testing methods</h3>
+<ul>
+<li><strong>Dry run</strong>: working through the algorithm by hand, recording variable values in a <strong>trace table</strong>.</li>
+<li><strong>Walkthrough</strong>: the programmer explains the code step by step to colleagues, who look for errors.</li>
+<li><strong>White-box testing</strong>: tests every path through the code, chosen using knowledge of the code's structure.</li>
+<li><strong>Black-box testing</strong>: tests inputs against expected outputs <strong>without</strong> looking at the code.</li>
+<li><strong>Integration testing</strong>: modules are combined and tested together to check they work with each other.</li>
+<li><strong>Stub testing</strong>: a simple placeholder (stub) replaces a module that hasn't been written yet, so other modules can be tested.</li>
+<li><strong>Alpha testing</strong>: done in-house by the developers or testers, before release.</li>
+<li><strong>Beta testing</strong>: a near-final version is given to a group of real users outside the company, who report bugs and feedback.</li>
+<li><strong>Acceptance testing</strong>: the client tests the finished system against the requirements to decide whether to accept it.</li>
+</ul>
+<h3>Test data</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Meaning</th>
+<th>Example (valid range 1–100)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Normal</strong></td>
+<td>Valid data that should be accepted</td>
+<td>50</td>
+</tr>
+<tr>
+<td><strong>Abnormal / erroneous</strong></td>
+<td>Invalid data that should be rejected</td>
+<td>−5, "abc", 150</td>
+</tr>
+<tr>
+<td><strong>Extreme</strong></td>
+<td>The largest and smallest acceptable values</td>
+<td>1, 100</td>
+</tr>
+<tr>
+<td><strong>Boundary</strong></td>
+<td>Values either side of the limits: the largest or smallest acceptable value <strong>and</strong> the first value that should be rejected</td>
+<td>0, 1 and 100, 101</td>
+</tr>
+</tbody>
+</table>
+<p>A <strong>test plan</strong> lists each test: purpose, test data, type of test data, expected result, actual result, and whether it passed.</p>
+<h3>Types of maintenance</h3>
+<ul>
+<li><strong>Corrective</strong>: fixing errors found after the system is in use.</li>
+<li><strong>Adaptive</strong>: changing the program to meet new requirements or a changed environment, e.g. a new OS, new laws or new hardware.</li>
+<li><strong>Perfective</strong>: improving performance or usability without changing what it does, e.g. making it faster or easier to use.</li>
+</ul>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>Match the <strong>model</strong> to the scenario: fixed requirements suit waterfall; a client who is unsure suits RAD or iterative.</li>
+<li>When asked for test data, give the <strong>value</strong>, its <strong>type</strong> and the <strong>expected result</strong>.</li>
+<li>Boundary data must include the value just <strong>outside</strong> the range.</li>
+<li>Adaptive versus perfective: adaptive = <strong>change in requirements or environment</strong>; perfective = <strong>improve</strong> what already works.</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>Give two reasons a client who is unsure of their requirements would prefer RAD.</li>
+<li>Identify the error type: an array index of 11 is used for an array declared as ARRAY[1:10].</li>
+<li>Give boundary test data for an age that must be between 18 and 65.</li>
+<li>Describe the difference between alpha and beta testing.</li>
+</ol>

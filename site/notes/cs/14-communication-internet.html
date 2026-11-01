@@ -1,0 +1,105 @@
+<h1>14 Communication and internet technologies</h1>
+<h2>What you must be able to do</h2>
+<ul>
+<li>Explain why protocols are needed, and describe the TCP/IP protocol suite and its four layers.</li>
+<li>State the purpose of HTTP, FTP, POP3, IMAP, SMTP and BitTorrent.</li>
+<li>Compare circuit switching and packet switching, and explain the role of a router.</li>
+</ul>
+<h2>14.1 Protocols</h2>
+<ul>
+<li><strong>Protocol</strong>: a set of rules that govern how data is transmitted between devices, covering format, timing, error checking and addressing.</li>
+<li><strong>Why needed</strong>: devices from different manufacturers, running different software, can communicate because they all follow the same agreed rules.</li>
+</ul>
+<h3>TCP/IP protocol suite: four layers</h3>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Role</th>
+<th>Protocols</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Application</strong></td>
+<td>Provides network services to applications; formats data for the application</td>
+<td>HTTP, HTTPS, FTP, SMTP, POP3, IMAP</td>
+</tr>
+<tr>
+<td><strong>Transport</strong></td>
+<td>Splits data into <strong>packets (segments)</strong>; adds sequence numbers and port numbers; makes sure packets arrive and are reassembled in order; flow control; acknowledgements and re-sends</td>
+<td>TCP (reliable), UDP</td>
+</tr>
+<tr>
+<td><strong>Internet (network)</strong></td>
+<td>Adds the <strong>source and destination IP addresses</strong>; routes packets across networks</td>
+<td>IP</td>
+</tr>
+<tr>
+<td><strong>Link (network access)</strong></td>
+<td>Sends frames across the physical network; uses <strong>MAC addresses</strong></td>
+<td>Ethernet, Wi-Fi</td>
+</tr>
+</tbody>
+</table>
+<p>How it works (sending): data is passed <strong>down</strong> the layers, and each layer adds its own header (encapsulation). At the receiver it passes <strong>up</strong> the layers and each header is removed. A <strong>protocol stack</strong> means each layer only communicates with the layers directly above and below it.</p>
+<h3>Application protocols</h3>
+<ul>
+<li><strong>HTTP / HTTPS</strong>: transfer web pages between a web server and a browser. HTTPS encrypts the data using SSL/TLS.</li>
+<li><strong>FTP</strong>: transfers files between computers over a network (upload and download).</li>
+<li><strong>SMTP</strong>: <strong>sends</strong> email from a client to a mail server and between servers (push protocol).</li>
+<li><strong>POP3</strong>: <strong>retrieves</strong> email from the server to one device, usually <strong>deleting</strong> it from the server.</li>
+<li><strong>IMAP</strong>: <strong>retrieves</strong> email but keeps it on the server, so it is <strong>synchronised</strong> across several devices.</li>
+<li><strong>BitTorrent</strong>: a peer-to-peer file-sharing protocol.</li>
+<li>A <strong>tracker</strong> keeps a record of which peers have which pieces.</li>
+<li>The file is split into small <strong>pieces</strong>; a <strong>swarm</strong> is all the peers sharing a file.</li>
+<li>A <strong>seed</strong> has the complete file; a <strong>leech</strong> downloads (and may upload little in return).</li>
+<li>Peers download different pieces from many peers <strong>at the same time</strong> and upload pieces they already have to others. This spreads the load and makes large downloads fast.</li>
+</ul>
+<h2>14.2 Circuit switching and packet switching</h2>
+<table>
+<thead>
+<tr>
+<th>Circuit switching</th>
+<th>Packet switching</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A dedicated path is set up between sender and receiver for the whole communication</td>
+<td>Data is split into packets, each sent <strong>independently</strong>, possibly by different routes</td>
+</tr>
+<tr>
+<td>All data follows the same route and arrives in order</td>
+<td>Packets may arrive out of order and are <strong>reassembled</strong> using sequence numbers</td>
+</tr>
+<tr>
+<td>Full bandwidth is reserved, so quality is constant (good for real-time voice and video)</td>
+<td>Bandwidth is shared, so the network is used efficiently</td>
+</tr>
+<tr>
+<td>Bandwidth is wasted when no data is sent; set-up time is needed</td>
+<td>If a link fails, packets are rerouted, so it is more resilient</td>
+</tr>
+<tr>
+<td></td>
+<td>Delays vary (jitter); there is a header overhead in every packet</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Packet contents</strong>: header (source and destination IP addresses, sequence number, packet size, protocol), <strong>payload</strong> (the data), and trailer (error check, e.g. checksum, and an end-of-packet marker).</p>
+<p><strong>Role of a router in packet switching</strong>: reads the <strong>destination IP address</strong> of each packet; uses its <strong>routing table</strong> to choose the best next hop (the shortest or least congested route); forwards the packet; and can reroute around failed links.</p>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>Know the job of <strong>each</strong> TCP/IP layer and which protocol belongs to it. Questions often give a description and ask for the layer.</li>
+<li>POP3 versus IMAP: the key difference is whether the email <strong>stays on the server</strong>.</li>
+<li>In BitTorrent answers, use the correct terms: tracker, swarm, seed, leech, pieces.</li>
+<li>For circuit versus packet switching, link each benefit to a <strong>use</strong>, e.g. circuit switching for a phone call.</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>State the role of the transport layer.</li>
+<li>Explain why IMAP is better than POP3 for someone using a phone and a laptop.</li>
+<li>Describe how a file is downloaded using BitTorrent.</li>
+<li>Give two benefits of packet switching over circuit switching.</li>
+</ol>

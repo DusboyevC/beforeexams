@@ -1,0 +1,95 @@
+<h1>7 Algorithm design and problem solving</h1>
+<h2>Program development life cycle</h2>
+<ol>
+<li><strong>Analysis</strong>: abstraction, decomposition, identifying the problem and the requirements.</li>
+<li><strong>Design</strong>: structure diagrams, flowcharts, pseudocode.</li>
+<li><strong>Coding</strong>: writing the program and iterative testing.</li>
+<li><strong>Testing</strong>: using test data.</li>
+</ol>
+<h2>Computational thinking</h2>
+<ul>
+<li><strong>Abstraction</strong>: removing unnecessary details and keeping only what matters.</li>
+<li><strong>Decomposition</strong>: breaking a problem into <strong>smaller sub-problems</strong> that are easier to solve.</li>
+<li>Every system is made of sub-systems. Each one has <strong>inputs, processes, outputs and storage</strong>.</li>
+</ul>
+<h2>Designing solutions</h2>
+<ul>
+<li><strong>Structure diagram</strong>: shows the problem broken down (top-down) into sub-systems.</li>
+<li><strong>Flowchart symbols</strong>: terminator (start/stop, rounded), process (rectangle), input/output (parallelogram), decision (diamond, with Yes/No), subroutine (rectangle with double sides), flow lines.</li>
+<li><strong>Pseudocode</strong>: uses the Cambridge style (<code>INPUT</code>, <code>OUTPUT</code>, <code>IF … THEN … ELSE … ENDIF</code>, <code>FOR … TO … NEXT</code>, etc.).</li>
+</ul>
+<h2>Standard methods</h2>
+<ul>
+<li><strong>Totalling</strong>: <code>Total ← Total + Value</code>.</li>
+<li><strong>Counting</strong>: <code>Count ← Count + 1</code>.</li>
+<li><strong>Maximum, minimum and average</strong>: set Max to the first value (or a very low value); <code>IF Value &gt; Max THEN Max ← Value</code>. Average = Total / Count.</li>
+<li><strong>Linear search</strong>: check each element in turn until it is found or the end is reached.</li>
+</ul>
+<pre><code>Found ← FALSE
+Index ← 1
+WHILE Found = FALSE AND Index &lt;= 50 DO
+   IF Names[Index] = SearchName THEN
+      Found ← TRUE
+   ELSE
+      Index ← Index + 1
+   ENDIF
+ENDWHILE
+</code></pre>
+<ul>
+<li><strong>Bubble sort</strong>: compare adjacent pairs and swap them if they are in the wrong order; repeat passes until there are <strong>no swaps</strong> in a pass.</li>
+</ul>
+<pre><code>REPEAT
+   Swap ← FALSE
+   FOR i ← 1 TO n - 1
+      IF List[i] &gt; List[i + 1] THEN
+         Temp ← List[i]
+         List[i] ← List[i + 1]
+         List[i + 1] ← Temp
+         Swap ← TRUE
+      ENDIF
+   NEXT i
+UNTIL Swap = FALSE
+</code></pre>
+<h2>Validation and verification</h2>
+<ul>
+<li><strong>Validation</strong>: an automatic check that the data is <strong>reasonable / acceptable</strong>. It doesn't check that it is correct.</li>
+<li><strong>Range check</strong>: between limits (e.g. 0–100).</li>
+<li><strong>Length check</strong>: the number of characters.</li>
+<li><strong>Type check</strong>: the data type (e.g. an integer).</li>
+<li><strong>Presence check</strong>: not left blank.</li>
+<li><strong>Format check</strong>: a pattern (e.g. AB1234).</li>
+<li>
+<p><strong>Check digit</strong>: a calculated digit.</p>
+</li>
+<li>
+<p><strong>Verification</strong>: checks that the data has been <strong>copied or entered accurately</strong>.</p>
+</li>
+<li><strong>Double entry</strong>: entered twice and compared.</li>
+<li><strong>Visual check</strong>: the user checks it on screen.</li>
+</ul>
+<h2>Test data</h2>
+<ul>
+<li><strong>Normal</strong>: accepted, e.g. 50 for the range 1–100.</li>
+<li><strong>Abnormal</strong>: rejected, e.g. −5 or "abc".</li>
+<li><strong>Extreme</strong>: the largest and smallest acceptable values, e.g. 1 and 100.</li>
+<li><strong>Boundary</strong>: values either side of each limit, one accepted and one rejected, e.g. 0 and 1, and 100 and 101.</li>
+</ul>
+<h2>Trace tables and errors</h2>
+<ul>
+<li><strong>Trace table</strong>: records the value of each variable as each line of an algorithm runs. Use it to dry-run code and find errors.</li>
+<li>To find errors, look for the wrong comparison (<code>&lt;</code> vs <code>&lt;=</code>), a wrong initial value, the wrong variable, or a missing increment.</li>
+<li>Know how to <strong>correct</strong> the line and to explain the <strong>purpose</strong> of an algorithm.</li>
+</ul>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>Boundary data must include <strong>both</strong> the accepted and the rejected value on each side.</li>
+<li>In bubble sort, use a <strong>flag</strong> to stop early when no swaps occur.</li>
+<li>When writing algorithms, <strong>initialise</strong> every total and count before the loop.</li>
+<li>This chapter is often examined together with <strong>Programming</strong> (chapter 8).</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>Give one example each of normal, abnormal and extreme data for a mark from 0 to 100.</li>
+<li>What is the difference between validation and verification?</li>
+<li>Write the pseudocode to count how many of 30 input numbers are greater than 10.</li>
+</ol>

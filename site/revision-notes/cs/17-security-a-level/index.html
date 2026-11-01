@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Security (A Level): AS &amp; A Level Computer Science 9618 revision notes | BeforeExams</title>
+<meta name="description" content="What you must be able to do Explain symmetric and asymmetric encryption, and how keys are used. Describe quantum cryptography. Explain the SSL/TLS…">
+<meta property="og:title" content="Security (A Level): AS &amp; A Level Computer Science 9618 revision notes | BeforeExams">
+<meta property="og:description" content="What you must be able to do Explain symmetric and asymmetric encryption, and how keys are used. Describe quantum cryptography. Explain the SSL/TLS…">
+<meta property="og:url" content="https://beforexams.netlify.app/revision-notes/cs/17-security-a-level/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BeforeExams">
+<link rel="canonical" href="https://beforexams.netlify.app/revision-notes/cs/17-security-a-level/">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/style.css">
+<script>try{if(localStorage.getItem("be-theme")==="light")document.documentElement.classList.remove("dark")}catch(e){}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Security (A Level)", "educationalLevel": "AS & A Level", "about": "Computer Science", "author": [{"@type": "Person", "name": "DusboyevC"}, {"@type": "Person", "name": "Magnetars"}], "url": "https://beforexams.netlify.app/revision-notes/cs/17-security-a-level/"}</script>
+</head>
+<body data-view="static" data-glow="cs">
+<header class="topbar"><div class="wrap topbar-inner">
+<a href="/" class="brand" aria-label="BeforeExams home"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x="4" y="4" width="25" height="9" rx="3.2" fill="#F57C00"/><rect x="8" y="6.9" width="8" height="2.2" rx="1.1" fill="#1A1A18"/><rect x="7" y="15.5" width="29" height="9" rx="3.2" fill="#4FC79A"/><rect x="11" y="18.4" width="8" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/><rect x="3" y="27" width="31" height="10" rx="3.2" fill="#0F5C46"/><rect x="7" y="30.4" width="9" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/></svg><span class="font-brand brand-word">Before<span>Exams</span></span></a>
+<nav class="topbar-actions" aria-label="Main"><a href="/#library" class="nav-link">Library</a><a href="/revision-notes/" class="nav-link">Notes</a><a href="/about/" class="nav-link">About</a></nav>
+</div></header>
+<main class="page"><div class="wrap static-page"><p class="label-caps eyebrow"><a href="/subjects/a-level-computer-science-9618/">AS &amp; A Level Computer Science 9618</a></p><article class="notes"><h1>17 Security (A Level)</h1>
+<h2>What you must be able to do</h2>
+<ul>
+<li>Explain symmetric and asymmetric encryption, and how keys are used.</li>
+<li>Describe quantum cryptography.</li>
+<li>Explain the SSL/TLS protocols, the handshake, and where they are used.</li>
+<li>Explain digital signatures and digital certificates, and how each is created and checked.</li>
+</ul>
+<h2>17.1 Encryption, encryption protocols and digital certificates</h2>
+<h3>Key terms</h3>
+<ul>
+<li><strong>Plaintext</strong>: data before encryption. <strong>Ciphertext</strong>: data after encryption.</li>
+<li><strong>Encryption algorithm</strong>: the mathematical process that uses a <strong>key</strong> to turn plaintext into ciphertext.</li>
+<li><strong>Key</strong>: the value used by the algorithm to encrypt or decrypt. Longer keys are harder to brute-force.</li>
+</ul>
+<h3>Symmetric encryption</h3>
+<ul>
+<li>The <strong>same secret key</strong> is used to encrypt and decrypt.</li>
+<li>Benefit: fast, so it suits large amounts of data.</li>
+<li>Problem: <strong>key distribution</strong>. The key must be shared securely; anyone who intercepts it can decrypt everything.</li>
+</ul>
+<h3>Asymmetric (public-key) encryption</h3>
+<ul>
+<li>Each user has a <strong>key pair</strong>: a <strong>public key</strong>, shared openly, and a <strong>private key</strong>, kept secret. They are mathematically linked.</li>
+<li>Data encrypted with the recipient's <strong>public key</strong> can only be decrypted with the recipient's <strong>private key</strong>. So only the intended recipient can read it, which gives <strong>confidentiality</strong>.</li>
+<li>Data encrypted with the sender's <strong>private key</strong> can be decrypted by anyone with the public key. This proves who sent it (<strong>authentication</strong>) and is the basis of digital signatures.</li>
+<li>Benefit: there is no need to share a secret key. Drawback: slower than symmetric encryption.</li>
+<li>In practice, asymmetric encryption is used to exchange a <strong>symmetric session key</strong>, which then encrypts the rest of the data, giving the best of both.</li>
+</ul>
+<h3>Quantum cryptography</h3>
+<ul>
+<li>Uses the properties of <strong>photons</strong> (e.g. their polarisation) to send an encryption key: <strong>quantum key distribution</strong>.</li>
+<li>If an eavesdropper measures the photons, the act of measuring <strong>changes their state</strong>, so the interception is detected and the key is discarded.</li>
+<li>Benefits: in principle, keys cannot be intercepted without detection; it is secure even against future quantum computers.</li>
+<li>Drawbacks: needs special, expensive equipment and dedicated fibre-optic links; limited distance; slow key-transfer rates.</li>
+</ul>
+<h3>SSL / TLS</h3>
+<ul>
+<li><strong>SSL (secure sockets layer)</strong> and its successor <strong>TLS (transport layer security)</strong> provide <strong>encrypted, authenticated</strong> communication between a client (e.g. a browser) and a server. They sit between the application and transport layers.</li>
+<li><strong>TLS has two layers</strong>: the <strong>handshake protocol</strong>, which authenticates the server and agrees encryption methods and keys, and the <strong>record protocol</strong>, which encrypts and transfers the data.</li>
+<li>
+<p><strong>Handshake</strong> (simplified):
+  1. The client sends a "hello", listing the encryption methods and TLS versions it supports.
+  2. The server replies, choosing the method, and sends its <strong>digital certificate</strong>, which contains its public key.
+  3. The client checks the certificate is valid and was issued by a trusted <strong>certificate authority (CA)</strong>.
+  4. The client creates a <strong>session key</strong>, encrypts it with the server's public key and sends it. Only the server can decrypt it with its private key.
+  5. Both sides now use the symmetric session key to encrypt the data.</p>
+</li>
+<li>
+<p><strong>Uses</strong>: HTTPS websites (online banking and shopping), email, VoIP, VPNs.</p>
+</li>
+</ul>
+<h3>Digital signatures</h3>
+<ul>
+<li>Prove <strong>who sent</strong> a message and that it <strong>has not been altered</strong> (integrity).</li>
+<li><strong>Creating</strong>: the sender hashes the message to produce a <strong>message digest</strong>, then encrypts the digest with their <strong>private key</strong>. This encrypted digest is the digital signature, sent with the message.</li>
+<li><strong>Checking</strong>: the receiver decrypts the signature with the sender's <strong>public key</strong> to get the digest. They hash the received message with the same hashing algorithm. If the two digests <strong>match</strong>, the message is authentic and unchanged.</li>
+</ul>
+<h3>Digital certificates</h3>
+<ul>
+<li>An electronic document issued by a trusted <strong>certificate authority (CA)</strong> that links a <strong>public key</strong> to its owner's identity.</li>
+<li>Contents: the owner's name, the owner's <strong>public key</strong>, the CA's name, a serial number, the expiry date, and the <strong>CA's digital signature</strong>.</li>
+<li><strong>How one is obtained</strong>: the organisation sends its public key and proof of identity to a CA. The CA checks the identity, creates the certificate, and signs it with the CA's private key.</li>
+<li><strong>Why it matters</strong>: it stops someone pretending to be a trusted server with their own fake public key.</li>
+</ul>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>Say <strong>whose</strong> key is used: encrypt with the <strong>recipient's public key</strong> for confidentiality; sign with the <strong>sender's private key</strong>.</li>
+<li>A digital signature uses a <strong>hash or message digest</strong>; mention it, because it is a mark point.</li>
+<li>In the TLS handshake, the certificate and <strong>session key</strong> steps earn most of the marks.</li>
+<li>Quantum cryptography: the key idea is that observing photons <strong>changes</strong> them, so eavesdropping is <strong>detected</strong>.</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>Explain why asymmetric encryption solves the key distribution problem.</li>
+<li>Describe how a receiver checks a digital signature.</li>
+<li>List four items in a digital certificate.</li>
+<li>Explain why TLS uses both asymmetric and symmetric encryption.</li>
+</ol></article><nav class="notes-nav"><a class="mini" href="/revision-notes/cs/16-system-software-a-level/">← System software (A Level)</a><a class="mini" href="/revision-notes/cs/18-artificial-intelligence/">Artificial intelligence (AI) →</a></nav></div></main>
+<footer class="foot"><div class="wrap"><div class="foot-grid"><div class="foot-brand"><a class="brand" href="/" aria-label="BeforeExams home"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x="4" y="4" width="25" height="9" rx="3.2" fill="#F57C00"/><rect x="8" y="6.9" width="8" height="2.2" rx="1.1" fill="#1A1A18"/><rect x="7" y="15.5" width="29" height="9" rx="3.2" fill="#4FC79A"/><rect x="11" y="18.4" width="8" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/><rect x="3" y="27" width="31" height="10" rx="3.2" fill="#0F5C46"/><rect x="7" y="30.4" width="9" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/></svg><span class="font-brand brand-word">Before<span>Exams</span></span></a><p>Free revision for Cambridge IGCSE and AS &amp; A Level students.</p><p class="foot-mail">Email: <a href="mailto:dusboyevc@gmail.com">dusboyevc@gmail.com</a></p></div><nav class="foot-col" aria-label="Library"><h2>Library</h2><a href="/#/?mode=topicals" data-foot-mode="topicals">Topical questions</a><a href="/#/?mode=papers" data-foot-mode="papers">Past papers</a><a href="/#/?mode=notes" data-foot-mode="notes">Revision notes</a><a href="/#/?mode=guide" data-foot-mode="guide">Exam guide</a><a href="/#/?mode=trends" data-foot-mode="trends">Topic trends</a></nav><nav class="foot-col" aria-label="IGCSE"><h2>IGCSE</h2><a href="/subjects/igcse-physics-0625/">Physics</a><a href="/subjects/igcse-chemistry-0620/">Chemistry</a><a href="/subjects/igcse-biology-0610/">Biology</a><a href="/subjects/igcse-mathematics-0580/">Mathematics</a><a href="/subjects/igcse-computer-science-0478/">Computer Science</a></nav><nav class="foot-col" aria-label="AS &amp; A Level"><h2>AS &amp; A Level</h2><a href="/subjects/a-level-physics-9702/">Physics</a><a href="/subjects/a-level-chemistry-9701/">Chemistry</a><a href="/subjects/a-level-biology-9700/">Biology</a><a href="/subjects/a-level-mathematics-9709/">Mathematics</a><a href="/subjects/a-level-computer-science-9618/">Computer Science</a></nav><nav class="foot-col" aria-label="BeforeExams"><h2>BeforeExams</h2><a href="/about/">About and authors</a><a href="/revision-notes/">All revision notes</a><a href="/#/account">My account</a><a href="/#/account">Mock tests</a></nav></div><p class="foot-note">Past papers and mark schemes © Cambridge University Press &amp; Assessment. BeforeExams is an independent study site, not affiliated with Cambridge.</p><div class="foot-bar"><span>© 2026 BeforeExams. Made by <b>DusboyevC</b> and <b>Magnetars</b>.</span><a href="/privacy/">Privacy Policy</a></div></div></footer>
+</body>
+</html>

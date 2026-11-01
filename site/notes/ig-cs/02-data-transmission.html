@@ -1,0 +1,94 @@
+<h1>2 Data transmission</h1>
+<h2>Packets and packet switching</h2>
+<ul>
+<li>Data is broken into <strong>packets</strong>.</li>
+<li><strong>Header</strong>: the destination IP address, the source IP address, the <strong>packet number</strong>, and the packet size.</li>
+<li><strong>Payload</strong>: the actual data.</li>
+<li>
+<p><strong>Trailer</strong>: an error-check (e.g. a checksum) and an end-of-packet marker.</p>
+</li>
+<li>
+<p><strong>Packet switching</strong>:
+  1. Data is split into packets.
+  2. Each packet is sent <strong>independently</strong>, and a <strong>router</strong> decides the best route for each one, so they may take <strong>different routes</strong>.
+  3. Packets may arrive <strong>out of order</strong>.
+  4. They are <strong>reordered using the packet numbers</strong> at the destination.
+  5. Missing packets are requested again.</p>
+</li>
+</ul>
+<h2>Methods of transmission</h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+<th>Points</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Serial</strong></td>
+<td>One bit at a time down a single wire</td>
+<td>Less interference and no <strong>skew</strong>, so it is reliable over <strong>long distances</strong>; cheaper cable; slower</td>
+</tr>
+<tr>
+<td><strong>Parallel</strong></td>
+<td>Several bits at once down several wires</td>
+<td>Faster; suits <strong>short distances</strong>, e.g. inside a computer; bits can arrive out of sync (skew) over long distances</td>
+</tr>
+<tr>
+<td><strong>Simplex</strong></td>
+<td>One direction only</td>
+<td>e.g. computer to printer, or a TV broadcast</td>
+</tr>
+<tr>
+<td><strong>Half-duplex</strong></td>
+<td>Both directions, but <strong>not at the same time</strong></td>
+<td>e.g. a walkie-talkie</td>
+</tr>
+<tr>
+<td><strong>Full-duplex</strong></td>
+<td>Both directions <strong>at the same time</strong></td>
+<td>e.g. a phone call; broadband</td>
+</tr>
+</tbody>
+</table>
+<h2>USB (universal serial bus)</h2>
+<ul>
+<li>A standard serial connection for peripherals.</li>
+<li>Benefits: it is <strong>universal</strong>, so it works with many devices; it can only be inserted the correct way; it supplies <strong>power</strong>; devices are <strong>automatically detected</strong> and drivers installed; it is fast enough for most devices.</li>
+<li>Drawbacks: the cable length is limited (about 5 m); it is slower than some other connections.</li>
+</ul>
+<h2>Error detection</h2>
+<ul>
+<li>Errors happen because of <strong>interference</strong>, which can make bits <strong>flip</strong>, or cause data loss or corruption.</li>
+<li><strong>Parity check</strong>: an extra parity bit is added so the number of 1s is <strong>even</strong> (even parity) or <strong>odd</strong> (odd parity). The receiver checks the parity.</li>
+<li>
+<p>It cannot detect errors where two bits flip (transposed bits).</p>
+</li>
+<li>
+<p><strong>Parity byte / block</strong>: parity is checked for every byte (row) <strong>and</strong> every bit position (column). The row and column that fail meet at the <strong>exact bit</strong> in error, so it can be corrected.</p>
+</li>
+<li><strong>Checksum</strong>: a value is <strong>calculated from the data</strong> using an algorithm and sent with it. The receiver recalculates it; if the values differ, an error has occurred and the data is re-sent.</li>
+<li><strong>Echo check</strong>: the receiver <strong>sends the data back</strong> to the sender, who compares it with the original. Weakness: you can't tell whether the error happened on the way there or back.</li>
+<li><strong>ARQ (automatic repeat request)</strong>: the receiver sends an <strong>acknowledgement</strong> (positive or negative). If the sender gets a negative acknowledgement, or no acknowledgement before a <strong>timeout</strong>, it re-sends the data.</li>
+<li><strong>Check digit</strong>: an extra digit calculated from the other digits, used to check data <strong>entered</strong> (e.g. barcodes, ISBNs). It detects incorrect digits and transposed digits.</li>
+</ul>
+<h2>Encryption</h2>
+<ul>
+<li>Encryption scrambles <strong>plaintext</strong> into <strong>ciphertext</strong> using a key, so intercepted data <strong>cannot be understood</strong> without the key. It does <strong>not</strong> stop the data being intercepted.</li>
+<li><strong>Symmetric encryption</strong>: the <strong>same key</strong> is used to encrypt and decrypt. Problem: the key must be shared securely, and if it is intercepted, all the data can be read.</li>
+<li><strong>Asymmetric encryption</strong>: a <strong>public key</strong> (shared) encrypts and the matching <strong>private key</strong> (kept secret) decrypts. Only the owner of the private key can read the data. It is more secure, because the private key is never sent.</li>
+</ul>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>"Describe packet switching" needs: data split into packets, <strong>router</strong>, different routes, reordered using packet numbers.</li>
+<li>Serial is better over <strong>long distances</strong> because there is <strong>no skew</strong>.</li>
+<li>In ARQ answers, include <strong>acknowledgement</strong> and <strong>timeout</strong>.</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>A byte 1101001_ uses even parity. What is the parity bit? <em>(0, because there are already four 1s)</em></li>
+<li>Explain why serial transmission is used for long distances.</li>
+<li>State the difference between symmetric and asymmetric encryption.</li>
+</ol>

@@ -1,0 +1,44 @@
+<h1>3.7 Vectors</h1>
+<h2>Basics</h2>
+<ul>
+<li>A vector has magnitude and direction: a = xi + yj + zk = (x, y, z).</li>
+<li><strong>Magnitude</strong>: |a| = √(x² + y² + z²). <strong>Unit vector</strong>: a/|a|.</li>
+<li><strong>Position vector</strong> of A: OA. Then <strong>AB = OB − OA = b − a</strong>.</li>
+<li><strong>Midpoint</strong> of AB: ½(a + b).</li>
+</ul>
+<h2>Scalar (dot) product</h2>
+<ul>
+<li><strong>a·b = |a||b| cos θ = a₁b₁ + a₂b₂ + a₃b₃</strong>.</li>
+<li><strong>Perpendicular vectors</strong>: a·b = 0.</li>
+<li><strong>Angle between two vectors</strong>: cos θ = a·b/(|a||b|).</li>
+</ul>
+<h2>Lines</h2>
+<ul>
+<li>Vector equation: <strong>r = a + λd</strong>, where a is a point on the line and d is the direction vector.</li>
+<li><strong>Parallel lines</strong>: the direction vectors are multiples of each other.</li>
+<li><strong>Intersecting lines</strong>: set a₁ + λd₁ = a₂ + μd₂, solve two of the component equations for λ and μ, then <strong>check</strong> they satisfy the third equation.</li>
+<li><strong>Skew lines</strong>: not parallel and they do not intersect.</li>
+<li><strong>Angle between two lines</strong>: use the angle between their <strong>direction vectors</strong>.</li>
+</ul>
+<h2>Planes</h2>
+<ul>
+<li>Equation: <strong>r·n = a·n</strong>, i.e. <strong>ax + by + cz = d</strong>, where n = (a, b, c) is the <strong>normal vector</strong>.</li>
+<li><strong>Angle between two planes</strong>: the angle between their normals.</li>
+<li><strong>Angle between a line and a plane</strong>: find the angle φ between the line's direction d and the normal n; then the angle with the plane = 90° − φ. (Or use sin θ = |d·n|/(|d||n|).)</li>
+<li><strong>Line meets plane</strong>: substitute the line's general point into the plane equation and solve for λ.</li>
+<li><strong>Plane through three points</strong>: find two direction vectors in the plane; find a normal perpendicular to both by solving n·u = 0 and n·v = 0 (or using a vector product); then find d.</li>
+<li><strong>Perpendicular distance</strong> from point P to a plane ax + by + cz = d: <strong>|ax₁ + by₁ + cz₁ − d| / √(a² + b² + c²)</strong>.</li>
+<li><strong>Foot of the perpendicular</strong> from P to a line: let F = a + λd, and solve PF·d = 0.</li>
+</ul>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>Check the intersection in the <strong>third</strong> equation; if it fails, the lines are skew.</li>
+<li>Use direction vectors for angles, not position vectors.</li>
+<li>The angle between a line and a plane is the <strong>complement</strong> of the angle the line makes with the normal.</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>Find the angle between a = (1, 2, 2) and b = (2, −1, 2). <em>(cos θ = 4/9; θ = 63.6°)</em></li>
+<li>Find the equation of the plane through (1, 0, 2) with normal (3, −1, 4). <em>(3x − y + 4z = 11)</em></li>
+<li>Describe how to show that two lines are skew.</li>
+</ol>

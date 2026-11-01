@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Communication and internet technologies: AS &amp; A Level Computer Science 9618 revision notes | BeforeExams</title>
+<meta name="description" content="What you must be able to do Explain why protocols are needed, and describe the TCP/IP protocol suite and its four layers. State the purpose of HTTP,…">
+<meta property="og:title" content="Communication and internet technologies: AS &amp; A Level Computer Science 9618 revision notes | BeforeExams">
+<meta property="og:description" content="What you must be able to do Explain why protocols are needed, and describe the TCP/IP protocol suite and its four layers. State the purpose of HTTP,…">
+<meta property="og:url" content="https://beforexams.netlify.app/revision-notes/cs/14-communication-internet/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BeforeExams">
+<link rel="canonical" href="https://beforexams.netlify.app/revision-notes/cs/14-communication-internet/">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/style.css">
+<script>try{if(localStorage.getItem("be-theme")==="light")document.documentElement.classList.remove("dark")}catch(e){}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Communication and internet technologies", "educationalLevel": "AS & A Level", "about": "Computer Science", "author": [{"@type": "Person", "name": "DusboyevC"}, {"@type": "Person", "name": "Magnetars"}], "url": "https://beforexams.netlify.app/revision-notes/cs/14-communication-internet/"}</script>
+</head>
+<body data-view="static" data-glow="cs">
+<header class="topbar"><div class="wrap topbar-inner">
+<a href="/" class="brand" aria-label="BeforeExams home"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x="4" y="4" width="25" height="9" rx="3.2" fill="#F57C00"/><rect x="8" y="6.9" width="8" height="2.2" rx="1.1" fill="#1A1A18"/><rect x="7" y="15.5" width="29" height="9" rx="3.2" fill="#4FC79A"/><rect x="11" y="18.4" width="8" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/><rect x="3" y="27" width="31" height="10" rx="3.2" fill="#0F5C46"/><rect x="7" y="30.4" width="9" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/></svg><span class="font-brand brand-word">Before<span>Exams</span></span></a>
+<nav class="topbar-actions" aria-label="Main"><a href="/#library" class="nav-link">Library</a><a href="/revision-notes/" class="nav-link">Notes</a><a href="/about/" class="nav-link">About</a></nav>
+</div></header>
+<main class="page"><div class="wrap static-page"><p class="label-caps eyebrow"><a href="/subjects/a-level-computer-science-9618/">AS &amp; A Level Computer Science 9618</a></p><article class="notes"><h1>14 Communication and internet technologies</h1>
+<h2>What you must be able to do</h2>
+<ul>
+<li>Explain why protocols are needed, and describe the TCP/IP protocol suite and its four layers.</li>
+<li>State the purpose of HTTP, FTP, POP3, IMAP, SMTP and BitTorrent.</li>
+<li>Compare circuit switching and packet switching, and explain the role of a router.</li>
+</ul>
+<h2>14.1 Protocols</h2>
+<ul>
+<li><strong>Protocol</strong>: a set of rules that govern how data is transmitted between devices, covering format, timing, error checking and addressing.</li>
+<li><strong>Why needed</strong>: devices from different manufacturers, running different software, can communicate because they all follow the same agreed rules.</li>
+</ul>
+<h3>TCP/IP protocol suite: four layers</h3>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Role</th>
+<th>Protocols</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Application</strong></td>
+<td>Provides network services to applications; formats data for the application</td>
+<td>HTTP, HTTPS, FTP, SMTP, POP3, IMAP</td>
+</tr>
+<tr>
+<td><strong>Transport</strong></td>
+<td>Splits data into <strong>packets (segments)</strong>; adds sequence numbers and port numbers; makes sure packets arrive and are reassembled in order; flow control; acknowledgements and re-sends</td>
+<td>TCP (reliable), UDP</td>
+</tr>
+<tr>
+<td><strong>Internet (network)</strong></td>
+<td>Adds the <strong>source and destination IP addresses</strong>; routes packets across networks</td>
+<td>IP</td>
+</tr>
+<tr>
+<td><strong>Link (network access)</strong></td>
+<td>Sends frames across the physical network; uses <strong>MAC addresses</strong></td>
+<td>Ethernet, Wi-Fi</td>
+</tr>
+</tbody>
+</table>
+<p>How it works (sending): data is passed <strong>down</strong> the layers, and each layer adds its own header (encapsulation). At the receiver it passes <strong>up</strong> the layers and each header is removed. A <strong>protocol stack</strong> means each layer only communicates with the layers directly above and below it.</p>
+<h3>Application protocols</h3>
+<ul>
+<li><strong>HTTP / HTTPS</strong>: transfer web pages between a web server and a browser. HTTPS encrypts the data using SSL/TLS.</li>
+<li><strong>FTP</strong>: transfers files between computers over a network (upload and download).</li>
+<li><strong>SMTP</strong>: <strong>sends</strong> email from a client to a mail server and between servers (push protocol).</li>
+<li><strong>POP3</strong>: <strong>retrieves</strong> email from the server to one device, usually <strong>deleting</strong> it from the server.</li>
+<li><strong>IMAP</strong>: <strong>retrieves</strong> email but keeps it on the server, so it is <strong>synchronised</strong> across several devices.</li>
+<li><strong>BitTorrent</strong>: a peer-to-peer file-sharing protocol.</li>
+<li>A <strong>tracker</strong> keeps a record of which peers have which pieces.</li>
+<li>The file is split into small <strong>pieces</strong>; a <strong>swarm</strong> is all the peers sharing a file.</li>
+<li>A <strong>seed</strong> has the complete file; a <strong>leech</strong> downloads (and may upload little in return).</li>
+<li>Peers download different pieces from many peers <strong>at the same time</strong> and upload pieces they already have to others. This spreads the load and makes large downloads fast.</li>
+</ul>
+<h2>14.2 Circuit switching and packet switching</h2>
+<table>
+<thead>
+<tr>
+<th>Circuit switching</th>
+<th>Packet switching</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A dedicated path is set up between sender and receiver for the whole communication</td>
+<td>Data is split into packets, each sent <strong>independently</strong>, possibly by different routes</td>
+</tr>
+<tr>
+<td>All data follows the same route and arrives in order</td>
+<td>Packets may arrive out of order and are <strong>reassembled</strong> using sequence numbers</td>
+</tr>
+<tr>
+<td>Full bandwidth is reserved, so quality is constant (good for real-time voice and video)</td>
+<td>Bandwidth is shared, so the network is used efficiently</td>
+</tr>
+<tr>
+<td>Bandwidth is wasted when no data is sent; set-up time is needed</td>
+<td>If a link fails, packets are rerouted, so it is more resilient</td>
+</tr>
+<tr>
+<td></td>
+<td>Delays vary (jitter); there is a header overhead in every packet</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Packet contents</strong>: header (source and destination IP addresses, sequence number, packet size, protocol), <strong>payload</strong> (the data), and trailer (error check, e.g. checksum, and an end-of-packet marker).</p>
+<p><strong>Role of a router in packet switching</strong>: reads the <strong>destination IP address</strong> of each packet; uses its <strong>routing table</strong> to choose the best next hop (the shortest or least congested route); forwards the packet; and can reroute around failed links.</p>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>Know the job of <strong>each</strong> TCP/IP layer and which protocol belongs to it. Questions often give a description and ask for the layer.</li>
+<li>POP3 versus IMAP: the key difference is whether the email <strong>stays on the server</strong>.</li>
+<li>In BitTorrent answers, use the correct terms: tracker, swarm, seed, leech, pieces.</li>
+<li>For circuit versus packet switching, link each benefit to a <strong>use</strong>, e.g. circuit switching for a phone call.</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>State the role of the transport layer.</li>
+<li>Explain why IMAP is better than POP3 for someone using a phone and a laptop.</li>
+<li>Describe how a file is downloaded using BitTorrent.</li>
+<li>Give two benefits of packet switching over circuit switching.</li>
+</ol></article><nav class="notes-nav"><a class="mini" href="/revision-notes/cs/13-data-representation/">← Data representation (A Level)</a><a class="mini" href="/revision-notes/cs/15-hardware-virtual-machines/">Hardware and virtual machines →</a></nav></div></main>
+<footer class="foot"><div class="wrap"><div class="foot-grid"><div class="foot-brand"><a class="brand" href="/" aria-label="BeforeExams home"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x="4" y="4" width="25" height="9" rx="3.2" fill="#F57C00"/><rect x="8" y="6.9" width="8" height="2.2" rx="1.1" fill="#1A1A18"/><rect x="7" y="15.5" width="29" height="9" rx="3.2" fill="#4FC79A"/><rect x="11" y="18.4" width="8" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/><rect x="3" y="27" width="31" height="10" rx="3.2" fill="#0F5C46"/><rect x="7" y="30.4" width="9" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/></svg><span class="font-brand brand-word">Before<span>Exams</span></span></a><p>Free revision for Cambridge IGCSE and AS &amp; A Level students.</p><p class="foot-mail">Email: <a href="mailto:dusboyevc@gmail.com">dusboyevc@gmail.com</a></p></div><nav class="foot-col" aria-label="Library"><h2>Library</h2><a href="/#/?mode=topicals" data-foot-mode="topicals">Topical questions</a><a href="/#/?mode=papers" data-foot-mode="papers">Past papers</a><a href="/#/?mode=notes" data-foot-mode="notes">Revision notes</a><a href="/#/?mode=guide" data-foot-mode="guide">Exam guide</a><a href="/#/?mode=trends" data-foot-mode="trends">Topic trends</a></nav><nav class="foot-col" aria-label="IGCSE"><h2>IGCSE</h2><a href="/subjects/igcse-physics-0625/">Physics</a><a href="/subjects/igcse-chemistry-0620/">Chemistry</a><a href="/subjects/igcse-biology-0610/">Biology</a><a href="/subjects/igcse-mathematics-0580/">Mathematics</a><a href="/subjects/igcse-computer-science-0478/">Computer Science</a></nav><nav class="foot-col" aria-label="AS &amp; A Level"><h2>AS &amp; A Level</h2><a href="/subjects/a-level-physics-9702/">Physics</a><a href="/subjects/a-level-chemistry-9701/">Chemistry</a><a href="/subjects/a-level-biology-9700/">Biology</a><a href="/subjects/a-level-mathematics-9709/">Mathematics</a><a href="/subjects/a-level-computer-science-9618/">Computer Science</a></nav><nav class="foot-col" aria-label="BeforeExams"><h2>BeforeExams</h2><a href="/about/">About and authors</a><a href="/revision-notes/">All revision notes</a><a href="/#/account">My account</a><a href="/#/account">Mock tests</a></nav></div><p class="foot-note">Past papers and mark schemes © Cambridge University Press &amp; Assessment. BeforeExams is an independent study site, not affiliated with Cambridge.</p><div class="foot-bar"><span>© 2026 BeforeExams. Made by <b>DusboyevC</b> and <b>Magnetars</b>.</span><a href="/privacy/">Privacy Policy</a></div></div></footer>
+</body>
+</html>

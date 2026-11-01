@@ -1,0 +1,137 @@
+<h1>6 Security, privacy and data integrity</h1>
+<h2>What you must be able to do</h2>
+<ul>
+<li>Explain the difference between security, privacy and integrity of data.</li>
+<li>Describe threats to computer systems and data, and the measures that protect against them.</li>
+<li>Explain validation and verification, and describe the methods of each.</li>
+<li>Describe the error-detection methods used in data transmission.</li>
+</ul>
+<h2>6.1 Data security</h2>
+<h3>Key terms</h3>
+<ul>
+<li><strong>Data security</strong>: protecting data from loss, damage or unauthorised access.</li>
+<li><strong>Data privacy</strong>: keeping personal data confidential so it is only seen and used by people authorised to, as required by data protection law.</li>
+<li><strong>Data integrity</strong>: making sure data is accurate, complete and consistent, and stays that way when stored, processed or transmitted.</li>
+</ul>
+<h3>Threats</h3>
+<ul>
+<li><strong>Malware</strong>: software designed to cause harm.</li>
+<li><strong>Virus</strong>: attaches to a file, replicates when the file runs, and corrupts or deletes data.</li>
+<li><strong>Worm</strong>: replicates on its own and spreads across networks, using up bandwidth.</li>
+<li><strong>Trojan horse</strong>: pretends to be useful software but carries a harmful payload, e.g. it opens a back door.</li>
+<li><strong>Spyware / keylogger</strong>: secretly records activity, such as keystrokes, and sends it to a third party to steal passwords.</li>
+<li>
+<p><strong>Ransomware</strong>: encrypts the victim's data and demands payment for the key.</p>
+</li>
+<li>
+<p><strong>Hacking</strong>: gaining unauthorised access to a system to steal, delete or change data.</p>
+</li>
+<li><strong>Phishing</strong>: emails or messages pretending to be from a trusted organisation, with links to fake sites that capture personal details.</li>
+<li><strong>Pharming</strong>: malicious code redirects a user from a genuine website to a fake one, even when they type the correct URL (e.g. by altering DNS or the hosts file).</li>
+<li><strong>Denial of service (DoS / DDoS)</strong>: floods a server with requests so genuine users cannot access it.</li>
+<li><strong>Accidental threats</strong>: human error such as deleting files, hardware failure, power cuts, fire and flood.</li>
+</ul>
+<h3>Protection measures (say what each one does)</h3>
+<ul>
+<li><strong>User accounts and passwords</strong>: only authorised users can log in. Use strong passwords that are changed regularly.</li>
+<li><strong>Access rights / levels</strong>: each user can read, write or delete only what their role needs.</li>
+<li><strong>Biometrics</strong>: authentication by a unique physical feature (fingerprint, face, iris). It cannot be forgotten and is hard to copy.</li>
+<li><strong>Two-step / multi-factor authentication</strong>: a second check, such as a code sent to a phone.</li>
+<li><strong>Firewall</strong>: hardware or software that monitors incoming and outgoing traffic and blocks traffic that breaks set rules, e.g. by blocking certain IP addresses and ports.</li>
+<li><strong>Anti-virus / anti-malware</strong>: scans for and removes malware. Keep it updated.</li>
+<li><strong>Encryption</strong>: scrambles data with a key, so intercepted data is meaningless without the decryption key. It does <strong>not</strong> stop interception; it makes intercepted data unreadable.</li>
+<li><strong>Digital signatures and certificates</strong>: confirm who sent data and that it has not been altered.</li>
+<li><strong>Physical security</strong>: locked rooms, CCTV and keycards.</li>
+<li><strong>Backups</strong>: copies kept off-site or in the cloud, so data can be restored after loss.</li>
+<li><strong>Disk mirroring (RAID)</strong>: data is written to two disks at once, so a failed disk can be replaced without losing data.</li>
+<li><strong>Uninterruptible power supply (UPS)</strong>: keeps the system running during a power cut so data can be saved.</li>
+</ul>
+<h2>6.2 Data integrity</h2>
+<h3>Validation</h3>
+<p><strong>Validation</strong>: an automatic check by the computer that data entered is <strong>reasonable and sensible</strong>, i.e. that it follows set rules. It cannot check that data is <em>correct</em>.</p>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>What it does</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Range check</strong></td>
+<td>Value lies between set limits</td>
+<td>Age between 0 and 120</td>
+</tr>
+<tr>
+<td><strong>Limit check</strong></td>
+<td>Value is above or below a single limit</td>
+<td>Mark must be ≤ 100</td>
+</tr>
+<tr>
+<td><strong>Length check</strong></td>
+<td>Correct number of characters</td>
+<td>Password at least 8 characters</td>
+</tr>
+<tr>
+<td><strong>Type check</strong></td>
+<td>Correct data type</td>
+<td>Quantity must be an integer</td>
+</tr>
+<tr>
+<td><strong>Format check</strong></td>
+<td>Matches a set pattern</td>
+<td>Date as DD/MM/YYYY; code as 2 letters then 3 digits</td>
+</tr>
+<tr>
+<td><strong>Presence check</strong></td>
+<td>Field is not left empty</td>
+<td>Surname must be entered</td>
+</tr>
+<tr>
+<td><strong>Existence check</strong></td>
+<td>Value exists in a list or file</td>
+<td>Product code must exist in the products table</td>
+</tr>
+<tr>
+<td><strong>Check digit</strong></td>
+<td>An extra digit calculated from the others is recalculated and compared</td>
+<td>ISBN, barcodes</td>
+</tr>
+</tbody>
+</table>
+<h3>Verification</h3>
+<p><strong>Verification</strong>: checking that data has been <strong>copied or entered accurately</strong> from its source, i.e. that it matches the original.</p>
+<ul>
+<li><strong>Double entry</strong>: data is entered twice and the two versions are compared; e.g. "re-enter your password".</li>
+<li><strong>Visual check / proofreading</strong>: the user checks the entered data on screen against the original document.</li>
+</ul>
+<h3>Error detection in transmission</h3>
+<ul>
+<li><strong>Parity check</strong>: an extra parity bit is added so the number of 1s is even (even parity) or odd (odd parity). The receiver counts the 1s; if the parity is wrong, there is an error.</li>
+<li>Limitation: if <strong>two</strong> bits flip, the parity stays correct and the error is not detected.</li>
+<li>
+<p><strong>Parity block / byte</strong>: parity is calculated for each byte (row) and for each bit position (column). The row and column that are both wrong show <strong>exactly which bit</strong> is wrong, so it can be corrected.</p>
+</li>
+<li>
+<p><strong>Checksum</strong>: the sender calculates a value from the block of data (e.g. the sum of the bytes) and sends it with the data. The receiver recalculates it; if the values differ, the data is re-sent.</p>
+</li>
+<li><strong>Echo check</strong>: the receiver sends the data back to the sender, who compares it with the original. Weakness: the error could have happened on the way back.</li>
+<li><strong>Check digit</strong>: used to catch errors when data is <em>input</em>, e.g. in a barcode.</li>
+<li><strong>ARQ (automatic repeat request)</strong>: the receiver sends a positive or negative <strong>acknowledgement</strong>. If the sender gets a negative acknowledgement, or none at all within a <strong>timeout</strong>, it re-sends the data.</li>
+</ul>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>Validation versus verification is asked almost every year. Validation = <strong>reasonable</strong>; verification = <strong>matches the original</strong>. Neither one guarantees the data is correct.</li>
+<li>Always give an <strong>example</strong> for a validation check when asked to "describe".</li>
+<li>Encryption does not <em>prevent</em> hacking or interception; it makes the stolen data <strong>unusable</strong>.</li>
+<li>Phishing needs the user to click a link; pharming redirects them <strong>without</strong> their action.</li>
+<li>Parity block questions: identify the byte <strong>and</strong> the bit position, then explain using the row and column.</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>Explain why a range check cannot detect every data entry error.</li>
+<li>Describe how a parity block can identify and correct a single-bit error.</li>
+<li>Explain the difference between phishing and pharming.</li>
+<li>Give two ways a firewall protects a network.</li>
+</ol>

@@ -1,0 +1,74 @@
+<h1>3.4 Differentiation</h1>
+<h2>Standard derivatives</h2>
+<table>
+<thead>
+<tr>
+<th>f(x)</th>
+<th>f′(x)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>eᵃˣ</td>
+<td>aeᵃˣ</td>
+</tr>
+<tr>
+<td>ln(ax + b)</td>
+<td>a/(ax + b)</td>
+</tr>
+<tr>
+<td>sin ax</td>
+<td>a cos ax</td>
+</tr>
+<tr>
+<td>cos ax</td>
+<td>−a sin ax</td>
+</tr>
+<tr>
+<td>tan ax</td>
+<td>a sec² ax</td>
+</tr>
+<tr>
+<td>tan⁻¹ x</td>
+<td>1/(1 + x²)</td>
+</tr>
+<tr>
+<td>aˣ</td>
+<td>aˣ ln a</td>
+</tr>
+</tbody>
+</table>
+<h2>Rules</h2>
+<ul>
+<li><strong>Product rule</strong>: d/dx (uv) = u′v + uv′</li>
+<li><strong>Quotient rule</strong>: d/dx (u/v) = (u′v − uv′)/v²</li>
+<li><strong>Chain rule</strong>: dy/dx = dy/du × du/dx</li>
+</ul>
+<h2>Parametric differentiation</h2>
+<ul>
+<li><strong>dy/dx = (dy/dt)/(dx/dt)</strong>.</li>
+<li>Example: x = t² and y = 2t, so dy/dx = 2/(2t) = 1/t.</li>
+</ul>
+<h2>Implicit differentiation</h2>
+<ul>
+<li>Differentiate each term with respect to x. Terms in y get a factor of dy/dx: d/dx(y²) = 2y dy/dx, and d/dx(xy) = y + x dy/dx (product rule).</li>
+<li>Then collect the dy/dx terms and factorise.</li>
+<li>Example: x² + 3xy + y² = 11 → 2x + 3y + 3x dy/dx + 2y dy/dx = 0 → <strong>dy/dx = −(2x + 3y)/(3x + 2y)</strong>.</li>
+</ul>
+<h2>Applications</h2>
+<ul>
+<li>Stationary points (dy/dx = 0), tangents and normals, as in Paper 1, using these new functions.</li>
+<li>For a parametric curve, a tangent is parallel to the x-axis when dy/dt = 0 and parallel to the y-axis when dx/dt = 0.</li>
+</ul>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>In the quotient rule, the order on top matters: u′v − uv′.</li>
+<li>When differentiating implicitly, don't forget the dy/dx on the y terms and the product rule on xy.</li>
+<li>Simplify, and factorise exponential terms where you can: eˣ(x + 1).</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>Differentiate y = x² e^(3x). <em>(e^(3x)(2x + 3x²))</em></li>
+<li>Differentiate y = ln(cos x). <em>(−tan x)</em></li>
+<li>Find dy/dx for x = 3 sin t, y = 2 cos t, in terms of t. <em>(−(2/3) tan t)</em></li>
+</ol>

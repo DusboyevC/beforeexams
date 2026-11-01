@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Programming: AS &amp; A Level Computer Science 9618 revision notes | BeforeExams</title>
+<meta name="description" content="What you must be able to do Use variables, constants, operators and built-in functions correctly. Use selection and the three types of loop. Write…">
+<meta property="og:title" content="Programming: AS &amp; A Level Computer Science 9618 revision notes | BeforeExams">
+<meta property="og:description" content="What you must be able to do Use variables, constants, operators and built-in functions correctly. Use selection and the three types of loop. Write…">
+<meta property="og:url" content="https://beforexams.netlify.app/revision-notes/cs/11-programming/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BeforeExams">
+<link rel="canonical" href="https://beforexams.netlify.app/revision-notes/cs/11-programming/">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/style.css">
+<script>try{if(localStorage.getItem("be-theme")==="light")document.documentElement.classList.remove("dark")}catch(e){}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Programming", "educationalLevel": "AS & A Level", "about": "Computer Science", "author": [{"@type": "Person", "name": "DusboyevC"}, {"@type": "Person", "name": "Magnetars"}], "url": "https://beforexams.netlify.app/revision-notes/cs/11-programming/"}</script>
+</head>
+<body data-view="static" data-glow="cs">
+<header class="topbar"><div class="wrap topbar-inner">
+<a href="/" class="brand" aria-label="BeforeExams home"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x="4" y="4" width="25" height="9" rx="3.2" fill="#F57C00"/><rect x="8" y="6.9" width="8" height="2.2" rx="1.1" fill="#1A1A18"/><rect x="7" y="15.5" width="29" height="9" rx="3.2" fill="#4FC79A"/><rect x="11" y="18.4" width="8" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/><rect x="3" y="27" width="31" height="10" rx="3.2" fill="#0F5C46"/><rect x="7" y="30.4" width="9" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/></svg><span class="font-brand brand-word">Before<span>Exams</span></span></a>
+<nav class="topbar-actions" aria-label="Main"><a href="/#library" class="nav-link">Library</a><a href="/revision-notes/" class="nav-link">Notes</a><a href="/about/" class="nav-link">About</a></nav>
+</div></header>
+<main class="page"><div class="wrap static-page"><p class="label-caps eyebrow"><a href="/subjects/a-level-computer-science-9618/">AS &amp; A Level Computer Science 9618</a></p><article class="notes"><h1>11 Programming</h1>
+<h2>What you must be able to do</h2>
+<ul>
+<li>Use variables, constants, operators and built-in functions correctly.</li>
+<li>Use selection and the three types of loop.</li>
+<li>Write procedures and functions with parameters passed by value and by reference.</li>
+<li>Explain why structured programming and subroutines make programs easier to write and maintain.</li>
+</ul>
+<h2>11.1 Programming basics</h2>
+<ul>
+<li><strong>Variable</strong>: a named memory location whose value <strong>can change</strong> while the program runs.</li>
+<li><strong>Constant</strong>: a named value that <strong>cannot change</strong> while the program runs. Benefits: change the value in one place; the code is more readable; it cannot be changed by accident.</li>
+<li><strong>Identifier</strong>: the name given to a variable, constant, array or subroutine. It should be <strong>meaningful</strong>, e.g. <code>TotalScore</code>, not <code>t</code>.</li>
+<li><strong>Assignment</strong>: <code>Score ← 10</code>.</li>
+</ul>
+<h3>Operators</h3>
+<table>
+<thead>
+<tr>
+<th>Arithmetic</th>
+<th>Meaning</th>
+<th>Comparison</th>
+<th>Logical</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>+ - * /</code></td>
+<td>standard</td>
+<td><code>=  &lt;&gt;  &lt;  &gt;  &lt;=  &gt;=</code></td>
+<td><code>AND  OR  NOT</code></td>
+</tr>
+<tr>
+<td><code>DIV</code></td>
+<td>integer division: 17 DIV 5 = 3</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>MOD</code></td>
+<td>remainder: 17 MOD 5 = 2</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3>Built-in functions (from the pseudocode guide; use the list given in the paper)</h3>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Returns</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>LENGTH(s)</code></td>
+<td>number of characters</td>
+<td>LENGTH("Cat") = 3</td>
+</tr>
+<tr>
+<td><code>MID(s, start, n)</code></td>
+<td>n characters from position start</td>
+<td>MID("Computer", 4, 3) = "put"</td>
+</tr>
+<tr>
+<td><code>LEFT(s, n)</code> / <code>RIGHT(s, n)</code></td>
+<td>first or last n characters</td>
+<td>RIGHT("Hello", 2) = "lo"</td>
+</tr>
+<tr>
+<td><code>UCASE(s)</code> / <code>LCASE(s)</code></td>
+<td>upper or lower case</td>
+<td>UCASE("ab") = "AB"</td>
+</tr>
+<tr>
+<td><code>INT(x)</code></td>
+<td>whole-number part</td>
+<td>INT(7.9) = 7</td>
+</tr>
+<tr>
+<td><code>NUM_TO_STR(x)</code> / <code>STR_TO_NUM(s)</code></td>
+<td>type conversion</td>
+<td></td>
+</tr>
+<tr>
+<td><code>RAND(x)</code></td>
+<td>random real 0 ≤ r &lt; x</td>
+<td><code>INT(RAND(6)) + 1</code> gives a dice roll</td>
+</tr>
+<tr>
+<td><code>&amp;</code></td>
+<td>concatenation</td>
+<td>"AB" &amp; "C" = "ABC"</td>
+</tr>
+</tbody>
+</table>
+<h2>11.2 Constructs</h2>
+<ul>
+<li><strong>Selection</strong>: IF (with ELSE and nested IFs) for conditions and ranges; <strong>CASE</strong> when one variable is compared with several fixed values, which is clearer than many nested IFs.</li>
+<li><strong>Iteration</strong>:</li>
+<li><code>FOR</code> (count-controlled) when the number of repeats is known.</li>
+<li><code>WHILE</code> (pre-condition) when the loop might not need to run at all.</li>
+<li>
+<p><code>REPEAT…UNTIL</code> (post-condition) when the loop must run at least once, e.g. validation.</p>
+</li>
+<li>
+<p><strong>Nested</strong> structures: a loop or IF inside another.</p>
+</li>
+</ul>
+<h2>11.3 Structured programming</h2>
+<ul>
+<li><strong>Subroutine</strong>: a named, self-contained block of code that performs a specific task and can be <strong>called</strong> from elsewhere.</li>
+<li><strong>Procedure</strong>: a subroutine that performs a task and does <strong>not</strong> return a value. It is called as a statement: <code>CALL DisplayMenu()</code>.</li>
+<li><strong>Function</strong>: a subroutine that <strong>returns a single value</strong> and is used in an expression: <code>Area ← CalcArea(L, W)</code>.</li>
+</ul>
+<pre><code>PROCEDURE Swap(BYREF A : INTEGER, BYREF B : INTEGER)
+   DECLARE Temp : INTEGER
+   Temp ← A
+   A ← B
+   B ← Temp
+ENDPROCEDURE
+
+FUNCTION Max(X : INTEGER, Y : INTEGER) RETURNS INTEGER
+   IF X &gt; Y
+      THEN RETURN X
+      ELSE RETURN Y
+   ENDIF
+ENDFUNCTION
+</code></pre>
+<h3>Parameters</h3>
+<ul>
+<li><strong>Parameter</strong>: a value passed into a subroutine when it is called. (The values in the call are the arguments.)</li>
+<li><strong>By value (BYVAL)</strong>: a <strong>copy</strong> of the value is passed, so changes inside the subroutine do <strong>not</strong> affect the original variable. This is the default.</li>
+<li><strong>By reference (BYREF)</strong>: the <strong>address</strong> of the variable is passed, so changes inside the subroutine <strong>do</strong> change the original. Used when a subroutine needs to send back more than one value, e.g. <code>Swap</code>.</li>
+</ul>
+<h3>Local and global variables</h3>
+<ul>
+<li><strong>Local variable</strong>: declared inside a subroutine; it exists only while the subroutine runs and can only be used there.</li>
+<li><strong>Global variable</strong>: declared in the main program; it can be used anywhere.</li>
+<li>Prefer local variables: there are no accidental changes from elsewhere, the same name can be reused, memory is freed after the call, and subroutines are self-contained and reusable.</li>
+</ul>
+<h3>Why use subroutines?</h3>
+<ul>
+<li>Code is written once and <strong>reused</strong>, so programs are shorter.</li>
+<li>Each subroutine can be <strong>tested</strong> on its own.</li>
+<li>Teams can share the work, and programs are easier to read, debug and <strong>maintain</strong>.</li>
+<li><strong>Library routines</strong> (pre-written, tested subroutines) save time.</li>
+</ul>
+<h2>Writing the long programming question (Paper 2)</h2>
+<ol>
+<li>Read the whole scenario and underline every requirement, then tick them off as you code.</li>
+<li>Use the identifiers given in the question <strong>exactly</strong>.</li>
+<li>Declare local variables with types.</li>
+<li>Structure: initialise → loop or input → validate → process → output.</li>
+<li>For functions, make sure <strong>every path returns</strong> a value of the right type.</li>
+<li>Comment briefly if it helps the examiner follow your logic.</li>
+</ol>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>Procedure versus function: say that a function <strong>returns a value</strong> and a procedure doesn't.</li>
+<li>BYREF versus BYVAL: explain the effect on the <strong>original variable</strong> in the calling program.</li>
+<li><code>MID</code> uses a start position <strong>and a length</strong>, not an end position.</li>
+<li>Don't output inside a function unless asked; return the value instead.</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>What is the result of <code>MID("Cambridge", 2, 4)</code>? <em>("ambr")</em></li>
+<li>Explain why <code>Swap</code> must use BYREF parameters.</li>
+<li>Give two reasons to use local rather than global variables.</li>
+<li>Write a function <code>IsEven(N)</code> that returns TRUE if N is even. <em>(RETURN N MOD 2 = 0)</em></li>
+</ol></article><nav class="notes-nav"><a class="mini" href="/revision-notes/cs/10-data-types-structures/">← Data types and structures</a><a class="mini" href="/revision-notes/cs/12-software-development/">Software development →</a></nav></div></main>
+<footer class="foot"><div class="wrap"><div class="foot-grid"><div class="foot-brand"><a class="brand" href="/" aria-label="BeforeExams home"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x="4" y="4" width="25" height="9" rx="3.2" fill="#F57C00"/><rect x="8" y="6.9" width="8" height="2.2" rx="1.1" fill="#1A1A18"/><rect x="7" y="15.5" width="29" height="9" rx="3.2" fill="#4FC79A"/><rect x="11" y="18.4" width="8" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/><rect x="3" y="27" width="31" height="10" rx="3.2" fill="#0F5C46"/><rect x="7" y="30.4" width="9" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/></svg><span class="font-brand brand-word">Before<span>Exams</span></span></a><p>Free revision for Cambridge IGCSE and AS &amp; A Level students.</p><p class="foot-mail">Email: <a href="mailto:dusboyevc@gmail.com">dusboyevc@gmail.com</a></p></div><nav class="foot-col" aria-label="Library"><h2>Library</h2><a href="/#/?mode=topicals" data-foot-mode="topicals">Topical questions</a><a href="/#/?mode=papers" data-foot-mode="papers">Past papers</a><a href="/#/?mode=notes" data-foot-mode="notes">Revision notes</a><a href="/#/?mode=guide" data-foot-mode="guide">Exam guide</a><a href="/#/?mode=trends" data-foot-mode="trends">Topic trends</a></nav><nav class="foot-col" aria-label="IGCSE"><h2>IGCSE</h2><a href="/subjects/igcse-physics-0625/">Physics</a><a href="/subjects/igcse-chemistry-0620/">Chemistry</a><a href="/subjects/igcse-biology-0610/">Biology</a><a href="/subjects/igcse-mathematics-0580/">Mathematics</a><a href="/subjects/igcse-computer-science-0478/">Computer Science</a></nav><nav class="foot-col" aria-label="AS &amp; A Level"><h2>AS &amp; A Level</h2><a href="/subjects/a-level-physics-9702/">Physics</a><a href="/subjects/a-level-chemistry-9701/">Chemistry</a><a href="/subjects/a-level-biology-9700/">Biology</a><a href="/subjects/a-level-mathematics-9709/">Mathematics</a><a href="/subjects/a-level-computer-science-9618/">Computer Science</a></nav><nav class="foot-col" aria-label="BeforeExams"><h2>BeforeExams</h2><a href="/about/">About and authors</a><a href="/revision-notes/">All revision notes</a><a href="/#/account">My account</a><a href="/#/account">Mock tests</a></nav></div><p class="foot-note">Past papers and mark schemes © Cambridge University Press &amp; Assessment. BeforeExams is an independent study site, not affiliated with Cambridge.</p><div class="foot-bar"><span>© 2026 BeforeExams. Made by <b>DusboyevC</b> and <b>Magnetars</b>.</span><a href="/privacy/">Privacy Policy</a></div></div></footer>
+</body>
+</html>

@@ -1,0 +1,266 @@
+<h1>15 Hardware and virtual machines</h1>
+<h2>What you must be able to do</h2>
+<ul>
+<li>Compare RISC and CISC processors, and explain pipelining and how interrupts are handled in a pipelined processor.</li>
+<li>Describe the four basic computer architectures (Flynn's classification) and massively parallel computers.</li>
+<li>Explain virtual machines, with their benefits and limitations.</li>
+<li>Draw and analyse half adders, full adders and SR/JK flip-flops.</li>
+<li>Simplify logic using Boolean algebra (including De Morgan's laws) and Karnaugh maps.</li>
+</ul>
+<h2>15.1 Processors, parallel processing and virtual machines</h2>
+<h3>RISC versus CISC</h3>
+<table>
+<thead>
+<tr>
+<th>RISC (reduced instruction set computer)</th>
+<th>CISC (complex instruction set computer)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Small set of simple instructions</td>
+<td>Large set of complex instructions</td>
+</tr>
+<tr>
+<td>Each instruction takes <strong>one clock cycle</strong></td>
+<td>Instructions may take several cycles</td>
+</tr>
+<tr>
+<td>Fixed-length instructions, few addressing modes</td>
+<td>Variable-length instructions, many addressing modes</td>
+</tr>
+<tr>
+<td>Many general-purpose registers</td>
+<td>Fewer registers</td>
+</tr>
+<tr>
+<td>Easy to <strong>pipeline</strong></td>
+<td>Harder to pipeline</td>
+</tr>
+<tr>
+<td>More work for the compiler, and programs need more instructions (more RAM)</td>
+<td>One instruction can do a lot, so programs are shorter and the compiler is simpler</td>
+</tr>
+<tr>
+<td>Hard-wired control unit</td>
+<td>Usually a microprogrammed control unit</td>
+</tr>
+</tbody>
+</table>
+<h3>Pipelining</h3>
+<ul>
+<li><strong>Pipelining</strong>: the stages of several instructions (e.g. fetch, decode, execute, memory access, write back) overlap, so a new instruction starts each clock cycle before the previous one has finished.</li>
+<li>With a 5-stage pipeline, once it is full, one instruction completes <strong>every</strong> cycle, which increases throughput.</li>
+<li><strong>Problems</strong>: a branch or jump means the instructions already in the pipeline must be flushed; data dependencies cause stalls.</li>
+<li><strong>Interrupts in a pipeline</strong>: either let the instructions already in the pipeline finish, or flush them, then save the state (registers and PC) and run the ISR. The processor must record exactly which instruction to restart from.</li>
+</ul>
+<h3>Flynn's classification</h3>
+<table>
+<thead>
+<tr>
+<th>Architecture</th>
+<th>Meaning</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SISD</strong></td>
+<td>Single instruction, single data</td>
+<td>A traditional single-core computer</td>
+</tr>
+<tr>
+<td><strong>SIMD</strong></td>
+<td>Single instruction, multiple data: the same operation on many data items at once</td>
+<td>Graphics processors (GPUs), array processors</td>
+</tr>
+<tr>
+<td><strong>MISD</strong></td>
+<td>Multiple instruction, single data</td>
+<td>Rare; fault-tolerant systems such as aircraft flight control</td>
+</tr>
+<tr>
+<td><strong>MIMD</strong></td>
+<td>Multiple instruction, multiple data: each processor runs its own instructions on its own data</td>
+<td>Multicore processors, clusters</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Massively parallel computer</strong>: a very large number of processors (thousands or more) working on different parts of one problem at the same time, connected by a high-speed network, e.g. supercomputers for weather forecasting.</li>
+<li>The software must be written to split the task into parts that can run in parallel; communication between processors is an overhead.</li>
+</ul>
+<h3>Virtual machines</h3>
+<ul>
+<li><strong>Virtual machine (VM)</strong>: software that emulates a complete computer system, so one physical machine (the <strong>host</strong>) can run one or more <strong>guest</strong> operating systems.</li>
+<li>Benefits:</li>
+<li>Run several OSs on one machine, e.g. to test software on each.</li>
+<li>Run old software that needs an older OS.</li>
+<li>The guest is isolated, so a crash or malware in it does not affect the host.</li>
+<li>
+<p>Easy to back up, copy or restore (snapshots).</p>
+</li>
+<li>
+<p>Limitations:</p>
+</li>
+<li><strong>Slower</strong> than running on real hardware, because of the emulation overhead.</li>
+<li>Some hardware may not be supported, and the host needs enough RAM and CPU power.</li>
+<li>
+<p>Building a VM is complex.</p>
+</li>
+<li>
+<p>Example: the <strong>Java Virtual Machine</strong> runs bytecode on any platform.</p>
+</li>
+</ul>
+<h2>15.2 Boolean algebra and logic circuits</h2>
+<h3>Adders</h3>
+<ul>
+<li><strong>Half adder</strong>: adds two bits A and B. <strong>Sum = A XOR B</strong>, <strong>Carry = A AND B</strong>.</li>
+<li><strong>Full adder</strong>: adds two bits <strong>plus a carry-in</strong>. It is made from two half adders and an OR gate.</li>
+<li>Sum = A XOR B XOR Cin</li>
+<li>
+<p>Carry-out = (A AND B) OR (Cin AND (A XOR B))</p>
+</li>
+<li>
+<p>Full adders are chained to add multi-bit numbers.</p>
+</li>
+</ul>
+<h3>Flip-flops (one-bit memory)</h3>
+<p><strong>SR flip-flop</strong> (made from two NOR or two NAND gates)</p>
+<table>
+<thead>
+<tr>
+<th>S</th>
+<th>R</th>
+<th>Q (next)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>No change (stores the previous value)</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>Set: Q = 1</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>Reset: Q = 0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td><strong>Invalid</strong>: both outputs become the same</td>
+</tr>
+</tbody>
+</table>
+<p><strong>JK flip-flop</strong>: clocked, and fixes the invalid state.</p>
+<table>
+<thead>
+<tr>
+<th>J</th>
+<th>K</th>
+<th>Q (next)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>No change</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>Set (1)</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>Reset (0)</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td><strong>Toggle</strong>: Q becomes NOT Q</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>The clock makes changes happen only at the clock pulse, so it is synchronised. Use: registers, memory, counters.</li>
+</ul>
+<h3>Boolean algebra laws</h3>
+<table>
+<thead>
+<tr>
+<th>Law</th>
+<th>AND form</th>
+<th>OR form</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Identity</td>
+<td>A.1 = A</td>
+<td>A + 0 = A</td>
+</tr>
+<tr>
+<td>Null</td>
+<td>A.0 = 0</td>
+<td>A + 1 = 1</td>
+</tr>
+<tr>
+<td>Idempotent</td>
+<td>A.A = A</td>
+<td>A + A = A</td>
+</tr>
+<tr>
+<td>Inverse</td>
+<td>A.Ā = 0</td>
+<td>A + Ā = 1</td>
+</tr>
+<tr>
+<td>Absorption</td>
+<td>A.(A + B) = A</td>
+<td>A + A.B = A</td>
+</tr>
+<tr>
+<td>Double complement</td>
+<td>NOT(NOT A) = A</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>De Morgan</strong></td>
+<td>NOT(A.B) = Ā + B̄</td>
+<td>NOT(A + B) = Ā.B̄</td>
+</tr>
+</tbody>
+</table>
+<p>(A.B means A AND B; A + B means A OR B.)</p>
+<p><strong>Sum of products</strong>: from a truth table, take each row where the output is 1, write the AND term for it (with NOT for inputs that are 0), then OR all the terms together.</p>
+<h3>Karnaugh maps (K-maps)</h3>
+<ol>
+<li>Draw the grid using <strong>Gray code</strong> order (00, 01, 11, 10) so neighbouring cells differ by one bit.</li>
+<li>Put the 1s from the truth table into the cells.</li>
+<li>Group the 1s in rectangles of 1, 2, 4, 8 or 16 cells. Make groups <strong>as large as possible</strong> and use as <strong>few</strong> groups as possible. Groups may overlap and <strong>wrap around</strong> the edges.</li>
+<li>For each group, keep only the variables that <strong>do not change</strong> within it.</li>
+<li>OR the group terms together to get the simplified expression.</li>
+</ol>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>RISC answers should mention <strong>single-cycle instructions</strong> and pipelining.</li>
+<li>For VMs, always give a limitation: performance is <strong>lower</strong>.</li>
+<li>In flip-flop questions, state what happens for S = R = 1 (SR is invalid) and J = K = 1 (JK toggles).</li>
+<li>K-map mistakes: grids not in Gray code order, groups that aren't powers of two, and missed wrap-around groups.</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>Explain how pipelining increases processor performance.</li>
+<li>Write the Boolean expressions for the sum and carry of a half adder.</li>
+<li>Simplify A.B + A.B̄. <em>(A)</em></li>
+<li>Give one benefit and one limitation of a virtual machine.</li>
+</ol>

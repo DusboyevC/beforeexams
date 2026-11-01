@@ -1,0 +1,58 @@
+<h1>6 Probability and Statistics 2</h1>
+<h2>6.1 The Poisson distribution</h2>
+<ul>
+<li><strong>X ~ Po(λ)</strong>: the number of events in a fixed interval, where the events occur <strong>randomly, independently, singly, and at a constant average rate</strong>.</li>
+<li><strong>P(X = r) = e^(−λ) λʳ / r!</strong>; <strong>E(X) = Var(X) = λ</strong>.</li>
+<li>Scale λ to the interval: 3 per hour becomes 6 per 2 hours.</li>
+<li><strong>Sum</strong> of independent Poisson variables: X + Y ~ Po(λ₁ + λ₂).</li>
+<li><strong>Poisson approximation to the binomial</strong>: B(n, p) ≈ Po(np) when n is large (n &gt; 50) and p is small (np &lt; 5).</li>
+<li><strong>Normal approximation to the Poisson</strong>: Po(λ) ≈ N(λ, λ) when λ &gt; 15, with a continuity correction.</li>
+</ul>
+<h2>6.2 Linear combinations of random variables</h2>
+<ul>
+<li><strong>E(aX + b) = aE(X) + b</strong>; <strong>Var(aX + b) = a²Var(X)</strong>.</li>
+<li><strong>E(aX ± bY) = aE(X) ± bE(Y)</strong>.</li>
+<li><strong>Var(aX ± bY) = a²Var(X) + b²Var(Y)</strong> for independent X and Y. The variances <strong>add</strong> even when you subtract.</li>
+<li><strong>Sum of two observations versus double one observation</strong>: Var(X₁ + X₂) = 2Var(X), but Var(2X) = 4Var(X).</li>
+<li>A linear combination of independent normal variables is normal.</li>
+</ul>
+<h2>6.3 Continuous random variables</h2>
+<ul>
+<li><strong>Probability density function (pdf) f(x)</strong>: f(x) ≥ 0, and ∫ f(x) dx over all x = 1.</li>
+<li>P(a &lt; X &lt; b) = ∫ₐᵇ f(x) dx.</li>
+<li><strong>E(X) = ∫ x f(x) dx</strong>; <strong>Var(X) = ∫ x² f(x) dx − [E(X)]²</strong>.</li>
+<li><strong>Median m</strong>: ∫ from the lower limit to m of f(x) dx = 0.5.</li>
+<li><strong>Mode</strong>: the value of x where f(x) is greatest.</li>
+</ul>
+<h2>6.4 Sampling and estimation</h2>
+<ul>
+<li><strong>Random sample</strong>: every possible sample of that size has an equal chance of being chosen. Sampling avoids the cost and time of a full census.</li>
+<li><strong>Distribution of the sample mean</strong>: X̄ ~ N(μ, σ²/n) if X is normal, or <strong>approximately</strong> so for large n (n ≥ 30) by the <strong>Central Limit Theorem</strong>, whatever the distribution of X.</li>
+<li><strong>Unbiased estimates</strong>: of μ, use x̄. Of σ², use <strong>s² = (n/(n − 1)) × (Σx²/n − x̄²) = (Σx² − (Σx)²/n)/(n − 1)</strong>.</li>
+<li><strong>Confidence interval for μ</strong>: <strong>x̄ ± z × σ/√n</strong> (z = 1.96 for 95%; 1.645 for 90%; 2.576 for 99%). Use s if σ is unknown and n is large.</li>
+<li><strong>Interpretation</strong>: if many samples were taken and a 95% interval found from each, about 95% of the intervals would contain μ.</li>
+<li><strong>Confidence interval for a proportion</strong>: p̂ ± z√(p̂(1 − p̂)/n).</li>
+</ul>
+<h2>6.5 Hypothesis tests</h2>
+<ul>
+<li><strong>H₀</strong>: the null hypothesis, which states the parameter value (e.g. p = 0.3, μ = 50, λ = 4). <strong>H₁</strong>: the alternative (≠ for two-tailed; &lt; or &gt; for one-tailed).</li>
+<li><strong>Significance level</strong>: the probability of rejecting H₀ when it is true.</li>
+<li><strong>Method</strong>: calculate the probability of the observed result <em>or more extreme</em>, assuming H₀ is true, and compare it with the significance level. Or compare the test statistic with the critical value.</li>
+<li><strong>Tests you must know</strong>: the binomial test for p; the Poisson test for λ; the normal test for a mean, z = (x̄ − μ)/(σ/√n).</li>
+<li><strong>Type I error</strong>: rejecting H₀ when it is true. <strong>P(Type I) = the significance level</strong> (or the actual probability of the critical region for discrete distributions).</li>
+<li><strong>Type II error</strong>: accepting H₀ when it is false. Its probability is found using the actual value of the parameter and the critical region.</li>
+<li><strong>Conclusion</strong>: state it <strong>in context</strong>, without certainty: "There is sufficient evidence at the 5% level that the mean has increased."</li>
+</ul>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>State the <strong>conditions</strong> for a Poisson model in context: random, independent, constant rate.</li>
+<li>For variances of combinations, square the coefficients, and <strong>add</strong> them.</li>
+<li>In hypothesis tests, define the parameter, state H₀ and H₁, show the probability or test statistic, compare, and conclude in context.</li>
+<li>For a two-tailed test, compare with <strong>half</strong> the significance level in each tail.</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>X ~ Po(2.5). Find P(X ≤ 1). <em>(0.287)</em></li>
+<li>X ~ N(20, 9) and Y ~ N(15, 4) are independent. Find the distribution of X − Y. <em>(N(5, 13))</em></li>
+<li>A sample of 50 has x̄ = 12.4 and s = 3.0. Find a 95% confidence interval for μ. <em>(11.57 to 13.23)</em></li>
+</ol>

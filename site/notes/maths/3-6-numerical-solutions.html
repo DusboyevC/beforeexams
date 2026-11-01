@@ -1,0 +1,31 @@
+<h1>3.6 Numerical solution of equations</h1>
+<h2>Locating a root</h2>
+<ul>
+<li><strong>Change of sign</strong>: if f(x) is continuous and f(a) and f(b) have <strong>opposite signs</strong>, there is a root between a and b.</li>
+<li>Answer format: "f(1) = −2 &lt; 0 and f(2) = 3 &gt; 0. There is a change of sign and f is continuous, so a root lies between 1 and 2."</li>
+<li>Alternatively, sketch two graphs, e.g. y = eˣ and y = 3 − x, and count the intersections to show how many roots there are.</li>
+</ul>
+<h2>Iteration xₙ₊₁ = F(xₙ)</h2>
+<ul>
+<li>Rearrange f(x) = 0 into the form x = F(x). Start with x₀ and iterate until the values agree to the required accuracy.</li>
+<li>If the sequence converges to α, then α satisfies <strong>α = F(α)</strong>. Questions often ask you to show that α is a root of the original equation, i.e. rearrange back.</li>
+<li><strong>Giving the root to n decimal places</strong>: show the iterations to (n + 2) d.p. until two successive values agree to n d.p.</li>
+<li><strong>Convergence</strong>: the iteration converges if <strong>|F′(α)| &lt; 1</strong> near the root. If |F′(α)| &gt; 1 it diverges, so choose a different rearrangement.</li>
+</ul>
+<h2>Showing a value is correct to a given accuracy</h2>
+<p>To show a root is 1.47 to 2 d.p.: check the sign change of f between <strong>1.465 and 1.475</strong>.</p>
+<h2>Worked example</h2>
+<p>Show that x³ + x − 3 = 0 has a root between 1 and 2, and find it to 3 d.p. using xₙ₊₁ = ∛(3 − xₙ).
+f(1) = −1 and f(2) = 7: there is a sign change, so there is a root.
+x₀ = 1.2: x₁ = 1.21644, x₂ = 1.21273, x₃ = 1.21357, x₄ = 1.21338, x₅ = 1.21342. The root is <strong>1.213</strong> to 3 d.p.</p>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>Always mention <strong>continuity</strong> when using a sign change.</li>
+<li>Write down the iterates to the stated accuracy; don't jump straight to the answer.</li>
+<li>If the question asks "find the exact value that the iteration converges to", solve α = F(α) algebraically.</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>Show that eˣ = 4 − x has a root between 1 and 2.</li>
+<li>Explain why xₙ₊₁ = 3 − xₙ³ fails to converge to the root of x³ + x − 3 = 0.</li>
+</ol>

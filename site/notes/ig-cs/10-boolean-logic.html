@@ -1,0 +1,161 @@
+<h1>10 Boolean logic</h1>
+<h2>Logic gates</h2>
+<table>
+<thead>
+<tr>
+<th>Gate</th>
+<th>Output is 1 when…</th>
+<th>Expression</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>NOT</strong></td>
+<td>the input is 0</td>
+<td>X = NOT A</td>
+</tr>
+<tr>
+<td><strong>AND</strong></td>
+<td><strong>both</strong> inputs are 1</td>
+<td>X = A AND B</td>
+</tr>
+<tr>
+<td><strong>OR</strong></td>
+<td><strong>at least one</strong> input is 1</td>
+<td>X = A OR B</td>
+</tr>
+<tr>
+<td><strong>NAND</strong></td>
+<td>NOT AND: unless both are 1</td>
+<td>X = A NAND B</td>
+</tr>
+<tr>
+<td><strong>NOR</strong></td>
+<td>NOT OR: only when both are 0</td>
+<td>X = A NOR B</td>
+</tr>
+<tr>
+<td><strong>XOR</strong></td>
+<td>the inputs are <strong>different</strong></td>
+<td>X = A XOR B</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Learn the standard <strong>symbols</strong>:</li>
+<li>NOT: a triangle with a circle.</li>
+<li>AND: a D shape.</li>
+<li>OR: a curved shield shape.</li>
+<li>NAND and NOR: AND and OR with a circle at the output.</li>
+<li>XOR: OR with an extra curved line at the input.</li>
+</ul>
+<h2>Truth tables</h2>
+<ul>
+<li>With n inputs there are <strong>2ⁿ rows</strong>: 2 inputs give 4 rows, and 3 inputs give 8 rows.</li>
+<li>List the inputs in binary order: 000, 001, 010, 011, 100, 101, 110, 111.</li>
+<li>Add a column for each intermediate gate output (working), then the final output column X.</li>
+</ul>
+<h2>Logic circuits and expressions</h2>
+<ul>
+<li><strong>Expression → circuit</strong>: draw a gate for each operator, working from the innermost brackets outwards.</li>
+<li><strong>Circuit → expression</strong>: write the output of each gate, then combine them, e.g. X = (A AND B) OR (NOT C).</li>
+<li><strong>Problem statement → circuit</strong>: turn the words into an expression first.</li>
+<li>Example: "The alarm (X) sounds if the door is open (A = 1) <strong>and</strong> the system is armed (B = 1), <strong>or</strong> if there is smoke (C = 1)."</li>
+<li>
+<p>This gives X = (A AND B) OR C.</p>
+</li>
+<li>
+<p>Worked truth table for X = (A AND B) OR NOT C:</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>A AND B</th>
+<th>NOT C</th>
+<th>X</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>Use the <strong>exact gate symbols</strong>, not boxes with labels, and draw each gate with only the number of inputs the syllabus allows (2, except NOT).</li>
+<li>Watch the wording: "is not" usually means NOT; "either … but not both" means XOR.</li>
+<li>Fill the truth table input columns systematically, so no row is missed or repeated.</li>
+<li>Logic questions can involve sensors and alarms, so they link with <strong>Automated systems</strong> (chapter 6).</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>Complete the truth table for X = A XOR B.</li>
+<li>Write the logic expression for: "the pump (X) is on if the water level is low (A) and the tank is not empty (B)".</li>
+<li>How many rows does a truth table with 3 inputs need? <em>(8)</em></li>
+</ol>

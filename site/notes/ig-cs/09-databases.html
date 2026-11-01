@@ -1,0 +1,44 @@
+<h1>9 Databases</h1>
+<h2>Single-table databases</h2>
+<ul>
+<li><strong>Table</strong>: holds data about one type of item.</li>
+<li><strong>Record</strong>: one row; all the data about one item.</li>
+<li><strong>Field</strong>: one column; a single piece of data about each item (with a <strong>data type</strong>).</li>
+<li><strong>Primary key</strong>: a field that holds a <strong>unique</strong> value for each record, so each record can be identified, e.g. StudentID.</li>
+<li><strong>Validation</strong> can be set on fields, e.g. a range check or a presence check.</li>
+</ul>
+<h2>Data types</h2>
+<ul>
+<li><strong>Text / alphanumeric</strong>: letters and numbers, e.g. names and phone numbers (a phone number is text because it can start with 0 and isn't calculated).</li>
+<li><strong>Character</strong>: a single character.</li>
+<li><strong>Boolean</strong>: Yes/No or True/False.</li>
+<li><strong>Integer</strong>: whole numbers.</li>
+<li><strong>Real</strong>: decimal numbers.</li>
+<li><strong>Date/time</strong>.</li>
+</ul>
+<h2>SQL (structured query language)</h2>
+<pre><code>SELECT Name, Age
+FROM Students
+WHERE Age &gt;= 16 AND Gender = 'F'
+ORDER BY Name ASC;
+</code></pre>
+<ul>
+<li><code>SELECT</code>: the fields to show (<code>*</code> for all).</li>
+<li><code>FROM</code>: the table.</li>
+<li><code>WHERE</code>: the condition(s). Use <code>AND</code> and <code>OR</code>.</li>
+<li><code>ORDER BY</code>: <code>ASC</code> or <code>DESC</code>.</li>
+<li><code>SUM(field)</code> and <code>COUNT(field)</code>: e.g. <code>SELECT COUNT(*) FROM Students WHERE Age &gt; 15;</code></li>
+</ul>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>A primary key must be <strong>unique</strong>; "Name" is a poor choice because names can be repeated.</li>
+<li>In SQL, put <strong>text</strong> values in quotes; numbers and Boolean values have no quotes.</li>
+<li>Count the records that match the query carefully, and give the fields in the order asked.</li>
+<li>End each SQL statement with a semicolon. Spell field names <strong>exactly</strong> as in the table.</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>Suggest a suitable primary key for a table of library books, and explain why.</li>
+<li>Write an SQL query to show the Title and Price of all books cheaper than 10, sorted by Price, highest first.</li>
+<li>Explain why a telephone number should be stored as text.</li>
+</ol>

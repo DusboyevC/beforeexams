@@ -1,0 +1,173 @@
+<h1>11 Programming</h1>
+<h2>What you must be able to do</h2>
+<ul>
+<li>Use variables, constants, operators and built-in functions correctly.</li>
+<li>Use selection and the three types of loop.</li>
+<li>Write procedures and functions with parameters passed by value and by reference.</li>
+<li>Explain why structured programming and subroutines make programs easier to write and maintain.</li>
+</ul>
+<h2>11.1 Programming basics</h2>
+<ul>
+<li><strong>Variable</strong>: a named memory location whose value <strong>can change</strong> while the program runs.</li>
+<li><strong>Constant</strong>: a named value that <strong>cannot change</strong> while the program runs. Benefits: change the value in one place; the code is more readable; it cannot be changed by accident.</li>
+<li><strong>Identifier</strong>: the name given to a variable, constant, array or subroutine. It should be <strong>meaningful</strong>, e.g. <code>TotalScore</code>, not <code>t</code>.</li>
+<li><strong>Assignment</strong>: <code>Score ← 10</code>.</li>
+</ul>
+<h3>Operators</h3>
+<table>
+<thead>
+<tr>
+<th>Arithmetic</th>
+<th>Meaning</th>
+<th>Comparison</th>
+<th>Logical</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>+ - * /</code></td>
+<td>standard</td>
+<td><code>=  &lt;&gt;  &lt;  &gt;  &lt;=  &gt;=</code></td>
+<td><code>AND  OR  NOT</code></td>
+</tr>
+<tr>
+<td><code>DIV</code></td>
+<td>integer division: 17 DIV 5 = 3</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>MOD</code></td>
+<td>remainder: 17 MOD 5 = 2</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3>Built-in functions (from the pseudocode guide; use the list given in the paper)</h3>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Returns</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>LENGTH(s)</code></td>
+<td>number of characters</td>
+<td>LENGTH("Cat") = 3</td>
+</tr>
+<tr>
+<td><code>MID(s, start, n)</code></td>
+<td>n characters from position start</td>
+<td>MID("Computer", 4, 3) = "put"</td>
+</tr>
+<tr>
+<td><code>LEFT(s, n)</code> / <code>RIGHT(s, n)</code></td>
+<td>first or last n characters</td>
+<td>RIGHT("Hello", 2) = "lo"</td>
+</tr>
+<tr>
+<td><code>UCASE(s)</code> / <code>LCASE(s)</code></td>
+<td>upper or lower case</td>
+<td>UCASE("ab") = "AB"</td>
+</tr>
+<tr>
+<td><code>INT(x)</code></td>
+<td>whole-number part</td>
+<td>INT(7.9) = 7</td>
+</tr>
+<tr>
+<td><code>NUM_TO_STR(x)</code> / <code>STR_TO_NUM(s)</code></td>
+<td>type conversion</td>
+<td></td>
+</tr>
+<tr>
+<td><code>RAND(x)</code></td>
+<td>random real 0 ≤ r &lt; x</td>
+<td><code>INT(RAND(6)) + 1</code> gives a dice roll</td>
+</tr>
+<tr>
+<td><code>&amp;</code></td>
+<td>concatenation</td>
+<td>"AB" &amp; "C" = "ABC"</td>
+</tr>
+</tbody>
+</table>
+<h2>11.2 Constructs</h2>
+<ul>
+<li><strong>Selection</strong>: IF (with ELSE and nested IFs) for conditions and ranges; <strong>CASE</strong> when one variable is compared with several fixed values, which is clearer than many nested IFs.</li>
+<li><strong>Iteration</strong>:</li>
+<li><code>FOR</code> (count-controlled) when the number of repeats is known.</li>
+<li><code>WHILE</code> (pre-condition) when the loop might not need to run at all.</li>
+<li>
+<p><code>REPEAT…UNTIL</code> (post-condition) when the loop must run at least once, e.g. validation.</p>
+</li>
+<li>
+<p><strong>Nested</strong> structures: a loop or IF inside another.</p>
+</li>
+</ul>
+<h2>11.3 Structured programming</h2>
+<ul>
+<li><strong>Subroutine</strong>: a named, self-contained block of code that performs a specific task and can be <strong>called</strong> from elsewhere.</li>
+<li><strong>Procedure</strong>: a subroutine that performs a task and does <strong>not</strong> return a value. It is called as a statement: <code>CALL DisplayMenu()</code>.</li>
+<li><strong>Function</strong>: a subroutine that <strong>returns a single value</strong> and is used in an expression: <code>Area ← CalcArea(L, W)</code>.</li>
+</ul>
+<pre><code>PROCEDURE Swap(BYREF A : INTEGER, BYREF B : INTEGER)
+   DECLARE Temp : INTEGER
+   Temp ← A
+   A ← B
+   B ← Temp
+ENDPROCEDURE
+
+FUNCTION Max(X : INTEGER, Y : INTEGER) RETURNS INTEGER
+   IF X &gt; Y
+      THEN RETURN X
+      ELSE RETURN Y
+   ENDIF
+ENDFUNCTION
+</code></pre>
+<h3>Parameters</h3>
+<ul>
+<li><strong>Parameter</strong>: a value passed into a subroutine when it is called. (The values in the call are the arguments.)</li>
+<li><strong>By value (BYVAL)</strong>: a <strong>copy</strong> of the value is passed, so changes inside the subroutine do <strong>not</strong> affect the original variable. This is the default.</li>
+<li><strong>By reference (BYREF)</strong>: the <strong>address</strong> of the variable is passed, so changes inside the subroutine <strong>do</strong> change the original. Used when a subroutine needs to send back more than one value, e.g. <code>Swap</code>.</li>
+</ul>
+<h3>Local and global variables</h3>
+<ul>
+<li><strong>Local variable</strong>: declared inside a subroutine; it exists only while the subroutine runs and can only be used there.</li>
+<li><strong>Global variable</strong>: declared in the main program; it can be used anywhere.</li>
+<li>Prefer local variables: there are no accidental changes from elsewhere, the same name can be reused, memory is freed after the call, and subroutines are self-contained and reusable.</li>
+</ul>
+<h3>Why use subroutines?</h3>
+<ul>
+<li>Code is written once and <strong>reused</strong>, so programs are shorter.</li>
+<li>Each subroutine can be <strong>tested</strong> on its own.</li>
+<li>Teams can share the work, and programs are easier to read, debug and <strong>maintain</strong>.</li>
+<li><strong>Library routines</strong> (pre-written, tested subroutines) save time.</li>
+</ul>
+<h2>Writing the long programming question (Paper 2)</h2>
+<ol>
+<li>Read the whole scenario and underline every requirement, then tick them off as you code.</li>
+<li>Use the identifiers given in the question <strong>exactly</strong>.</li>
+<li>Declare local variables with types.</li>
+<li>Structure: initialise → loop or input → validate → process → output.</li>
+<li>For functions, make sure <strong>every path returns</strong> a value of the right type.</li>
+<li>Comment briefly if it helps the examiner follow your logic.</li>
+</ol>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>Procedure versus function: say that a function <strong>returns a value</strong> and a procedure doesn't.</li>
+<li>BYREF versus BYVAL: explain the effect on the <strong>original variable</strong> in the calling program.</li>
+<li><code>MID</code> uses a start position <strong>and a length</strong>, not an end position.</li>
+<li>Don't output inside a function unless asked; return the value instead.</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>What is the result of <code>MID("Cambridge", 2, 4)</code>? <em>("ambr")</em></li>
+<li>Explain why <code>Swap</code> must use BYREF parameters.</li>
+<li>Give two reasons to use local rather than global variables.</li>
+<li>Write a function <code>IsEven(N)</code> that returns TRUE if N is even. <em>(RETURN N MOD 2 = 0)</em></li>
+</ol>

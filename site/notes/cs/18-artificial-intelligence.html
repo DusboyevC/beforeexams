@@ -1,0 +1,71 @@
+<h1>18 Artificial intelligence (AI)</h1>
+<h2>What you must be able to do</h2>
+<ul>
+<li>Use graphs in AI, and trace Dijkstra's algorithm and the A* algorithm.</li>
+<li>Explain machine learning: supervised, unsupervised and reinforcement learning.</li>
+<li>Describe deep learning, artificial neural networks, back propagation and regression.</li>
+</ul>
+<h2>18.1 Artificial intelligence</h2>
+<h3>Graphs</h3>
+<ul>
+<li><strong>Graph</strong>: a set of <strong>nodes (vertices)</strong> connected by <strong>edges (arcs)</strong>. Edges can be <strong>weighted</strong> (e.g. distance or time) and <strong>directed</strong> or undirected.</li>
+<li>Used in AI for route planning, navigation, game moves, social networks and decision making.</li>
+</ul>
+<h3>Dijkstra's algorithm (shortest path from a start node to all other nodes)</h3>
+<ol>
+<li>Give the start node a distance of 0 and every other node infinity (∞). Mark all as unvisited.</li>
+<li>Choose the unvisited node with the <strong>smallest</strong> current distance and make it the current node.</li>
+<li>For each unvisited neighbour, work out: current node's distance + edge weight. If this is <strong>smaller</strong> than the neighbour's recorded distance, update it and record the current node as its previous node.</li>
+<li>Mark the current node as visited (its distance is now final).</li>
+<li>Repeat steps 2–4 until the destination is visited (or all nodes are).</li>
+<li>Trace the path back from the destination using the recorded previous nodes.</li>
+</ol>
+<h3>A* algorithm</h3>
+<ul>
+<li>Like Dijkstra's, but it uses a <strong>heuristic</strong> h(n): an estimate of the remaining cost from node n to the goal, e.g. the straight-line distance.</li>
+<li>Each node gets <strong>f(n) = g(n) + h(n)</strong>, where g(n) is the actual cost from the start.</li>
+<li>It always expands the open node with the <strong>lowest f(n)</strong>.</li>
+<li><strong>Why it is better</strong>: the heuristic steers the search towards the goal, so fewer nodes are explored and it is usually faster than Dijkstra's. It still finds the shortest path if the heuristic <strong>never overestimates</strong> (is admissible).</li>
+</ul>
+<p><strong>Trace method in the exam</strong>: keep a table of node, g, h, f, previous node and visited, and update it one step at a time in the order of expansion.</p>
+<h3>Machine learning</h3>
+<ul>
+<li><strong>Machine learning</strong>: the computer improves its performance at a task by learning from data, rather than being explicitly programmed with rules.</li>
+<li><strong>Supervised learning</strong>: trained on <strong>labelled</strong> data (input and correct output); it learns to predict the label for new inputs. Examples: spam detection, recognising handwritten digits, predicting house prices.</li>
+<li><strong>Unsupervised learning</strong>: trained on <strong>unlabelled</strong> data; it finds patterns, structures or <strong>clusters</strong> for itself. Examples: customer segmentation, recommendation systems, anomaly detection.</li>
+<li><strong>Reinforcement learning</strong>: an <strong>agent</strong> acts in an environment and receives <strong>rewards or penalties</strong>; it learns by trial and error the actions that maximise its total reward. Examples: game-playing AI, robot movement, self-driving cars.</li>
+</ul>
+<h3>Deep learning and artificial neural networks</h3>
+<ul>
+<li><strong>Artificial neural network (ANN)</strong>: layers of connected nodes (artificial neurons): an <strong>input layer</strong>, one or more <strong>hidden layers</strong>, and an <strong>output layer</strong>.</li>
+<li>
+<p>Each connection has a <strong>weight</strong>. Each neuron sums its weighted inputs (plus a bias) and passes the result through an <strong>activation function</strong>.</p>
+</li>
+<li>
+<p><strong>Deep learning</strong>: machine learning that uses neural networks with <strong>many hidden layers</strong>, so the network can learn complex features directly from raw data, e.g. images, speech or language. It needs very large datasets and a lot of processing power (GPUs).</p>
+</li>
+<li>
+<p><strong>Back propagation</strong>: the training method for neural networks.
+  1. The input is passed forward through the network to give an output.
+  2. The <strong>error</strong> between the actual and the expected output is calculated.
+  3. The error is passed <strong>backwards</strong> through the network, and each <strong>weight is adjusted</strong> to reduce it (gradient descent).
+  4. This is repeated over many training examples until the error is small enough.</p>
+</li>
+<li>
+<p><strong>Regression</strong>: a machine-learning technique that predicts a <strong>continuous numerical value</strong> from inputs by finding the relationship (e.g. the line or curve of best fit) between the variables. Example: predicting temperature or sales.</p>
+</li>
+</ul>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>In Dijkstra's traces, update a distance only if the new one is <strong>smaller</strong>, and mark nodes visited in the right order.</li>
+<li>For A<em>, show <strong>g, h and f</strong> for every node considered, and say why A</em> explores fewer nodes.</li>
+<li>Supervised versus unsupervised: the key word is <strong>labelled</strong> data.</li>
+<li>Back propagation answers must mention that the <strong>weights are adjusted</strong> to reduce the <strong>error</strong>.</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>Explain how the heuristic makes A* more efficient than Dijkstra's algorithm.</li>
+<li>Give one example each of supervised, unsupervised and reinforcement learning.</li>
+<li>Describe the structure of an artificial neural network.</li>
+<li>Outline how back propagation trains a network.</li>
+</ol>

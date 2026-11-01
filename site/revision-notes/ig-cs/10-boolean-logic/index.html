@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Boolean logic: IGCSE Computer Science 0478 revision notes | BeforeExams</title>
+<meta name="description" content="Logic gates Gate Output is 1 when… Expression NOT the input is 0 X = NOT A AND both inputs are 1 X = A AND B OR at least one input is 1 X = A OR B…">
+<meta property="og:title" content="Boolean logic: IGCSE Computer Science 0478 revision notes | BeforeExams">
+<meta property="og:description" content="Logic gates Gate Output is 1 when… Expression NOT the input is 0 X = NOT A AND both inputs are 1 X = A AND B OR at least one input is 1 X = A OR B…">
+<meta property="og:url" content="https://beforexams.netlify.app/revision-notes/ig-cs/10-boolean-logic/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BeforeExams">
+<link rel="canonical" href="https://beforexams.netlify.app/revision-notes/ig-cs/10-boolean-logic/">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/style.css">
+<script>try{if(localStorage.getItem("be-theme")==="light")document.documentElement.classList.remove("dark")}catch(e){}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Boolean logic", "educationalLevel": "IGCSE", "about": "Computer Science", "author": [{"@type": "Person", "name": "DusboyevC"}, {"@type": "Person", "name": "Magnetars"}], "url": "https://beforexams.netlify.app/revision-notes/ig-cs/10-boolean-logic/"}</script>
+</head>
+<body data-view="static" data-glow="cs">
+<header class="topbar"><div class="wrap topbar-inner">
+<a href="/" class="brand" aria-label="BeforeExams home"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x="4" y="4" width="25" height="9" rx="3.2" fill="#F57C00"/><rect x="8" y="6.9" width="8" height="2.2" rx="1.1" fill="#1A1A18"/><rect x="7" y="15.5" width="29" height="9" rx="3.2" fill="#4FC79A"/><rect x="11" y="18.4" width="8" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/><rect x="3" y="27" width="31" height="10" rx="3.2" fill="#0F5C46"/><rect x="7" y="30.4" width="9" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/></svg><span class="font-brand brand-word">Before<span>Exams</span></span></a>
+<nav class="topbar-actions" aria-label="Main"><a href="/#library" class="nav-link">Library</a><a href="/revision-notes/" class="nav-link">Notes</a><a href="/about/" class="nav-link">About</a></nav>
+</div></header>
+<main class="page"><div class="wrap static-page"><p class="label-caps eyebrow"><a href="/subjects/igcse-computer-science-0478/">IGCSE Computer Science 0478</a></p><article class="notes"><h1>10 Boolean logic</h1>
+<h2>Logic gates</h2>
+<table>
+<thead>
+<tr>
+<th>Gate</th>
+<th>Output is 1 when…</th>
+<th>Expression</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>NOT</strong></td>
+<td>the input is 0</td>
+<td>X = NOT A</td>
+</tr>
+<tr>
+<td><strong>AND</strong></td>
+<td><strong>both</strong> inputs are 1</td>
+<td>X = A AND B</td>
+</tr>
+<tr>
+<td><strong>OR</strong></td>
+<td><strong>at least one</strong> input is 1</td>
+<td>X = A OR B</td>
+</tr>
+<tr>
+<td><strong>NAND</strong></td>
+<td>NOT AND: unless both are 1</td>
+<td>X = A NAND B</td>
+</tr>
+<tr>
+<td><strong>NOR</strong></td>
+<td>NOT OR: only when both are 0</td>
+<td>X = A NOR B</td>
+</tr>
+<tr>
+<td><strong>XOR</strong></td>
+<td>the inputs are <strong>different</strong></td>
+<td>X = A XOR B</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Learn the standard <strong>symbols</strong>:</li>
+<li>NOT: a triangle with a circle.</li>
+<li>AND: a D shape.</li>
+<li>OR: a curved shield shape.</li>
+<li>NAND and NOR: AND and OR with a circle at the output.</li>
+<li>XOR: OR with an extra curved line at the input.</li>
+</ul>
+<h2>Truth tables</h2>
+<ul>
+<li>With n inputs there are <strong>2ⁿ rows</strong>: 2 inputs give 4 rows, and 3 inputs give 8 rows.</li>
+<li>List the inputs in binary order: 000, 001, 010, 011, 100, 101, 110, 111.</li>
+<li>Add a column for each intermediate gate output (working), then the final output column X.</li>
+</ul>
+<h2>Logic circuits and expressions</h2>
+<ul>
+<li><strong>Expression → circuit</strong>: draw a gate for each operator, working from the innermost brackets outwards.</li>
+<li><strong>Circuit → expression</strong>: write the output of each gate, then combine them, e.g. X = (A AND B) OR (NOT C).</li>
+<li><strong>Problem statement → circuit</strong>: turn the words into an expression first.</li>
+<li>Example: "The alarm (X) sounds if the door is open (A = 1) <strong>and</strong> the system is armed (B = 1), <strong>or</strong> if there is smoke (C = 1)."</li>
+<li>
+<p>This gives X = (A AND B) OR C.</p>
+</li>
+<li>
+<p>Worked truth table for X = (A AND B) OR NOT C:</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>A AND B</th>
+<th>NOT C</th>
+<th>X</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>Use the <strong>exact gate symbols</strong>, not boxes with labels, and draw each gate with only the number of inputs the syllabus allows (2, except NOT).</li>
+<li>Watch the wording: "is not" usually means NOT; "either … but not both" means XOR.</li>
+<li>Fill the truth table input columns systematically, so no row is missed or repeated.</li>
+<li>Logic questions can involve sensors and alarms, so they link with <strong>Automated systems</strong> (chapter 6).</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>Complete the truth table for X = A XOR B.</li>
+<li>Write the logic expression for: "the pump (X) is on if the water level is low (A) and the tank is not empty (B)".</li>
+<li>How many rows does a truth table with 3 inputs need? <em>(8)</em></li>
+</ol></article><nav class="notes-nav"><a class="mini" href="/revision-notes/ig-cs/09-databases/">← Databases</a><span></span></nav></div></main>
+<footer class="foot"><div class="wrap"><div class="foot-grid"><div class="foot-brand"><a class="brand" href="/" aria-label="BeforeExams home"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x="4" y="4" width="25" height="9" rx="3.2" fill="#F57C00"/><rect x="8" y="6.9" width="8" height="2.2" rx="1.1" fill="#1A1A18"/><rect x="7" y="15.5" width="29" height="9" rx="3.2" fill="#4FC79A"/><rect x="11" y="18.4" width="8" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/><rect x="3" y="27" width="31" height="10" rx="3.2" fill="#0F5C46"/><rect x="7" y="30.4" width="9" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/></svg><span class="font-brand brand-word">Before<span>Exams</span></span></a><p>Free revision for Cambridge IGCSE and AS &amp; A Level students.</p><p class="foot-mail">Email: <a href="mailto:dusboyevc@gmail.com">dusboyevc@gmail.com</a></p></div><nav class="foot-col" aria-label="Library"><h2>Library</h2><a href="/#/?mode=topicals" data-foot-mode="topicals">Topical questions</a><a href="/#/?mode=papers" data-foot-mode="papers">Past papers</a><a href="/#/?mode=notes" data-foot-mode="notes">Revision notes</a><a href="/#/?mode=guide" data-foot-mode="guide">Exam guide</a><a href="/#/?mode=trends" data-foot-mode="trends">Topic trends</a></nav><nav class="foot-col" aria-label="IGCSE"><h2>IGCSE</h2><a href="/subjects/igcse-physics-0625/">Physics</a><a href="/subjects/igcse-chemistry-0620/">Chemistry</a><a href="/subjects/igcse-biology-0610/">Biology</a><a href="/subjects/igcse-mathematics-0580/">Mathematics</a><a href="/subjects/igcse-computer-science-0478/">Computer Science</a></nav><nav class="foot-col" aria-label="AS &amp; A Level"><h2>AS &amp; A Level</h2><a href="/subjects/a-level-physics-9702/">Physics</a><a href="/subjects/a-level-chemistry-9701/">Chemistry</a><a href="/subjects/a-level-biology-9700/">Biology</a><a href="/subjects/a-level-mathematics-9709/">Mathematics</a><a href="/subjects/a-level-computer-science-9618/">Computer Science</a></nav><nav class="foot-col" aria-label="BeforeExams"><h2>BeforeExams</h2><a href="/about/">About and authors</a><a href="/revision-notes/">All revision notes</a><a href="/#/account">My account</a><a href="/#/account">Mock tests</a></nav></div><p class="foot-note">Past papers and mark schemes © Cambridge University Press &amp; Assessment. BeforeExams is an independent study site, not affiliated with Cambridge.</p><div class="foot-bar"><span>© 2026 BeforeExams. Made by <b>DusboyevC</b> and <b>Magnetars</b>.</span><a href="/privacy/">Privacy Policy</a></div></div></footer>
+</body>
+</html>

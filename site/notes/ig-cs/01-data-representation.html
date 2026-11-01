@@ -1,0 +1,87 @@
+<h1>1 Data representation</h1>
+<h2>Number systems</h2>
+<ul>
+<li>Computers use <strong>binary</strong> (base 2) because they are built from <strong>switches (transistors)</strong> that have two states, on and off (1 and 0). All data must be converted to binary to be processed.</li>
+<li><strong>Denary</strong>: base 10. <strong>Hexadecimal</strong>: base 16 (0–9, A–F).</li>
+<li>Place values (8-bit): 128, 64, 32, 16, 8, 4, 2, 1.</li>
+</ul>
+<p><strong>Conversions</strong></p>
+<ul>
+<li>Binary → denary: add the place values where there is a 1. <code>0110 1001</code> = 64 + 32 + 8 + 1 = <strong>105</strong>.</li>
+<li>Denary → binary: subtract the largest place value that fits, write 1, and repeat.</li>
+<li>Binary ↔ hex: split into groups of 4 bits (nibbles). <code>1010 1111</code> = <strong>AF</strong>.</li>
+<li>Hex → denary: multiply by 16s. <code>3C</code> = 3 × 16 + 12 = <strong>60</strong>.</li>
+</ul>
+<p><strong>Why hexadecimal is used</strong>: it is <strong>shorter</strong> and <strong>easier for humans to read</strong> than binary, so there are fewer mistakes, and it converts easily (1 hex digit = 4 bits).</p>
+<ul>
+<li>Uses: <strong>MAC addresses</strong>, <strong>HTML colour codes</strong>, <strong>error codes</strong>, IPv6 addresses, memory dumps and assembly language.</li>
+</ul>
+<h2>Binary addition and overflow</h2>
+<ul>
+<li>0 + 0 = 0; 0 + 1 = 1; 1 + 1 = 0 carry 1; 1 + 1 + 1 = 1 carry 1.</li>
+<li><strong>Overflow error</strong>: the result needs <strong>more than 8 bits</strong>, so it is too large for the register, e.g. 200 + 100 = 300 &gt; 255.</li>
+</ul>
+<h2>Logical shifts</h2>
+<ul>
+<li><strong>Left shift</strong> by n places: each bit moves left and 0s fill the gaps on the right. This <strong>multiplies by 2ⁿ</strong>. Bits shifted off the left end are <strong>lost</strong>, which makes the result wrong.</li>
+<li><strong>Right shift</strong> by n places: <strong>divides by 2ⁿ</strong>. Bits lost on the right make it inaccurate (the remainder is lost).</li>
+</ul>
+<h2>Two's complement (8-bit)</h2>
+<ul>
+<li>The leftmost bit has the value <strong>−128</strong>. Range: −128 to +127.</li>
+<li>To store −35: write +35 as <code>0010 0011</code>, flip the bits (<code>1101 1100</code>), add 1 → <strong><code>1101 1101</code></strong>.</li>
+</ul>
+<h2>Text, sound and images</h2>
+<ul>
+<li><strong>Character set</strong>: all the characters a computer can use, each with a unique binary code.</li>
+<li><strong>ASCII</strong>: 7 bits (128 characters), or 8-bit extended (256). English characters only.</li>
+<li>
+<p><strong>Unicode</strong>: up to 32 bits per character, so it covers <strong>every language and emojis</strong>. It needs <strong>more storage per character</strong> than ASCII.</p>
+</li>
+<li>
+<p><strong>Sound</strong>: the sound wave is <strong>sampled</strong> at regular intervals, and each sample's <strong>amplitude</strong> is stored in binary.</p>
+</li>
+<li><strong>Sample rate</strong>: the number of samples per second (Hz).</li>
+<li><strong>Sample resolution</strong>: the number of bits per sample.</li>
+<li>
+<p>Increasing either makes the recording <strong>more accurate</strong> (closer to the original), but the <strong>file is larger</strong>.</p>
+</li>
+<li>
+<p><strong>Images</strong>: a bitmap is made of <strong>pixels</strong>.</p>
+</li>
+<li><strong>Resolution</strong>: the number of pixels (width × height).</li>
+<li><strong>Colour depth</strong>: the number of bits per pixel (n bits give 2ⁿ colours).</li>
+<li>Increasing either gives <strong>better quality</strong> but a <strong>larger file</strong>.</li>
+</ul>
+<h2>Data storage and file size</h2>
+<ul>
+<li>bit → nibble (4 bits) → byte (8 bits) → <strong>KiB (1024 bytes)</strong> → MiB → GiB → TiB → PiB → EiB.</li>
+<li><strong>Image file size</strong> = resolution × colour depth (bits). Divide by 8 for bytes and by 1024 for KiB.</li>
+<li><strong>Sound file size</strong> = sample rate × sample resolution × length in seconds (bits).</li>
+<li>Worked example: 1024 × 512 image, 16-bit colour → 1024 × 512 × 16 = 8 388 608 bits = 1 048 576 bytes = <strong>1 MiB</strong>.</li>
+</ul>
+<h2>Compression</h2>
+<ul>
+<li><strong>Why compress?</strong> It uses less storage space, makes files quicker to send and upload or download, uses less bandwidth, and keeps files under email attachment limits.</li>
+<li><strong>Lossy</strong>: <strong>permanently removes</strong> data, so the original can't be restored. It gives a much smaller file.</li>
+<li>Methods: reduce the resolution or colour depth; reduce the sample rate or resolution; <strong>perceptual music shaping</strong> (remove sounds humans can't hear well).</li>
+<li>
+<p>Used for JPEG images and MP3/MP4 files.</p>
+</li>
+<li>
+<p><strong>Lossless</strong>: no data is lost; the original can be reconstructed <strong>exactly</strong>. Used for text and program files.</p>
+</li>
+<li>Method: <strong>run-length encoding (RLE)</strong>, which stores runs of repeated data as one value and a count, e.g. <code>WWWWBBB</code> becomes <code>4W3B</code>.</li>
+</ul>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>Show your working in conversions and file-size calculations.</li>
+<li>When asked "why binary?", answer "computers are made of switches/transistors with two states", not "it's easier".</li>
+<li>For hex uses, give a <strong>specific</strong> example, such as MAC addresses or HTML colour codes.</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>Convert 1011 0110 into hexadecimal. <em>(B6)</em></li>
+<li>What is the effect of a logical left shift of 2 places on 0001 0110? <em>(0101 1000: the value is multiplied by 4, from 22 to 88)</em></li>
+<li>Give one benefit and one drawback of Unicode compared with ASCII.</li>
+</ol>

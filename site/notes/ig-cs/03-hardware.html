@@ -1,0 +1,80 @@
+<h1>3 Hardware</h1>
+<h2>The CPU and the Von Neumann architecture</h2>
+<ul>
+<li><strong>CPU</strong>: processes instructions and data by carrying out the <strong>fetch–decode–execute (FDE) cycle</strong>.</li>
+<li><strong>Von Neumann architecture</strong>: data and instructions are stored <strong>together</strong> in the same memory (the <strong>stored program concept</strong>).</li>
+<li><strong>Components</strong>:</li>
+<li><strong>ALU</strong>: performs arithmetic and logic operations. It contains the <strong>accumulator (ACC)</strong>, which holds results.</li>
+<li><strong>CU (control unit)</strong>: decodes instructions and sends control signals to manage the FDE cycle.</li>
+<li><strong>Registers</strong>: <strong>PC</strong> (address of the next instruction), <strong>MAR</strong> (address to fetch from or write to), <strong>MDR</strong> (the data or instruction fetched), <strong>CIR</strong> (the current instruction), <strong>ACC</strong>.</li>
+<li>
+<p><strong>Buses</strong>: the <strong>address bus</strong> carries addresses (one direction); the <strong>data bus</strong> carries data (both directions); the <strong>control bus</strong> carries signals (both directions).</p>
+</li>
+<li>
+<p><strong>FDE cycle (fetch stage)</strong>: the address in the <strong>PC</strong> is copied to the <strong>MAR</strong>; the PC is <strong>incremented</strong>; the instruction is fetched from <strong>memory</strong> (RAM) along the data bus into the <strong>MDR</strong>; it is copied to the <strong>CIR</strong>. The CU then decodes it, and it is executed.</p>
+</li>
+<li><strong>Performance</strong>:</li>
+<li><strong>Clock speed</strong> (GHz): more cycles per second means more instructions per second.</li>
+<li><strong>Number of cores</strong>: more instructions can be processed at the same time.</li>
+<li>
+<p><strong>Cache size</strong>: frequently used data is held close to the CPU, so access is faster than from RAM.</p>
+</li>
+<li>
+<p><strong>Instruction set</strong>: the list of all the machine-code commands a CPU can process.</p>
+</li>
+<li><strong>Embedded system</strong>: a computer system with a <strong>dedicated function</strong> inside a larger device, e.g. a washing machine, microwave, car engine or traffic light. Small, cheap, low power; difficult to update.</li>
+</ul>
+<h2>Input and output devices</h2>
+<ul>
+<li><strong>Input</strong>: barcode scanner, digital camera, keyboard, microphone, optical mouse, QR code scanner, touch screen (resistive, capacitive, infrared), 2D and 3D scanners, <strong>sensors</strong>.</li>
+<li><strong>Output</strong>: actuator, DLP and LCD projectors, inkjet, laser and 3D printers, LED and LCD screens, speakers.</li>
+<li><strong>Sensors</strong>: input devices that measure a physical property. Types include acoustic, accelerometer, flow, gas, humidity, infrared, level, light, magnetic field, moisture, pH, pressure, proximity and temperature.</li>
+</ul>
+<h2>Data storage</h2>
+<ul>
+<li><strong>Primary storage</strong>: directly accessed by the CPU.</li>
+<li><strong>RAM</strong>: <strong>volatile</strong>; read and write; holds the data and programs <strong>currently in use</strong>.</li>
+<li>
+<p><strong>ROM</strong>: <strong>non-volatile</strong>; read only; holds the <strong>start-up instructions (bootstrap)</strong>.</p>
+</li>
+<li>
+<p><strong>Secondary storage</strong>: non-volatile, long-term storage.</p>
+</li>
+<li><strong>Magnetic (HDD)</strong>: platters coated in magnetic material, with a read/write head. Areas are magnetised to represent 1 or 0. Cheap and high capacity, but has <strong>moving parts</strong>, so it can be damaged and is slower.</li>
+<li><strong>Optical (CD, DVD, Blu-ray)</strong>: a <strong>laser</strong> reads and writes <strong>pits and lands</strong> on a spiral track. Portable and cheap, but low capacity and easily scratched.</li>
+<li>
+<p><strong>Solid-state (SSD, flash memory)</strong>: <strong>transistors (NAND/NOR gates)</strong> with control gates and floating gates trap electrons to store data. <strong>No moving parts</strong>, so it is fast, robust, quiet and low power; more expensive.</p>
+</li>
+<li>
+<p><strong>Virtual memory</strong>: when RAM is full, part of <strong>secondary storage</strong> is used as temporary RAM. Pages of data are swapped between RAM and secondary storage. It lets more programs run, but it is <strong>slower</strong>.</p>
+</li>
+<li><strong>Cloud storage</strong>: data stored on <strong>remote servers</strong> accessed over the internet.</li>
+<li>Benefits: access from anywhere; automatic backups; scalable; no local hardware.</li>
+<li>Drawbacks: needs an internet connection; security and privacy risks; ongoing cost; you depend on the provider.</li>
+</ul>
+<h2>Network hardware</h2>
+<ul>
+<li><strong>NIC (network interface card)</strong>: lets a device connect to a network. It is given a <strong>MAC address</strong> at manufacture.</li>
+<li><strong>MAC address</strong>: a <strong>unique</strong> 48-bit address for each device, written in <strong>hexadecimal</strong>. The first half is the manufacturer ID and the second half is the device serial number. It is <strong>static</strong>.</li>
+<li><strong>IP address</strong>: assigned to a device on a network so data can be routed to it.</li>
+<li><strong>IPv4</strong>: 32 bits, 4 denary numbers 0–255 (e.g. 192.168.0.1).</li>
+<li><strong>IPv6</strong>: 128 bits, 8 groups of hex digits; created because IPv4 addresses are running out.</li>
+<li>
+<p><strong>Static</strong> (fixed) or <strong>dynamic</strong> (assigned each time the device connects).</p>
+</li>
+<li>
+<p><strong>Router</strong>: sends data packets between networks; reads the destination IP address and forwards each packet to the correct device or network; can assign IP addresses.</p>
+</li>
+</ul>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>In fetch-stage answers, mention <strong>PC → MAR</strong>, the PC incremented, <strong>memory → MDR → CIR</strong>, and the buses.</li>
+<li>RAM is volatile and holds what is <strong>currently in use</strong>. ROM holds the <strong>start-up</strong> instructions.</li>
+<li>In SSD answers, mention <strong>transistors, control gates, floating gates</strong> and that it has <strong>no moving parts</strong>.</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>Describe the role of the MAR in the fetch stage.</li>
+<li>Give two reasons why an SSD is used in a smartphone rather than an HDD.</li>
+<li>State two differences between a MAC address and an IP address.</li>
+</ol>

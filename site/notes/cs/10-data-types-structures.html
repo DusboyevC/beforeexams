@@ -1,0 +1,175 @@
+<h1>10 Data types and structures</h1>
+<h2>What you must be able to do</h2>
+<ul>
+<li>Choose suitable data types and define record types.</li>
+<li>Declare and use 1D and 2D arrays, including linear search and bubble sort.</li>
+<li>Read from and write to text files.</li>
+<li>Describe and use abstract data types: stacks, queues and linked lists.</li>
+</ul>
+<h2>10.1 Data types and records</h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Holds</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>INTEGER</code></td>
+<td>Whole numbers</td>
+<td>42, −7</td>
+</tr>
+<tr>
+<td><code>REAL</code></td>
+<td>Numbers with a fractional part</td>
+<td>3.14</td>
+</tr>
+<tr>
+<td><code>CHAR</code></td>
+<td>A single character</td>
+<td>'A'</td>
+</tr>
+<tr>
+<td><code>STRING</code></td>
+<td>A sequence of characters</td>
+<td>"Hello"</td>
+</tr>
+<tr>
+<td><code>BOOLEAN</code></td>
+<td>TRUE or FALSE</td>
+<td>TRUE</td>
+</tr>
+<tr>
+<td><code>DATE</code></td>
+<td>A date</td>
+<td>24/10/2026</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Record (user-defined composite type)</strong>: groups related data items of <strong>different</strong> types under one identifier.</p>
+<pre><code>TYPE StudentRecord
+   DECLARE StudentID : STRING
+   DECLARE Name      : STRING
+   DECLARE Mark      : INTEGER
+   DECLARE Passed    : BOOLEAN
+ENDTYPE
+
+DECLARE Pupil : StudentRecord
+Pupil.Name ← &quot;Lola&quot;
+DECLARE Class : ARRAY[1:30] OF StudentRecord
+Class[3].Mark ← 78
+</code></pre>
+<p>Why use a record? It keeps the data about one item together, so it is easier to manage and to pass to subroutines, and it can be stored in arrays and files.</p>
+<h2>10.2 Arrays</h2>
+<ul>
+<li><strong>Array</strong>: a data structure holding a fixed number of items of the <strong>same</strong> data type under one identifier, each accessed by an <strong>index</strong>.</li>
+<li><strong>Lower bound / upper bound</strong>: the first and last index.</li>
+<li>1D: <code>DECLARE Scores : ARRAY[1:10] OF INTEGER</code></li>
+<li>2D: <code>DECLARE Grid : ARRAY[1:5, 1:4] OF CHAR</code> (rows, columns). Access <code>Grid[Row, Col]</code> and use <strong>nested loops</strong> to process it.</li>
+</ul>
+<p><strong>Linear search</strong></p>
+<pre><code>Found ← FALSE
+Index ← 1
+WHILE Found = FALSE AND Index &lt;= 100 DO
+   IF Names[Index] = SearchName
+      THEN
+         Found ← TRUE
+      ELSE
+         Index ← Index + 1
+   ENDIF
+ENDWHILE
+IF Found THEN OUTPUT &quot;Found at &quot;, Index ELSE OUTPUT &quot;Not found&quot; ENDIF
+</code></pre>
+<p><strong>Bubble sort (efficient version with a flag)</strong></p>
+<pre><code>Top ← 100
+REPEAT
+   Swapped ← FALSE
+   FOR i ← 1 TO Top - 1
+      IF Data[i] &gt; Data[i + 1]
+         THEN
+            Temp ← Data[i]
+            Data[i] ← Data[i + 1]
+            Data[i + 1] ← Temp
+            Swapped ← TRUE
+      ENDIF
+   NEXT i
+   Top ← Top - 1
+UNTIL Swapped = FALSE OR Top = 1
+</code></pre>
+<p>The flag means the sort stops as soon as a pass makes no swaps (the data is sorted). <code>Top</code> shrinks because the largest item has "bubbled" to the end.</p>
+<h2>10.3 Files</h2>
+<ul>
+<li>Files store data <strong>permanently</strong>, after the program ends. Arrays and variables live only in RAM while the program runs.</li>
+</ul>
+<pre><code>OPENFILE &quot;Scores.txt&quot; FOR WRITE      // creates or overwrites
+WRITEFILE &quot;Scores.txt&quot;, Line
+CLOSEFILE &quot;Scores.txt&quot;
+
+OPENFILE &quot;Scores.txt&quot; FOR READ
+WHILE NOT EOF(&quot;Scores.txt&quot;) DO
+   READFILE &quot;Scores.txt&quot;, Line
+   OUTPUT Line
+ENDWHILE
+CLOSEFILE &quot;Scores.txt&quot;
+
+OPENFILE &quot;Scores.txt&quot; FOR APPEND     // adds to the end
+</code></pre>
+<p>Exam trap: always <strong>close</strong> the file, and check for <strong>EOF</strong> before each read.</p>
+<h2>10.4 Abstract data types (ADTs)</h2>
+<ul>
+<li><strong>ADT</strong>: a collection of data together with the set of operations on it, defined by <em>what</em> it does, not <em>how</em> it is implemented.</li>
+</ul>
+<h3>Stack (LIFO – last in, first out)</h3>
+<ul>
+<li>Operations: <strong>push</strong> (add to the top), <strong>pop</strong> (remove from the top), peek, isEmpty, isFull.</li>
+<li>Uses a <strong>top pointer</strong>. Uses: subroutine calls and return addresses, interrupt handling, undo, evaluating expressions (Reverse Polish), backtracking.</li>
+</ul>
+<pre><code>PROCEDURE Push(Item)
+   IF TopPointer = MaxSize
+      THEN OUTPUT &quot;Stack full&quot;
+      ELSE
+         TopPointer ← TopPointer + 1
+         Stack[TopPointer] ← Item
+   ENDIF
+ENDPROCEDURE
+</code></pre>
+<h3>Queue (FIFO – first in, first out)</h3>
+<ul>
+<li>Operations: <strong>enqueue</strong> (add at the rear), <strong>dequeue</strong> (remove from the front).</li>
+<li>Uses <strong>front</strong> and <strong>rear</strong> pointers. A <strong>circular queue</strong> wraps the rear pointer back to the start, so freed space is reused.</li>
+<li>Uses: print queues, keyboard buffers, process scheduling.</li>
+</ul>
+<pre><code>PROCEDURE Enqueue(Item)
+   IF NumItems = MaxSize THEN OUTPUT &quot;Queue full&quot;
+   ELSE
+      Rear ← Rear + 1
+      IF Rear &gt; MaxSize THEN Rear ← 1 ENDIF
+      Queue[Rear] ← Item
+      NumItems ← NumItems + 1
+   ENDIF
+ENDPROCEDURE
+</code></pre>
+<h3>Linked list</h3>
+<ul>
+<li><strong>Linked list</strong>: a dynamic ADT in which each <strong>node</strong> holds data and a <strong>pointer</strong> to the next node. A <strong>start pointer</strong> gives the first node; a <strong>null pointer</strong> (e.g. −1 or 0) marks the end.</li>
+<li>A <strong>free list</strong> keeps track of unused nodes.</li>
+<li><strong>Insert</strong>: take a node from the free list, store the data, find the correct position, and change pointers so the previous node points to the new node and the new node points to the next one.</li>
+<li><strong>Delete</strong>: change the previous node's pointer to skip the node, then return it to the free list.</li>
+<li>Benefit: nodes can be added or removed without moving other data. Drawback: you must follow pointers from the start (no direct access), and pointers use extra memory.</li>
+</ul>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>Use a <strong>record</strong> when data items of different types belong together, and an <strong>array</strong> when items have the same type.</li>
+<li>In 2D array questions, check whether the question uses [row, column] and stick to it.</li>
+<li>In stack and queue procedures, check for <strong>full</strong> before adding and <strong>empty</strong> before removing.</li>
+<li>In linked list traces, update pointers in the <strong>right order</strong>, or you lose the rest of the list.</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>Write a record type for a book with ISBN, title, price and on-loan status.</li>
+<li>Explain why a flag makes a bubble sort more efficient.</li>
+<li>State the difference between a stack and a queue, with one use of each.</li>
+<li>Describe the steps to delete a node from a linked list.</li>
+</ol>

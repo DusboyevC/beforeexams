@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data types and structures: AS &amp; A Level Computer Science 9618 revision notes | BeforeExams</title>
+<meta name="description" content="What you must be able to do Choose suitable data types and define record types. Declare and use 1D and 2D arrays, including linear search and bubble…">
+<meta property="og:title" content="Data types and structures: AS &amp; A Level Computer Science 9618 revision notes | BeforeExams">
+<meta property="og:description" content="What you must be able to do Choose suitable data types and define record types. Declare and use 1D and 2D arrays, including linear search and bubble…">
+<meta property="og:url" content="https://beforexams.netlify.app/revision-notes/cs/10-data-types-structures/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BeforeExams">
+<link rel="canonical" href="https://beforexams.netlify.app/revision-notes/cs/10-data-types-structures/">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/style.css">
+<script>try{if(localStorage.getItem("be-theme")==="light")document.documentElement.classList.remove("dark")}catch(e){}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Data types and structures", "educationalLevel": "AS & A Level", "about": "Computer Science", "author": [{"@type": "Person", "name": "DusboyevC"}, {"@type": "Person", "name": "Magnetars"}], "url": "https://beforexams.netlify.app/revision-notes/cs/10-data-types-structures/"}</script>
+</head>
+<body data-view="static" data-glow="cs">
+<header class="topbar"><div class="wrap topbar-inner">
+<a href="/" class="brand" aria-label="BeforeExams home"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x="4" y="4" width="25" height="9" rx="3.2" fill="#F57C00"/><rect x="8" y="6.9" width="8" height="2.2" rx="1.1" fill="#1A1A18"/><rect x="7" y="15.5" width="29" height="9" rx="3.2" fill="#4FC79A"/><rect x="11" y="18.4" width="8" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/><rect x="3" y="27" width="31" height="10" rx="3.2" fill="#0F5C46"/><rect x="7" y="30.4" width="9" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/></svg><span class="font-brand brand-word">Before<span>Exams</span></span></a>
+<nav class="topbar-actions" aria-label="Main"><a href="/#library" class="nav-link">Library</a><a href="/revision-notes/" class="nav-link">Notes</a><a href="/about/" class="nav-link">About</a></nav>
+</div></header>
+<main class="page"><div class="wrap static-page"><p class="label-caps eyebrow"><a href="/subjects/a-level-computer-science-9618/">AS &amp; A Level Computer Science 9618</a></p><article class="notes"><h1>10 Data types and structures</h1>
+<h2>What you must be able to do</h2>
+<ul>
+<li>Choose suitable data types and define record types.</li>
+<li>Declare and use 1D and 2D arrays, including linear search and bubble sort.</li>
+<li>Read from and write to text files.</li>
+<li>Describe and use abstract data types: stacks, queues and linked lists.</li>
+</ul>
+<h2>10.1 Data types and records</h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Holds</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>INTEGER</code></td>
+<td>Whole numbers</td>
+<td>42, −7</td>
+</tr>
+<tr>
+<td><code>REAL</code></td>
+<td>Numbers with a fractional part</td>
+<td>3.14</td>
+</tr>
+<tr>
+<td><code>CHAR</code></td>
+<td>A single character</td>
+<td>'A'</td>
+</tr>
+<tr>
+<td><code>STRING</code></td>
+<td>A sequence of characters</td>
+<td>"Hello"</td>
+</tr>
+<tr>
+<td><code>BOOLEAN</code></td>
+<td>TRUE or FALSE</td>
+<td>TRUE</td>
+</tr>
+<tr>
+<td><code>DATE</code></td>
+<td>A date</td>
+<td>24/10/2026</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Record (user-defined composite type)</strong>: groups related data items of <strong>different</strong> types under one identifier.</p>
+<pre><code>TYPE StudentRecord
+   DECLARE StudentID : STRING
+   DECLARE Name      : STRING
+   DECLARE Mark      : INTEGER
+   DECLARE Passed    : BOOLEAN
+ENDTYPE
+
+DECLARE Pupil : StudentRecord
+Pupil.Name ← &quot;Lola&quot;
+DECLARE Class : ARRAY[1:30] OF StudentRecord
+Class[3].Mark ← 78
+</code></pre>
+<p>Why use a record? It keeps the data about one item together, so it is easier to manage and to pass to subroutines, and it can be stored in arrays and files.</p>
+<h2>10.2 Arrays</h2>
+<ul>
+<li><strong>Array</strong>: a data structure holding a fixed number of items of the <strong>same</strong> data type under one identifier, each accessed by an <strong>index</strong>.</li>
+<li><strong>Lower bound / upper bound</strong>: the first and last index.</li>
+<li>1D: <code>DECLARE Scores : ARRAY[1:10] OF INTEGER</code></li>
+<li>2D: <code>DECLARE Grid : ARRAY[1:5, 1:4] OF CHAR</code> (rows, columns). Access <code>Grid[Row, Col]</code> and use <strong>nested loops</strong> to process it.</li>
+</ul>
+<p><strong>Linear search</strong></p>
+<pre><code>Found ← FALSE
+Index ← 1
+WHILE Found = FALSE AND Index &lt;= 100 DO
+   IF Names[Index] = SearchName
+      THEN
+         Found ← TRUE
+      ELSE
+         Index ← Index + 1
+   ENDIF
+ENDWHILE
+IF Found THEN OUTPUT &quot;Found at &quot;, Index ELSE OUTPUT &quot;Not found&quot; ENDIF
+</code></pre>
+<p><strong>Bubble sort (efficient version with a flag)</strong></p>
+<pre><code>Top ← 100
+REPEAT
+   Swapped ← FALSE
+   FOR i ← 1 TO Top - 1
+      IF Data[i] &gt; Data[i + 1]
+         THEN
+            Temp ← Data[i]
+            Data[i] ← Data[i + 1]
+            Data[i + 1] ← Temp
+            Swapped ← TRUE
+      ENDIF
+   NEXT i
+   Top ← Top - 1
+UNTIL Swapped = FALSE OR Top = 1
+</code></pre>
+<p>The flag means the sort stops as soon as a pass makes no swaps (the data is sorted). <code>Top</code> shrinks because the largest item has "bubbled" to the end.</p>
+<h2>10.3 Files</h2>
+<ul>
+<li>Files store data <strong>permanently</strong>, after the program ends. Arrays and variables live only in RAM while the program runs.</li>
+</ul>
+<pre><code>OPENFILE &quot;Scores.txt&quot; FOR WRITE      // creates or overwrites
+WRITEFILE &quot;Scores.txt&quot;, Line
+CLOSEFILE &quot;Scores.txt&quot;
+
+OPENFILE &quot;Scores.txt&quot; FOR READ
+WHILE NOT EOF(&quot;Scores.txt&quot;) DO
+   READFILE &quot;Scores.txt&quot;, Line
+   OUTPUT Line
+ENDWHILE
+CLOSEFILE &quot;Scores.txt&quot;
+
+OPENFILE &quot;Scores.txt&quot; FOR APPEND     // adds to the end
+</code></pre>
+<p>Exam trap: always <strong>close</strong> the file, and check for <strong>EOF</strong> before each read.</p>
+<h2>10.4 Abstract data types (ADTs)</h2>
+<ul>
+<li><strong>ADT</strong>: a collection of data together with the set of operations on it, defined by <em>what</em> it does, not <em>how</em> it is implemented.</li>
+</ul>
+<h3>Stack (LIFO – last in, first out)</h3>
+<ul>
+<li>Operations: <strong>push</strong> (add to the top), <strong>pop</strong> (remove from the top), peek, isEmpty, isFull.</li>
+<li>Uses a <strong>top pointer</strong>. Uses: subroutine calls and return addresses, interrupt handling, undo, evaluating expressions (Reverse Polish), backtracking.</li>
+</ul>
+<pre><code>PROCEDURE Push(Item)
+   IF TopPointer = MaxSize
+      THEN OUTPUT &quot;Stack full&quot;
+      ELSE
+         TopPointer ← TopPointer + 1
+         Stack[TopPointer] ← Item
+   ENDIF
+ENDPROCEDURE
+</code></pre>
+<h3>Queue (FIFO – first in, first out)</h3>
+<ul>
+<li>Operations: <strong>enqueue</strong> (add at the rear), <strong>dequeue</strong> (remove from the front).</li>
+<li>Uses <strong>front</strong> and <strong>rear</strong> pointers. A <strong>circular queue</strong> wraps the rear pointer back to the start, so freed space is reused.</li>
+<li>Uses: print queues, keyboard buffers, process scheduling.</li>
+</ul>
+<pre><code>PROCEDURE Enqueue(Item)
+   IF NumItems = MaxSize THEN OUTPUT &quot;Queue full&quot;
+   ELSE
+      Rear ← Rear + 1
+      IF Rear &gt; MaxSize THEN Rear ← 1 ENDIF
+      Queue[Rear] ← Item
+      NumItems ← NumItems + 1
+   ENDIF
+ENDPROCEDURE
+</code></pre>
+<h3>Linked list</h3>
+<ul>
+<li><strong>Linked list</strong>: a dynamic ADT in which each <strong>node</strong> holds data and a <strong>pointer</strong> to the next node. A <strong>start pointer</strong> gives the first node; a <strong>null pointer</strong> (e.g. −1 or 0) marks the end.</li>
+<li>A <strong>free list</strong> keeps track of unused nodes.</li>
+<li><strong>Insert</strong>: take a node from the free list, store the data, find the correct position, and change pointers so the previous node points to the new node and the new node points to the next one.</li>
+<li><strong>Delete</strong>: change the previous node's pointer to skip the node, then return it to the free list.</li>
+<li>Benefit: nodes can be added or removed without moving other data. Drawback: you must follow pointers from the start (no direct access), and pointers use extra memory.</li>
+</ul>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>Use a <strong>record</strong> when data items of different types belong together, and an <strong>array</strong> when items have the same type.</li>
+<li>In 2D array questions, check whether the question uses [row, column] and stick to it.</li>
+<li>In stack and queue procedures, check for <strong>full</strong> before adding and <strong>empty</strong> before removing.</li>
+<li>In linked list traces, update pointers in the <strong>right order</strong>, or you lose the rest of the list.</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>Write a record type for a book with ISBN, title, price and on-loan status.</li>
+<li>Explain why a flag makes a bubble sort more efficient.</li>
+<li>State the difference between a stack and a queue, with one use of each.</li>
+<li>Describe the steps to delete a node from a linked list.</li>
+</ol></article><nav class="notes-nav"><a class="mini" href="/revision-notes/cs/09-algorithm-design/">← Algorithm design and problem-solving</a><a class="mini" href="/revision-notes/cs/11-programming/">Programming →</a></nav></div></main>
+<footer class="foot"><div class="wrap"><div class="foot-grid"><div class="foot-brand"><a class="brand" href="/" aria-label="BeforeExams home"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x="4" y="4" width="25" height="9" rx="3.2" fill="#F57C00"/><rect x="8" y="6.9" width="8" height="2.2" rx="1.1" fill="#1A1A18"/><rect x="7" y="15.5" width="29" height="9" rx="3.2" fill="#4FC79A"/><rect x="11" y="18.4" width="8" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/><rect x="3" y="27" width="31" height="10" rx="3.2" fill="#0F5C46"/><rect x="7" y="30.4" width="9" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/></svg><span class="font-brand brand-word">Before<span>Exams</span></span></a><p>Free revision for Cambridge IGCSE and AS &amp; A Level students.</p><p class="foot-mail">Email: <a href="mailto:dusboyevc@gmail.com">dusboyevc@gmail.com</a></p></div><nav class="foot-col" aria-label="Library"><h2>Library</h2><a href="/#/?mode=topicals" data-foot-mode="topicals">Topical questions</a><a href="/#/?mode=papers" data-foot-mode="papers">Past papers</a><a href="/#/?mode=notes" data-foot-mode="notes">Revision notes</a><a href="/#/?mode=guide" data-foot-mode="guide">Exam guide</a><a href="/#/?mode=trends" data-foot-mode="trends">Topic trends</a></nav><nav class="foot-col" aria-label="IGCSE"><h2>IGCSE</h2><a href="/subjects/igcse-physics-0625/">Physics</a><a href="/subjects/igcse-chemistry-0620/">Chemistry</a><a href="/subjects/igcse-biology-0610/">Biology</a><a href="/subjects/igcse-mathematics-0580/">Mathematics</a><a href="/subjects/igcse-computer-science-0478/">Computer Science</a></nav><nav class="foot-col" aria-label="AS &amp; A Level"><h2>AS &amp; A Level</h2><a href="/subjects/a-level-physics-9702/">Physics</a><a href="/subjects/a-level-chemistry-9701/">Chemistry</a><a href="/subjects/a-level-biology-9700/">Biology</a><a href="/subjects/a-level-mathematics-9709/">Mathematics</a><a href="/subjects/a-level-computer-science-9618/">Computer Science</a></nav><nav class="foot-col" aria-label="BeforeExams"><h2>BeforeExams</h2><a href="/about/">About and authors</a><a href="/revision-notes/">All revision notes</a><a href="/#/account">My account</a><a href="/#/account">Mock tests</a></nav></div><p class="foot-note">Past papers and mark schemes © Cambridge University Press &amp; Assessment. BeforeExams is an independent study site, not affiliated with Cambridge.</p><div class="foot-bar"><span>© 2026 BeforeExams. Made by <b>DusboyevC</b> and <b>Magnetars</b>.</span><a href="/privacy/">Privacy Policy</a></div></div></footer>
+</body>
+</html>

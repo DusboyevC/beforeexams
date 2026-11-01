@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hardware: IGCSE Computer Science 0478 revision notes | BeforeExams</title>
+<meta name="description" content="The CPU and the Von Neumann architecture CPU : processes instructions and data by carrying out the fetch–decode–execute (FDE) cycle . Von Neumann…">
+<meta property="og:title" content="Hardware: IGCSE Computer Science 0478 revision notes | BeforeExams">
+<meta property="og:description" content="The CPU and the Von Neumann architecture CPU : processes instructions and data by carrying out the fetch–decode–execute (FDE) cycle . Von Neumann…">
+<meta property="og:url" content="https://beforexams.netlify.app/revision-notes/ig-cs/03-hardware/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BeforeExams">
+<link rel="canonical" href="https://beforexams.netlify.app/revision-notes/ig-cs/03-hardware/">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/style.css">
+<script>try{if(localStorage.getItem("be-theme")==="light")document.documentElement.classList.remove("dark")}catch(e){}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Hardware", "educationalLevel": "IGCSE", "about": "Computer Science", "author": [{"@type": "Person", "name": "DusboyevC"}, {"@type": "Person", "name": "Magnetars"}], "url": "https://beforexams.netlify.app/revision-notes/ig-cs/03-hardware/"}</script>
+</head>
+<body data-view="static" data-glow="cs">
+<header class="topbar"><div class="wrap topbar-inner">
+<a href="/" class="brand" aria-label="BeforeExams home"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x="4" y="4" width="25" height="9" rx="3.2" fill="#F57C00"/><rect x="8" y="6.9" width="8" height="2.2" rx="1.1" fill="#1A1A18"/><rect x="7" y="15.5" width="29" height="9" rx="3.2" fill="#4FC79A"/><rect x="11" y="18.4" width="8" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/><rect x="3" y="27" width="31" height="10" rx="3.2" fill="#0F5C46"/><rect x="7" y="30.4" width="9" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/></svg><span class="font-brand brand-word">Before<span>Exams</span></span></a>
+<nav class="topbar-actions" aria-label="Main"><a href="/#library" class="nav-link">Library</a><a href="/revision-notes/" class="nav-link">Notes</a><a href="/about/" class="nav-link">About</a></nav>
+</div></header>
+<main class="page"><div class="wrap static-page"><p class="label-caps eyebrow"><a href="/subjects/igcse-computer-science-0478/">IGCSE Computer Science 0478</a></p><article class="notes"><h1>3 Hardware</h1>
+<h2>The CPU and the Von Neumann architecture</h2>
+<ul>
+<li><strong>CPU</strong>: processes instructions and data by carrying out the <strong>fetch–decode–execute (FDE) cycle</strong>.</li>
+<li><strong>Von Neumann architecture</strong>: data and instructions are stored <strong>together</strong> in the same memory (the <strong>stored program concept</strong>).</li>
+<li><strong>Components</strong>:</li>
+<li><strong>ALU</strong>: performs arithmetic and logic operations. It contains the <strong>accumulator (ACC)</strong>, which holds results.</li>
+<li><strong>CU (control unit)</strong>: decodes instructions and sends control signals to manage the FDE cycle.</li>
+<li><strong>Registers</strong>: <strong>PC</strong> (address of the next instruction), <strong>MAR</strong> (address to fetch from or write to), <strong>MDR</strong> (the data or instruction fetched), <strong>CIR</strong> (the current instruction), <strong>ACC</strong>.</li>
+<li>
+<p><strong>Buses</strong>: the <strong>address bus</strong> carries addresses (one direction); the <strong>data bus</strong> carries data (both directions); the <strong>control bus</strong> carries signals (both directions).</p>
+</li>
+<li>
+<p><strong>FDE cycle (fetch stage)</strong>: the address in the <strong>PC</strong> is copied to the <strong>MAR</strong>; the PC is <strong>incremented</strong>; the instruction is fetched from <strong>memory</strong> (RAM) along the data bus into the <strong>MDR</strong>; it is copied to the <strong>CIR</strong>. The CU then decodes it, and it is executed.</p>
+</li>
+<li><strong>Performance</strong>:</li>
+<li><strong>Clock speed</strong> (GHz): more cycles per second means more instructions per second.</li>
+<li><strong>Number of cores</strong>: more instructions can be processed at the same time.</li>
+<li>
+<p><strong>Cache size</strong>: frequently used data is held close to the CPU, so access is faster than from RAM.</p>
+</li>
+<li>
+<p><strong>Instruction set</strong>: the list of all the machine-code commands a CPU can process.</p>
+</li>
+<li><strong>Embedded system</strong>: a computer system with a <strong>dedicated function</strong> inside a larger device, e.g. a washing machine, microwave, car engine or traffic light. Small, cheap, low power; difficult to update.</li>
+</ul>
+<h2>Input and output devices</h2>
+<ul>
+<li><strong>Input</strong>: barcode scanner, digital camera, keyboard, microphone, optical mouse, QR code scanner, touch screen (resistive, capacitive, infrared), 2D and 3D scanners, <strong>sensors</strong>.</li>
+<li><strong>Output</strong>: actuator, DLP and LCD projectors, inkjet, laser and 3D printers, LED and LCD screens, speakers.</li>
+<li><strong>Sensors</strong>: input devices that measure a physical property. Types include acoustic, accelerometer, flow, gas, humidity, infrared, level, light, magnetic field, moisture, pH, pressure, proximity and temperature.</li>
+</ul>
+<h2>Data storage</h2>
+<ul>
+<li><strong>Primary storage</strong>: directly accessed by the CPU.</li>
+<li><strong>RAM</strong>: <strong>volatile</strong>; read and write; holds the data and programs <strong>currently in use</strong>.</li>
+<li>
+<p><strong>ROM</strong>: <strong>non-volatile</strong>; read only; holds the <strong>start-up instructions (bootstrap)</strong>.</p>
+</li>
+<li>
+<p><strong>Secondary storage</strong>: non-volatile, long-term storage.</p>
+</li>
+<li><strong>Magnetic (HDD)</strong>: platters coated in magnetic material, with a read/write head. Areas are magnetised to represent 1 or 0. Cheap and high capacity, but has <strong>moving parts</strong>, so it can be damaged and is slower.</li>
+<li><strong>Optical (CD, DVD, Blu-ray)</strong>: a <strong>laser</strong> reads and writes <strong>pits and lands</strong> on a spiral track. Portable and cheap, but low capacity and easily scratched.</li>
+<li>
+<p><strong>Solid-state (SSD, flash memory)</strong>: <strong>transistors (NAND/NOR gates)</strong> with control gates and floating gates trap electrons to store data. <strong>No moving parts</strong>, so it is fast, robust, quiet and low power; more expensive.</p>
+</li>
+<li>
+<p><strong>Virtual memory</strong>: when RAM is full, part of <strong>secondary storage</strong> is used as temporary RAM. Pages of data are swapped between RAM and secondary storage. It lets more programs run, but it is <strong>slower</strong>.</p>
+</li>
+<li><strong>Cloud storage</strong>: data stored on <strong>remote servers</strong> accessed over the internet.</li>
+<li>Benefits: access from anywhere; automatic backups; scalable; no local hardware.</li>
+<li>Drawbacks: needs an internet connection; security and privacy risks; ongoing cost; you depend on the provider.</li>
+</ul>
+<h2>Network hardware</h2>
+<ul>
+<li><strong>NIC (network interface card)</strong>: lets a device connect to a network. It is given a <strong>MAC address</strong> at manufacture.</li>
+<li><strong>MAC address</strong>: a <strong>unique</strong> 48-bit address for each device, written in <strong>hexadecimal</strong>. The first half is the manufacturer ID and the second half is the device serial number. It is <strong>static</strong>.</li>
+<li><strong>IP address</strong>: assigned to a device on a network so data can be routed to it.</li>
+<li><strong>IPv4</strong>: 32 bits, 4 denary numbers 0–255 (e.g. 192.168.0.1).</li>
+<li><strong>IPv6</strong>: 128 bits, 8 groups of hex digits; created because IPv4 addresses are running out.</li>
+<li>
+<p><strong>Static</strong> (fixed) or <strong>dynamic</strong> (assigned each time the device connects).</p>
+</li>
+<li>
+<p><strong>Router</strong>: sends data packets between networks; reads the destination IP address and forwards each packet to the correct device or network; can assign IP addresses.</p>
+</li>
+</ul>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>In fetch-stage answers, mention <strong>PC → MAR</strong>, the PC incremented, <strong>memory → MDR → CIR</strong>, and the buses.</li>
+<li>RAM is volatile and holds what is <strong>currently in use</strong>. ROM holds the <strong>start-up</strong> instructions.</li>
+<li>In SSD answers, mention <strong>transistors, control gates, floating gates</strong> and that it has <strong>no moving parts</strong>.</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>Describe the role of the MAR in the fetch stage.</li>
+<li>Give two reasons why an SSD is used in a smartphone rather than an HDD.</li>
+<li>State two differences between a MAC address and an IP address.</li>
+</ol></article><nav class="notes-nav"><a class="mini" href="/revision-notes/ig-cs/02-data-transmission/">← Data transmission</a><a class="mini" href="/revision-notes/ig-cs/04-software/">Software →</a></nav></div></main>
+<footer class="foot"><div class="wrap"><div class="foot-grid"><div class="foot-brand"><a class="brand" href="/" aria-label="BeforeExams home"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x="4" y="4" width="25" height="9" rx="3.2" fill="#F57C00"/><rect x="8" y="6.9" width="8" height="2.2" rx="1.1" fill="#1A1A18"/><rect x="7" y="15.5" width="29" height="9" rx="3.2" fill="#4FC79A"/><rect x="11" y="18.4" width="8" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/><rect x="3" y="27" width="31" height="10" rx="3.2" fill="#0F5C46"/><rect x="7" y="30.4" width="9" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/></svg><span class="font-brand brand-word">Before<span>Exams</span></span></a><p>Free revision for Cambridge IGCSE and AS &amp; A Level students.</p><p class="foot-mail">Email: <a href="mailto:dusboyevc@gmail.com">dusboyevc@gmail.com</a></p></div><nav class="foot-col" aria-label="Library"><h2>Library</h2><a href="/#/?mode=topicals" data-foot-mode="topicals">Topical questions</a><a href="/#/?mode=papers" data-foot-mode="papers">Past papers</a><a href="/#/?mode=notes" data-foot-mode="notes">Revision notes</a><a href="/#/?mode=guide" data-foot-mode="guide">Exam guide</a><a href="/#/?mode=trends" data-foot-mode="trends">Topic trends</a></nav><nav class="foot-col" aria-label="IGCSE"><h2>IGCSE</h2><a href="/subjects/igcse-physics-0625/">Physics</a><a href="/subjects/igcse-chemistry-0620/">Chemistry</a><a href="/subjects/igcse-biology-0610/">Biology</a><a href="/subjects/igcse-mathematics-0580/">Mathematics</a><a href="/subjects/igcse-computer-science-0478/">Computer Science</a></nav><nav class="foot-col" aria-label="AS &amp; A Level"><h2>AS &amp; A Level</h2><a href="/subjects/a-level-physics-9702/">Physics</a><a href="/subjects/a-level-chemistry-9701/">Chemistry</a><a href="/subjects/a-level-biology-9700/">Biology</a><a href="/subjects/a-level-mathematics-9709/">Mathematics</a><a href="/subjects/a-level-computer-science-9618/">Computer Science</a></nav><nav class="foot-col" aria-label="BeforeExams"><h2>BeforeExams</h2><a href="/about/">About and authors</a><a href="/revision-notes/">All revision notes</a><a href="/#/account">My account</a><a href="/#/account">Mock tests</a></nav></div><p class="foot-note">Past papers and mark schemes © Cambridge University Press &amp; Assessment. BeforeExams is an independent study site, not affiliated with Cambridge.</p><div class="foot-bar"><span>© 2026 BeforeExams. Made by <b>DusboyevC</b> and <b>Magnetars</b>.</span><a href="/privacy/">Privacy Policy</a></div></div></footer>
+</body>
+</html>

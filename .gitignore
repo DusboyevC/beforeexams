@@ -1,0 +1,30 @@
+# Tools and caches
+.venv/
+__pycache__/
+*.pyc
+.netlify/
+.wrangler/
+.claude/
+node_modules/
+
+# Exam papers and anything built from them: code only in this repository
+*.pdf
+pipeline/rebuilt/
+pipeline/old_topicals/
+pipeline/igs/*
+!pipeline/igs/*.py
+pipeline/igt/*
+!pipeline/igt/*.py
+pipeline/data/
+pipeline/fonts/
+*.log
+*.err
+pipeline/als/*.json
+pipeline/als/review/
+pipeline/als/final/
+syllabi/
+
+# Private working notes and copies
+HANDOFF.md
+PROGRESS.md
+supabase_admin_copy_this.txt

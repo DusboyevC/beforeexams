@@ -1,0 +1,65 @@
+<h1>5 Probability and Statistics 1</h1>
+<h2>5.1 Representation of data</h2>
+<ul>
+<li><strong>Diagrams</strong>: stem-and-leaf (include a key; back-to-back for comparing two sets), box-and-whisker plots, histograms, and cumulative frequency graphs.</li>
+<li><strong>Histogram</strong>: the bars have <strong>no gaps</strong>, and the <strong>area ∝ frequency</strong>, so <strong>frequency density = frequency ÷ class width</strong>. Use the true class boundaries (e.g. 10–19 becomes 9.5–19.5).</li>
+<li><strong>Cumulative frequency</strong>: plot at the <strong>upper class boundaries</strong>. Read the median (n/2), the quartiles (n/4, 3n/4), and percentiles.</li>
+<li><strong>Measures of location</strong>: mean x̄ = Σfx/Σf (use midpoints for grouped data), median, mode.</li>
+<li><strong>Measures of spread</strong>: range, interquartile range (IQR = Q₃ − Q₁), standard deviation.</li>
+<li><strong>Variance</strong>: σ² = Σx²/n − x̄² = Σf x²/Σf − x̄².</li>
+<li><strong>Coded data</strong>: if y = x − a, then Σ(x − a) and Σ(x − a)² give x̄ = a + Σ(x − a)/n, and the standard deviation is unchanged by the shift.</li>
+<li><strong>Choosing a measure</strong>: the median and IQR are not affected by extreme values (outliers); the mean and standard deviation use all the data.</li>
+</ul>
+<h2>5.2 Permutations and combinations</h2>
+<ul>
+<li>Arranging n distinct items in a row: <strong>n!</strong>.</li>
+<li>With repeated items: n!/(p!q!…).</li>
+<li><strong>Permutations</strong> (order matters): ⁿPᵣ = n!/(n − r)!.</li>
+<li><strong>Combinations</strong> (order doesn't matter): ⁿCᵣ = n!/(r!(n − r)!).</li>
+<li><strong>Items together</strong>: treat them as one block, then multiply by the number of arrangements inside the block.</li>
+<li><strong>Items not together</strong>: (total arrangements) − (arrangements together), <strong>or</strong> arrange the others first and place the separated items in the gaps.</li>
+<li><strong>Selections with conditions</strong>: split into cases and add.</li>
+</ul>
+<h2>5.3 Probability</h2>
+<ul>
+<li>P(A′) = 1 − P(A).</li>
+<li><strong>P(A ∪ B) = P(A) + P(B) − P(A ∩ B)</strong>.</li>
+<li><strong>Mutually exclusive</strong>: P(A ∩ B) = 0.</li>
+<li><strong>Independent</strong>: <strong>P(A ∩ B) = P(A) × P(B)</strong>.</li>
+<li><strong>Conditional probability</strong>: <strong>P(A | B) = P(A ∩ B)/P(B)</strong>.</li>
+<li>Use tree diagrams (multiply along the branches, add between outcomes) and Venn diagrams.</li>
+</ul>
+<h2>5.4 Discrete random variables</h2>
+<ul>
+<li>A probability distribution table: ΣP(X = x) = 1.</li>
+<li><strong>E(X) = Σx p</strong>; <strong>Var(X) = Σx² p − [E(X)]²</strong>.</li>
+<li><strong>Binomial B(n, p)</strong>: n independent trials, each with two outcomes and constant probability p of success.</li>
+<li>
+<p><strong>P(X = r) = ⁿCᵣ pʳ(1 − p)ⁿ⁻ʳ</strong>; E(X) = np; Var(X) = np(1 − p).</p>
+</li>
+<li>
+<p><strong>Geometric Geo(p)</strong>: the number of trials up to and including the <strong>first</strong> success.</p>
+</li>
+<li><strong>P(X = r) = (1 − p)ʳ⁻¹ p</strong>; P(X &gt; r) = (1 − p)ʳ; E(X) = 1/p.</li>
+</ul>
+<h2>5.5 The normal distribution</h2>
+<ul>
+<li><strong>X ~ N(μ, σ²)</strong>: a symmetrical, bell-shaped curve. Standardise with <strong>Z = (X − μ)/σ</strong> and use tables of Φ(z).</li>
+<li>P(Z &lt; −a) = 1 − Φ(a).</li>
+<li><strong>Finding μ or σ</strong>: write the z-values from the tables, set up equations such as (k − μ)/σ = z, and solve simultaneously.</li>
+<li><strong>Normal approximation to the binomial</strong>: valid if <strong>np &gt; 5 and nq &gt; 5</strong>. Use μ = np and σ² = npq, with a <strong>continuity correction</strong> (e.g. P(X ≤ 20) becomes P(Y &lt; 20.5)).</li>
+</ul>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>Histograms: frequency <strong>density</strong>, and use the class boundaries.</li>
+<li>In permutation questions, decide first: does order matter? Are items identical? Are there restrictions?</li>
+<li>To show independence, check <strong>P(A ∩ B) = P(A)P(B)</strong> numerically.</li>
+<li>Always apply the <strong>continuity correction</strong> when approximating a binomial by a normal distribution.</li>
+<li>Give probabilities to 3 significant figures.</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>How many arrangements of the letters of BANANA are there? <em>(60)</em></li>
+<li>X ~ B(10, 0.3). Find P(X = 2). <em>(0.233)</em></li>
+<li>X ~ N(50, 16). Find P(X &gt; 56). <em>(0.0668)</em></li>
+</ol>

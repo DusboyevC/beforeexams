@@ -1,0 +1,37 @@
+<h1>3.8 Differential equations</h1>
+<h2>Forming a differential equation</h2>
+<ul>
+<li>Translate the wording: "the rate of change of x is proportional to x" → <strong>dx/dt = kx</strong>.</li>
+<li>"Decreases at a rate proportional to the square root of h" → dh/dt = −k√h.</li>
+<li>Include a <strong>negative sign</strong> for a decreasing quantity (when k is taken as positive).</li>
+</ul>
+<h2>Separating the variables</h2>
+<p>For dy/dx = f(x)g(y):</p>
+<ol>
+<li>Rearrange to <strong>∫ 1/g(y) dy = ∫ f(x) dx</strong>.</li>
+<li>Integrate both sides and include <strong>one</strong> constant c.</li>
+<li>Use the initial conditions to find c (and k, if needed).</li>
+<li>Rearrange for y if asked.</li>
+</ol>
+<p>Example: dy/dx = xy² with y = 1 when x = 0.
+∫y⁻² dy = ∫x dx → −1/y = x²/2 + c. At x = 0, y = 1, so c = −1. So <strong>y = 2/(2 − x²)</strong>.</p>
+<h2>Exponential growth and decay</h2>
+<ul>
+<li>dN/dt = −kN gives <strong>N = N₀e^(−kt)</strong>.</li>
+<li>With ln: ∫dN/N = −∫k dt gives ln N = −kt + c.</li>
+</ul>
+<h2>Interpreting the solution</h2>
+<ul>
+<li>Questions often ask what happens as t → ∞: the long-term value, or when the quantity reaches a given level.</li>
+</ul>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>Separate the variables correctly before integrating; don't integrate a product directly.</li>
+<li>Keep <strong>ln|y|</strong> where needed, and combine the constants carefully: ln y = kt + c gives y = Ae^(kt).</li>
+<li>Answer in context: state the time with units, or the long-term behaviour.</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>Solve dy/dx = y cos x, given y = 2 when x = 0. <em>(y = 2e^(sin x))</em></li>
+<li>A population grows at a rate proportional to its size and doubles in 5 years. Find k. <em>(ln 2 / 5)</em></li>
+</ol>

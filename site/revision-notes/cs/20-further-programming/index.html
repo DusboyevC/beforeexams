@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Further programming: AS &amp; A Level Computer Science 9618 revision notes | BeforeExams</title>
+<meta name="description" content="What you must be able to do Describe the programming paradigms: low-level, imperative (procedural), object-oriented and declarative. Write OOP code…">
+<meta property="og:title" content="Further programming: AS &amp; A Level Computer Science 9618 revision notes | BeforeExams">
+<meta property="og:description" content="What you must be able to do Describe the programming paradigms: low-level, imperative (procedural), object-oriented and declarative. Write OOP code…">
+<meta property="og:url" content="https://beforexams.netlify.app/revision-notes/cs/20-further-programming/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BeforeExams">
+<link rel="canonical" href="https://beforexams.netlify.app/revision-notes/cs/20-further-programming/">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/style.css">
+<script>try{if(localStorage.getItem("be-theme")==="light")document.documentElement.classList.remove("dark")}catch(e){}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Further programming", "educationalLevel": "AS & A Level", "about": "Computer Science", "author": [{"@type": "Person", "name": "DusboyevC"}, {"@type": "Person", "name": "Magnetars"}], "url": "https://beforexams.netlify.app/revision-notes/cs/20-further-programming/"}</script>
+</head>
+<body data-view="static" data-glow="cs">
+<header class="topbar"><div class="wrap topbar-inner">
+<a href="/" class="brand" aria-label="BeforeExams home"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x="4" y="4" width="25" height="9" rx="3.2" fill="#F57C00"/><rect x="8" y="6.9" width="8" height="2.2" rx="1.1" fill="#1A1A18"/><rect x="7" y="15.5" width="29" height="9" rx="3.2" fill="#4FC79A"/><rect x="11" y="18.4" width="8" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/><rect x="3" y="27" width="31" height="10" rx="3.2" fill="#0F5C46"/><rect x="7" y="30.4" width="9" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/></svg><span class="font-brand brand-word">Before<span>Exams</span></span></a>
+<nav class="topbar-actions" aria-label="Main"><a href="/#library" class="nav-link">Library</a><a href="/revision-notes/" class="nav-link">Notes</a><a href="/about/" class="nav-link">About</a></nav>
+</div></header>
+<main class="page"><div class="wrap static-page"><p class="label-caps eyebrow"><a href="/subjects/a-level-computer-science-9618/">AS &amp; A Level Computer Science 9618</a></p><article class="notes"><h1>20 Further programming</h1>
+<h2>What you must be able to do</h2>
+<ul>
+<li>Describe the programming paradigms: low-level, imperative (procedural), object-oriented and declarative.</li>
+<li>Write OOP code using classes, objects, attributes, methods, constructors, inheritance, polymorphism, encapsulation, containment, getters and setters.</li>
+<li>Write declarative (Prolog-style) facts, rules and goals, and work out what a query returns.</li>
+<li>Use serial, sequential and random file handling, and exception handling.</li>
+</ul>
+<h2>20.1 Programming paradigms</h2>
+<ul>
+<li><strong>Programming paradigm</strong>: a style or way of programming, with its own concepts and approach.</li>
+<li><strong>Low-level</strong>: assembly or machine code, which directly controls the hardware and registers. Fast and memory-efficient; specific to one processor; hard to write and maintain. Used for embedded systems and device drivers.</li>
+<li><strong>Imperative (procedural)</strong>: the program is a sequence of instructions that change the program state, organised into procedures and functions, e.g. Python, Pascal, C.</li>
+<li><strong>Object-oriented (OOP)</strong>: the program is built from <strong>objects</strong> that combine data and the methods that act on it, e.g. Java, Python, VB.</li>
+<li><strong>Declarative</strong>: you state <strong>what</strong> the problem is (facts and rules) and the system works out <strong>how</strong> to solve it, e.g. Prolog, SQL.</li>
+</ul>
+<h3>Object-oriented programming: key terms</h3>
+<ul>
+<li><strong>Class</strong>: a template or blueprint that defines the attributes and methods for a type of object.</li>
+<li><strong>Object</strong>: an <strong>instance</strong> of a class, with its own attribute values.</li>
+<li><strong>Attribute (property)</strong>: data stored in an object.</li>
+<li><strong>Method</strong>: a procedure or function defined in a class that acts on the object's data.</li>
+<li><strong>Constructor</strong>: a special method that runs when an object is created (instantiated) and sets the initial attribute values.</li>
+<li><strong>Encapsulation</strong>: data and methods are bundled together in a class, and attributes are made <strong>PRIVATE</strong>, so they can only be accessed through the object's methods. This protects the data from accidental change and hides how it works.</li>
+<li><strong>Getter / setter</strong>: public methods that return (get) or change (set) a private attribute, so the setter can validate new values.</li>
+<li><strong>Inheritance</strong>: a <strong>subclass (child)</strong> takes on all the attributes and methods of its <strong>superclass (parent)</strong> and can add its own. This gives code reuse and a clear "is a" hierarchy.</li>
+<li><strong>Polymorphism</strong>: a subclass method has the same name as a superclass method but a different implementation (<strong>overriding</strong>), so the same call behaves correctly for each object type.</li>
+<li><strong>Containment (aggregation)</strong>: an object contains other objects as attributes, a "has a" relationship, e.g. a Car contains an Engine.</li>
+</ul>
+<pre><code>CLASS Animal
+   PRIVATE Name : STRING
+   PUBLIC PROCEDURE NEW(GivenName : STRING)      // constructor
+      Name ← GivenName
+   ENDPROCEDURE
+   PUBLIC FUNCTION GetName() RETURNS STRING
+      RETURN Name
+   ENDFUNCTION
+   PUBLIC FUNCTION Speak() RETURNS STRING
+      RETURN &quot;...&quot;
+   ENDFUNCTION
+ENDCLASS
+
+CLASS Dog INHERITS Animal
+   PUBLIC FUNCTION Speak() RETURNS STRING     // overrides: polymorphism
+      RETURN &quot;Woof&quot;
+   ENDFUNCTION
+ENDCLASS
+
+DECLARE Pet : Dog
+Pet ← NEW Dog(&quot;Rex&quot;)
+OUTPUT Pet.GetName(), Pet.Speak()
+</code></pre>
+<h3>Declarative programming (Prolog style)</h3>
+<ul>
+<li><strong>Facts</strong>: things that are unconditionally true. <code>parent(ali, sara).</code>  <code>likes(sara, maths).</code></li>
+<li><strong>Rules</strong>: true if their conditions are met. <code>grandparent(X, Z) :- parent(X, Y), parent(Y, Z).</code> (<code>:-</code> means "if"; the comma means AND.)</li>
+<li><strong>Goal (query)</strong>: a question; the system searches the facts and rules for values that make it true. <code>?- parent(ali, Who).</code> returns Who = sara.</li>
+<li><strong>Variables</strong> start with an upper-case letter; constants start with a lower-case letter.</li>
+<li><strong>Backtracking</strong>: when one route fails, the system goes back to try other matches, so it finds every solution.</li>
+</ul>
+<h2>20.2 File processing and exception handling</h2>
+<h3>Random (direct access) files</h3>
+<ul>
+<li>Records are of a fixed size, so the position of any record can be calculated.</li>
+</ul>
+<pre><code>OPENFILE &quot;Stock.dat&quot; FOR RANDOM
+SEEK &quot;Stock.dat&quot;, Address          // move to the record position
+GETRECORD &quot;Stock.dat&quot;, ThisItem     // read the record into a variable of the record type
+PUTRECORD &quot;Stock.dat&quot;, ThisItem     // write the record at the current position
+CLOSEFILE &quot;Stock.dat&quot;
+</code></pre>
+<ul>
+<li>Combined with a hashing algorithm, the address is calculated from the key, giving <strong>direct access</strong>.</li>
+<li>Serial and sequential files: read records in order until EOF. To add a record to a sequential file, copy the records to a new file, inserting the new record in its correct position.</li>
+</ul>
+<h3>Exception handling</h3>
+<ul>
+<li><strong>Exception</strong>: an unexpected event during execution that disrupts normal flow, e.g. dividing by zero, a missing file, invalid input, or an array index out of range.</li>
+<li><strong>Exception handling</strong>: code that <strong>catches</strong> the exception and deals with it, so the program does not crash. It can show a helpful message, ask for the input again, or close down safely.</li>
+</ul>
+<pre><code>TRY
+   OPENFILE &quot;Data.txt&quot; FOR READ
+   ...
+EXCEPT
+   OUTPUT &quot;File could not be opened&quot;
+ENDTRY
+</code></pre>
+<ul>
+<li>Why use it: the program doesn't crash; users get meaningful error messages; files and data stay safe (e.g. files are closed properly).</li>
+</ul>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>OOP definitions are reliable marks. <strong>Encapsulation</strong> = private attributes accessed through public methods; <strong>inheritance</strong> = the subclass gets the attributes and methods of the superclass; <strong>polymorphism</strong> = the same method name, with a different implementation.</li>
+<li>In Paper 4, write the constructor <strong>first</strong> and declare attributes as private.</li>
+<li>In Prolog queries, list <strong>every</strong> solution found by backtracking, in the order the facts appear.</li>
+<li>Exception handling: say what the exception <strong>is</strong> and what the handler <strong>does</strong>.</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>Explain the difference between a class and an object.</li>
+<li>Explain how inheritance reduces the amount of code that must be written.</li>
+<li>Given <code>parent(ali, sara). parent(sara, tim).</code> and the grandparent rule, what does <code>?- grandparent(ali, X).</code> return? <em>(X = tim)</em></li>
+<li>Give two exceptions that could happen when reading a file, and how to handle them.</li>
+</ol></article><nav class="notes-nav"><a class="mini" href="/revision-notes/cs/19-computational-thinking/">← Computational thinking and problem-solving</a><span></span></nav></div></main>
+<footer class="foot"><div class="wrap"><div class="foot-grid"><div class="foot-brand"><a class="brand" href="/" aria-label="BeforeExams home"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x="4" y="4" width="25" height="9" rx="3.2" fill="#F57C00"/><rect x="8" y="6.9" width="8" height="2.2" rx="1.1" fill="#1A1A18"/><rect x="7" y="15.5" width="29" height="9" rx="3.2" fill="#4FC79A"/><rect x="11" y="18.4" width="8" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/><rect x="3" y="27" width="31" height="10" rx="3.2" fill="#0F5C46"/><rect x="7" y="30.4" width="9" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/></svg><span class="font-brand brand-word">Before<span>Exams</span></span></a><p>Free revision for Cambridge IGCSE and AS &amp; A Level students.</p><p class="foot-mail">Email: <a href="mailto:dusboyevc@gmail.com">dusboyevc@gmail.com</a></p></div><nav class="foot-col" aria-label="Library"><h2>Library</h2><a href="/#/?mode=topicals" data-foot-mode="topicals">Topical questions</a><a href="/#/?mode=papers" data-foot-mode="papers">Past papers</a><a href="/#/?mode=notes" data-foot-mode="notes">Revision notes</a><a href="/#/?mode=guide" data-foot-mode="guide">Exam guide</a><a href="/#/?mode=trends" data-foot-mode="trends">Topic trends</a></nav><nav class="foot-col" aria-label="IGCSE"><h2>IGCSE</h2><a href="/subjects/igcse-physics-0625/">Physics</a><a href="/subjects/igcse-chemistry-0620/">Chemistry</a><a href="/subjects/igcse-biology-0610/">Biology</a><a href="/subjects/igcse-mathematics-0580/">Mathematics</a><a href="/subjects/igcse-computer-science-0478/">Computer Science</a></nav><nav class="foot-col" aria-label="AS &amp; A Level"><h2>AS &amp; A Level</h2><a href="/subjects/a-level-physics-9702/">Physics</a><a href="/subjects/a-level-chemistry-9701/">Chemistry</a><a href="/subjects/a-level-biology-9700/">Biology</a><a href="/subjects/a-level-mathematics-9709/">Mathematics</a><a href="/subjects/a-level-computer-science-9618/">Computer Science</a></nav><nav class="foot-col" aria-label="BeforeExams"><h2>BeforeExams</h2><a href="/about/">About and authors</a><a href="/revision-notes/">All revision notes</a><a href="/#/account">My account</a><a href="/#/account">Mock tests</a></nav></div><p class="foot-note">Past papers and mark schemes © Cambridge University Press &amp; Assessment. BeforeExams is an independent study site, not affiliated with Cambridge.</p><div class="foot-bar"><span>© 2026 BeforeExams. Made by <b>DusboyevC</b> and <b>Magnetars</b>.</span><a href="/privacy/">Privacy Policy</a></div></div></footer>
+</body>
+</html>

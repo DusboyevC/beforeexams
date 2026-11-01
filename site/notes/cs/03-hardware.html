@@ -1,0 +1,181 @@
+<h1>3 Hardware</h1>
+<h2>What you must be able to do</h2>
+<ul>
+<li>Describe input, output and storage devices, and explain how the main ones work.</li>
+<li>Explain the roles of RAM, ROM and buffers, and compare SRAM with DRAM, and PROM, EPROM and EEPROM.</li>
+<li>Describe embedded systems.</li>
+<li>Explain how sensors and actuators are used in monitoring and control systems.</li>
+<li>Use logic gates: draw circuits, complete truth tables and write logic expressions.</li>
+</ul>
+<h2>3.1 Computers and their components</h2>
+<h3>Key terms</h3>
+<ul>
+<li><strong>Input device</strong>: lets data enter the computer, e.g. keyboard, mouse, microphone, scanner, sensor, touchscreen.</li>
+<li><strong>Output device</strong>: presents processed data, e.g. monitor, printer, speaker, actuator, 3D printer.</li>
+<li><strong>Primary storage</strong>: memory the CPU can access directly (RAM, ROM, cache).</li>
+<li><strong>Secondary storage</strong>: non-volatile storage that keeps data and programs long term (HDD, SSD, optical).</li>
+<li><strong>Volatile</strong>: data is lost when the power is switched off.</li>
+</ul>
+<h3>How devices work (the descriptions examiners reward)</h3>
+<p><strong>Laser printer</strong></p>
+<ol>
+<li>The drum is given a (negative) electrical charge.</li>
+<li>A laser beam removes the charge from areas of the drum to form the image.</li>
+<li>Toner (charged powder) sticks to the charged areas of the drum.</li>
+<li>Paper is given a charge and passes the drum, and the toner is transferred to it.</li>
+<li>A <strong>fuser</strong> heats and presses the paper to melt the toner onto it.</li>
+<li>The charge is removed from the drum and any leftover toner is cleaned off.</li>
+</ol>
+<p><strong>3D printer</strong>: builds a solid object <strong>layer by layer</strong> from a digital design (CAD). Methods include extruding melted plastic through a nozzle, or using a laser or UV light to harden resin.</p>
+<p><strong>Microphone</strong>: sound waves vibrate a diaphragm, which moves a coil in a magnetic field and produces an analogue electrical signal. An ADC converts it to digital.</p>
+<p><strong>Speaker</strong>: a digital signal goes through a DAC to an analogue current. The current flows through a coil in a magnetic field, the coil moves a cone, and the cone produces sound waves.</p>
+<p><strong>Magnetic hard disk</strong>: platters with a magnetic coating spin at high speed. A read/write head on an actuator arm moves over the tracks and sectors. Data is stored by magnetising areas in one of two directions to represent 1 and 0.</p>
+<p><strong>Solid state (flash) memory</strong>: has no moving parts. It uses NAND/NOR transistors with a <strong>floating gate</strong> and control gate. Electrons trapped in the floating gate represent the stored bits. Data is written in blocks.</p>
+<p><strong>Optical disc (CD/DVD/Blu-ray)</strong>: a laser reads the spiral track. <strong>Pits and lands</strong> reflect light differently, and the changes are read as binary. To write, a laser changes the dye or surface. Blu-ray uses a shorter-wavelength blue laser, so the track can be narrower and more data fits.</p>
+<p><strong>Touchscreens</strong></p>
+<ul>
+<li><em>Resistive</em>: two flexible layers separated by a gap. Pressing makes them touch and completes a circuit, and the coordinates are calculated. Works with gloves or a stylus. Cheaper, less clear, and wears out.</li>
+<li><em>Capacitive</em>: a glass layer holds an electrostatic field. A finger, which conducts, changes the capacitance, and sensors at the corners calculate where. Supports multi-touch and gives a clearer image. Does not work with ordinary gloves.</li>
+</ul>
+<p><strong>Virtual reality headset</strong>: two screens (one per eye) show slightly different images to give 3D depth. Sensors such as gyroscopes and accelerometers track head movement, so the view changes as you move. Lenses focus the image, and headphones give 3D sound.</p>
+<h3>Memory</h3>
+<table>
+<thead>
+<tr>
+<th>RAM</th>
+<th>ROM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Volatile</td>
+<td>Non-volatile</td>
+</tr>
+<tr>
+<td>Read and write</td>
+<td>Read only (in normal use)</td>
+</tr>
+<tr>
+<td>Holds the data and programs currently in use</td>
+<td>Holds the start-up instructions (bootstrap / BIOS)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>SRAM vs DRAM</strong></p>
+<table>
+<thead>
+<tr>
+<th>SRAM (static)</th>
+<th>DRAM (dynamic)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Uses flip-flops; no refresh needed</td>
+<td>Uses capacitors that must be <strong>refreshed</strong> constantly</td>
+</tr>
+<tr>
+<td>Faster access</td>
+<td>Slower</td>
+</tr>
+<tr>
+<td>More expensive per bit and lower density</td>
+<td>Cheaper and higher capacity</td>
+</tr>
+<tr>
+<td>Used for <strong>cache</strong></td>
+<td>Used for <strong>main memory</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>ROM types</strong></p>
+<ul>
+<li><strong>PROM</strong>: programmed once after manufacture and cannot be changed.</li>
+<li><strong>EPROM</strong>: can be erased with <strong>ultraviolet</strong> light (the chip is removed) and reprogrammed.</li>
+<li><strong>EEPROM</strong>: can be erased and rewritten <strong>electrically</strong> while in the circuit (flash memory is a type of EEPROM).</li>
+</ul>
+<p><strong>Buffer</strong>: a temporary area of memory that holds data being transferred between devices working at different speeds, e.g. a printer buffer or a video streaming buffer.</p>
+<h3>Embedded systems</h3>
+<ul>
+<li><strong>Embedded system</strong>: a computer system built into a larger device to perform one dedicated function, e.g. in a washing machine, microwave, car engine management or traffic light.</li>
+<li>Characteristics: a microprocessor with a dedicated task; programs held in ROM or firmware; often no conventional input or output; usually real-time.</li>
+<li>Benefits: small and cheap to mass-produce; low power; reliable; fast for their task.</li>
+<li>Drawbacks: difficult or impossible to upgrade; fixing faults may mean replacing the unit; limited to one function.</li>
+</ul>
+<h2>3.2 Monitoring and control systems</h2>
+<ul>
+<li><strong>Sensor</strong>: an input device that measures a physical property (temperature, light, pressure, moisture, pH, infrared, motion, humidity, gas).</li>
+<li><strong>Actuator</strong>: an output device that causes physical movement or a change, e.g. a motor, valve, pump, heater or light.</li>
+<li>An <strong>ADC</strong> converts the analogue sensor reading to digital, and a <strong>DAC</strong> converts digital to analogue to drive an analogue actuator.</li>
+<li><strong>Monitoring system</strong>: measures and reports, e.g. records readings and gives a warning. It does <strong>not</strong> change the conditions.</li>
+<li><strong>Control system</strong>: measures <strong>and</strong> changes the conditions. Example of the feedback loop (greenhouse temperature):
+  1. The sensor continuously measures the temperature and sends the data to the microprocessor (via an ADC).
+  2. The microprocessor compares the reading with the stored preset value or range.
+  3. If the temperature is too low, it sends a signal to the actuator to switch the heater on; if too high, to open a window or turn on a fan.
+  4. The process repeats continuously. This is <strong>feedback</strong>: the output affects the next input.</li>
+</ul>
+<h2>3.3 Logic gates and logic circuits</h2>
+<table>
+<thead>
+<tr>
+<th>Gate</th>
+<th>Expression</th>
+<th>Output is 1 when…</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NOT</td>
+<td>X = NOT A</td>
+<td>A is 0</td>
+</tr>
+<tr>
+<td>AND</td>
+<td>X = A AND B</td>
+<td>both inputs are 1</td>
+</tr>
+<tr>
+<td>OR</td>
+<td>X = A OR B</td>
+<td>at least one input is 1</td>
+</tr>
+<tr>
+<td>NAND</td>
+<td>X = NOT (A AND B)</td>
+<td>not both inputs are 1</td>
+</tr>
+<tr>
+<td>NOR</td>
+<td>X = NOT (A OR B)</td>
+<td>both inputs are 0</td>
+</tr>
+<tr>
+<td>XOR</td>
+<td>X = A XOR B</td>
+<td>the inputs are different</td>
+</tr>
+</tbody>
+</table>
+<h3>Method for circuit and truth-table questions</h3>
+<ol>
+<li>With <em>n</em> inputs there are 2ⁿ rows. List them in binary order: 000, 001, 010 …</li>
+<li>Add a working column for each intermediate gate output and fill those in first.</li>
+<li>Work towards the final output X.</li>
+</ol>
+<h3>From a problem statement</h3>
+<p>Turn each condition into a sub-expression, then join them with AND or OR. For example, "the alarm sounds if the door is open AND (it is night OR the system is armed)" gives X = D AND (N OR S).</p>
+<p><strong>Exam rules</strong>: use the gate symbols as given; do not simplify unless asked; label inputs and output; and when a question says "each gate has a maximum of two inputs", follow it.</p>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>In device questions, describe <strong>how it works step by step</strong> in order; one vague sentence earns little.</li>
+<li>SRAM is for <strong>cache</strong> and DRAM is for <strong>main memory</strong>. Don't swap them.</li>
+<li>Monitoring versus control: control involves an <strong>actuator</strong> and <strong>feedback</strong>.</li>
+<li>In truth tables, a working column catches mistakes and can still earn marks.</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>Explain why DRAM must be refreshed.</li>
+<li>Give two differences between EPROM and EEPROM.</li>
+<li>Describe how a capacitive touchscreen detects a touch.</li>
+<li>Write the logic expression for: output is 1 if A and B are both 1, or C is 0. <em>(X = (A AND B) OR NOT C)</em></li>
+</ol>

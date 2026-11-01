@@ -1,0 +1,48 @@
+<h1>10 D.C. circuits</h1>
+<h2>Key definitions</h2>
+<ul>
+<li><strong>Internal resistance (r)</strong>: the resistance inside a source of e.m.f. It causes a loss of p.d. (the "lost volts") when current flows.</li>
+<li><strong>Terminal p.d.</strong>: V = E − Ir.</li>
+<li><strong>Kirchhoff's first law</strong>: the sum of the currents entering a junction = the sum of the currents leaving it. This is a consequence of <strong>conservation of charge</strong>.</li>
+<li><strong>Kirchhoff's second law</strong>: in any closed loop, the sum of the e.m.f.s = the sum of the p.d.s. This is a consequence of <strong>conservation of energy</strong>.</li>
+</ul>
+<h2>Resistor combinations</h2>
+<ul>
+<li><strong>Series</strong>: R = R₁ + R₂ + … (the same current flows through each).</li>
+<li><strong>Parallel</strong>: 1/R = 1/R₁ + 1/R₂ + … (the same p.d. is across each). The combined resistance is <strong>less</strong> than the smallest single resistor.</li>
+<li>Derivation (series): the e.m.f. equals the sum of the p.d.s, so IR = IR₁ + IR₂, giving R = R₁ + R₂.</li>
+<li>Derivation (parallel): the total current is the sum of the branch currents, so V/R = V/R₁ + V/R₂.</li>
+</ul>
+<h2>Internal resistance</h2>
+<ul>
+<li>E = I(R + r). As the external resistance R falls, the current rises and the terminal p.d. falls.</li>
+<li><strong>Maximum power</strong> is delivered to the external load when <strong>R = r</strong>.</li>
+<li><strong>Finding E and r experimentally</strong>: vary R, record V and I, and plot V against I. The y-intercept = <strong>E</strong>, and the gradient = <strong>−r</strong>.</li>
+</ul>
+<h2>Potential divider</h2>
+<ul>
+<li><strong>V_out = V_in × R₂ / (R₁ + R₂)</strong>, taken across R₂.</li>
+<li>With a thermistor or LDR as one resistor, V_out changes with temperature or light. This is used in sensing circuits. Example: in the dark, the LDR's resistance rises, so its share of the p.d. rises.</li>
+</ul>
+<h2>Potentiometer</h2>
+<ul>
+<li>A uniform resistance wire with a steady current through it, so the p.d. along the wire is proportional to the length.</li>
+<li><strong>Comparing e.m.f.s</strong>: find the balance length where the galvanometer reads <strong>zero</strong>. Then E₁/E₂ = L₁/L₂.</li>
+<li>At balance <strong>no current</strong> is drawn from the cell being tested, so its full e.m.f. is measured. Benefit: the internal resistance doesn't matter.</li>
+</ul>
+<h2>Worked example</h2>
+<p>A cell with E = 6.0 V and r = 0.50 Ω is connected to a 2.5 Ω resistor. Find the current and the terminal p.d.
+I = 6.0 / (2.5 + 0.5) = <strong>2.0 A</strong>; V = 6.0 − 2.0 × 0.5 = <strong>5.0 V</strong></p>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>Kirchhoff questions: state which <strong>conservation law</strong> each one comes from.</li>
+<li>Go round a loop in one direction and keep the signs consistent (an e.m.f. against the loop direction is negative).</li>
+<li>The terminal p.d. is less than the e.m.f. whenever a current flows.</li>
+<li>In potential divider explanations, follow the full chain: condition changes → resistance changes → share of the p.d. changes → output changes.</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>Find the combined resistance of 6 Ω and 3 Ω in parallel. <em>(2 Ω)</em></li>
+<li>A battery's terminal p.d. falls from 9.0 V to 8.0 V when it supplies 0.50 A. Find r. <em>(2.0 Ω)</em></li>
+<li>Explain why a potentiometer measures e.m.f. more accurately than a voltmeter.</li>
+</ol>

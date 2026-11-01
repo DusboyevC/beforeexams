@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Algorithm design and problem-solving: AS &amp; A Level Computer Science 9618 revision notes | BeforeExams</title>
+<meta name="description" content="What you must be able to do Use abstraction and decomposition to break down a problem. Write algorithms as structured English, flowcharts and…">
+<meta property="og:title" content="Algorithm design and problem-solving: AS &amp; A Level Computer Science 9618 revision notes | BeforeExams">
+<meta property="og:description" content="What you must be able to do Use abstraction and decomposition to break down a problem. Write algorithms as structured English, flowcharts and…">
+<meta property="og:url" content="https://beforexams.netlify.app/revision-notes/cs/09-algorithm-design/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BeforeExams">
+<link rel="canonical" href="https://beforexams.netlify.app/revision-notes/cs/09-algorithm-design/">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/style.css">
+<script>try{if(localStorage.getItem("be-theme")==="light")document.documentElement.classList.remove("dark")}catch(e){}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Algorithm design and problem-solving", "educationalLevel": "AS & A Level", "about": "Computer Science", "author": [{"@type": "Person", "name": "DusboyevC"}, {"@type": "Person", "name": "Magnetars"}], "url": "https://beforexams.netlify.app/revision-notes/cs/09-algorithm-design/"}</script>
+</head>
+<body data-view="static" data-glow="cs">
+<header class="topbar"><div class="wrap topbar-inner">
+<a href="/" class="brand" aria-label="BeforeExams home"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x="4" y="4" width="25" height="9" rx="3.2" fill="#F57C00"/><rect x="8" y="6.9" width="8" height="2.2" rx="1.1" fill="#1A1A18"/><rect x="7" y="15.5" width="29" height="9" rx="3.2" fill="#4FC79A"/><rect x="11" y="18.4" width="8" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/><rect x="3" y="27" width="31" height="10" rx="3.2" fill="#0F5C46"/><rect x="7" y="30.4" width="9" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/></svg><span class="font-brand brand-word">Before<span>Exams</span></span></a>
+<nav class="topbar-actions" aria-label="Main"><a href="/#library" class="nav-link">Library</a><a href="/revision-notes/" class="nav-link">Notes</a><a href="/about/" class="nav-link">About</a></nav>
+</div></header>
+<main class="page"><div class="wrap static-page"><p class="label-caps eyebrow"><a href="/subjects/a-level-computer-science-9618/">AS &amp; A Level Computer Science 9618</a></p><article class="notes"><h1>9 Algorithm design and problem-solving</h1>
+<h2>What you must be able to do</h2>
+<ul>
+<li>Use abstraction and decomposition to break down a problem.</li>
+<li>Write algorithms as structured English, flowcharts and pseudocode, and convert between them.</li>
+<li>Draw up an identifier table.</li>
+<li>Use stepwise refinement to turn an outline into detailed steps.</li>
+</ul>
+<h2>9.1 Computational thinking skills</h2>
+<ul>
+<li><strong>Abstraction</strong>: removing unnecessary detail so you can focus on the essential features of the problem. Benefits: the problem is simpler to solve; development is quicker; the solution is smaller and easier to maintain.</li>
+<li>
+<p>Example: a route-planning app keeps roads, junctions and distances, but ignores the colour of buildings.</p>
+</li>
+<li>
+<p><strong>Decomposition</strong>: breaking a complex problem into smaller sub-problems that can each be solved, coded and tested separately (often as procedures or functions). Benefits: easier to manage; parts can be shared between programmers; modules can be reused and tested independently.</p>
+</li>
+</ul>
+<h2>9.2 Algorithms</h2>
+<h3>Key terms</h3>
+<ul>
+<li><strong>Algorithm</strong>: an ordered set of steps that solves a problem.</li>
+<li><strong>Structured English</strong>: a restricted subset of English using command words (INPUT, CALCULATE, IF, REPEAT…) to describe the steps in order.</li>
+<li><strong>Flowchart</strong>: a diagram using standard symbols joined by arrows to show the steps and decisions.</li>
+<li><strong>Pseudocode</strong>: a language-independent way of writing an algorithm using keywords and structures close to a programming language. The Cambridge pseudocode guide sets the standard.</li>
+<li><strong>Identifier table</strong>: lists each identifier with its data type and a description of what it is for.</li>
+</ul>
+<h3>Flowchart symbols</h3>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Rounded rectangle (terminator)</td>
+<td>START / STOP</td>
+</tr>
+<tr>
+<td>Parallelogram</td>
+<td>INPUT / OUTPUT</td>
+</tr>
+<tr>
+<td>Rectangle</td>
+<td>Process, e.g. <code>Total ← Total + Mark</code></td>
+</tr>
+<tr>
+<td>Diamond</td>
+<td>Decision with Yes / No branches</td>
+</tr>
+<tr>
+<td>Rectangle with double sides</td>
+<td>Predefined process (a subroutine call)</td>
+</tr>
+<tr>
+<td>Arrows</td>
+<td>Flow of control</td>
+</tr>
+</tbody>
+</table>
+<h3>The three basic constructs</h3>
+<ol>
+<li><strong>Sequence</strong>: steps run one after another.</li>
+<li><strong>Selection</strong>: a choice of path using IF…THEN…ELSE…ENDIF or CASE…OF…OTHERWISE…ENDCASE.</li>
+<li><strong>Iteration</strong>: repetition.
+   - <strong>Count-controlled</strong>: <code>FOR … TO … NEXT</code>, when the number of repeats is known in advance.
+   - <strong>Pre-condition</strong>: <code>WHILE … DO … ENDWHILE</code>. The condition is tested first, so the loop may run <strong>zero</strong> times.
+   - <strong>Post-condition</strong>: <code>REPEAT … UNTIL …</code>. The condition is tested at the end, so the loop runs <strong>at least once</strong>.</li>
+</ol>
+<h3>Core pseudocode (Cambridge style)</h3>
+<pre><code>DECLARE Total : INTEGER
+DECLARE Names : ARRAY[1:30] OF STRING
+CONSTANT MaxMark = 100
+Total ← 0
+INPUT Mark
+OUTPUT &quot;Average is &quot;, Total / Count
+IF Mark &gt;= 50
+   THEN
+      OUTPUT &quot;Pass&quot;
+   ELSE
+      OUTPUT &quot;Fail&quot;
+ENDIF
+CASE OF Grade
+   'A' : OUTPUT &quot;Excellent&quot;
+   'B' : OUTPUT &quot;Good&quot;
+   OTHERWISE OUTPUT &quot;Keep going&quot;
+ENDCASE
+FOR Index ← 1 TO 30
+   Total ← Total + Marks[Index]
+NEXT Index
+</code></pre>
+<h3>Standard algorithms you must be able to write</h3>
+<p><strong>Totalling and averaging</strong></p>
+<pre><code>Total ← 0
+FOR Count ← 1 TO 10
+   INPUT Num
+   Total ← Total + Num
+NEXT Count
+OUTPUT Total / 10
+</code></pre>
+<p><strong>Counting with validation (input until valid)</strong></p>
+<pre><code>REPEAT
+   OUTPUT &quot;Enter a mark (0-100)&quot;
+   INPUT Mark
+UNTIL Mark &gt;= 0 AND Mark &lt;= 100
+</code></pre>
+<p><strong>Maximum and minimum</strong></p>
+<pre><code>Max ← Marks[1]
+Min ← Marks[1]
+FOR i ← 2 TO 30
+   IF Marks[i] &gt; Max THEN Max ← Marks[i] ENDIF
+   IF Marks[i] &lt; Min THEN Min ← Marks[i] ENDIF
+NEXT i
+</code></pre>
+<p><strong>Rogue value to end input</strong></p>
+<pre><code>Total ← 0
+INPUT Num
+WHILE Num &lt;&gt; -1 DO
+   Total ← Total + Num
+   INPUT Num
+ENDWHILE
+</code></pre>
+<h3>Stepwise refinement</h3>
+<ul>
+<li><strong>Stepwise refinement</strong>: breaking each step of an outline algorithm into smaller, more detailed steps, again and again, until every step can be coded directly.</li>
+<li>Example:
+  1. Get valid exam marks → 1.1 Input a mark → 1.2 Check it is between 0 and 100 → 1.3 Repeat until valid.
+  2. Calculate the grade → 2.1 Compare the mark against the grade boundaries…</li>
+</ul>
+<h3>Writing a good algorithm in the exam</h3>
+<ol>
+<li><strong>Declare</strong> variables (and arrays) with types. Some questions demand this; it is good practice anyway.</li>
+<li><strong>Initialise</strong> totals and counters before the loop.</li>
+<li>Use the <strong>right loop</strong>: FOR when the count is known, REPEAT for validation, WHILE when it may not need to run.</li>
+<li>Use <strong>meaningful identifiers</strong> and indent the code.</li>
+<li><strong>Output</strong> exactly what the question asks for, with sensible messages.</li>
+</ol>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>Forgetting to initialise <code>Total ← 0</code> or <code>Count ← 0</code> is the most common lost mark.</li>
+<li>In WHILE loops with a rogue value, read the <strong>first value before the loop</strong> and the next value at the <strong>end</strong> of the loop body.</li>
+<li>Use <code>←</code> for assignment and <code>=</code> for comparison in pseudocode.</li>
+<li>When converting a flowchart to pseudocode, every decision diamond becomes an IF or a loop condition, so check which way the arrows go.</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>Explain why a REPEAT…UNTIL loop is more suitable than WHILE for input validation.</li>
+<li>Write pseudocode to input 20 numbers and output how many were greater than 50.</li>
+<li>Give two benefits of decomposition.</li>
+<li>Define abstraction and give an example.</li>
+</ol></article><nav class="notes-nav"><a class="mini" href="/revision-notes/cs/08-databases/">← Databases</a><a class="mini" href="/revision-notes/cs/10-data-types-structures/">Data types and structures →</a></nav></div></main>
+<footer class="foot"><div class="wrap"><div class="foot-grid"><div class="foot-brand"><a class="brand" href="/" aria-label="BeforeExams home"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x="4" y="4" width="25" height="9" rx="3.2" fill="#F57C00"/><rect x="8" y="6.9" width="8" height="2.2" rx="1.1" fill="#1A1A18"/><rect x="7" y="15.5" width="29" height="9" rx="3.2" fill="#4FC79A"/><rect x="11" y="18.4" width="8" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/><rect x="3" y="27" width="31" height="10" rx="3.2" fill="#0F5C46"/><rect x="7" y="30.4" width="9" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/></svg><span class="font-brand brand-word">Before<span>Exams</span></span></a><p>Free revision for Cambridge IGCSE and AS &amp; A Level students.</p><p class="foot-mail">Email: <a href="mailto:dusboyevc@gmail.com">dusboyevc@gmail.com</a></p></div><nav class="foot-col" aria-label="Library"><h2>Library</h2><a href="/#/?mode=topicals" data-foot-mode="topicals">Topical questions</a><a href="/#/?mode=papers" data-foot-mode="papers">Past papers</a><a href="/#/?mode=notes" data-foot-mode="notes">Revision notes</a><a href="/#/?mode=guide" data-foot-mode="guide">Exam guide</a><a href="/#/?mode=trends" data-foot-mode="trends">Topic trends</a></nav><nav class="foot-col" aria-label="IGCSE"><h2>IGCSE</h2><a href="/subjects/igcse-physics-0625/">Physics</a><a href="/subjects/igcse-chemistry-0620/">Chemistry</a><a href="/subjects/igcse-biology-0610/">Biology</a><a href="/subjects/igcse-mathematics-0580/">Mathematics</a><a href="/subjects/igcse-computer-science-0478/">Computer Science</a></nav><nav class="foot-col" aria-label="AS &amp; A Level"><h2>AS &amp; A Level</h2><a href="/subjects/a-level-physics-9702/">Physics</a><a href="/subjects/a-level-chemistry-9701/">Chemistry</a><a href="/subjects/a-level-biology-9700/">Biology</a><a href="/subjects/a-level-mathematics-9709/">Mathematics</a><a href="/subjects/a-level-computer-science-9618/">Computer Science</a></nav><nav class="foot-col" aria-label="BeforeExams"><h2>BeforeExams</h2><a href="/about/">About and authors</a><a href="/revision-notes/">All revision notes</a><a href="/#/account">My account</a><a href="/#/account">Mock tests</a></nav></div><p class="foot-note">Past papers and mark schemes © Cambridge University Press &amp; Assessment. BeforeExams is an independent study site, not affiliated with Cambridge.</p><div class="foot-bar"><span>© 2026 BeforeExams. Made by <b>DusboyevC</b> and <b>Magnetars</b>.</span><a href="/privacy/">Privacy Policy</a></div></div></footer>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<h1>16 System software (A Level)</h1>
+<h2>What you must be able to do</h2>
+<ul>
+<li>Explain how an OS maximises the use of resources, and describe process scheduling and process states.</li>
+<li>Explain paging, segmentation, virtual memory, page replacement and disk thrashing.</li>
+<li>Describe the stages of compilation.</li>
+<li>Read and write grammar in BNF and syntax diagrams.</li>
+<li>Use Reverse Polish Notation (RPN) and evaluate it using a stack.</li>
+</ul>
+<h2>16.1 Purposes of an operating system</h2>
+<h3>Maximising resources</h3>
+<ul>
+<li><strong>Multitasking / multiprogramming</strong>: several processes are kept in memory and the CPU switches between them, so it is never idle while one process waits for I/O.</li>
+<li><strong>Kernel</strong>: the core of the OS that manages the CPU, memory and devices, and handles interrupts.</li>
+<li>The OS hides the complexity of the hardware from the user by providing an interface and services (e.g. file and device handling) through the kernel and device drivers.</li>
+</ul>
+<h3>Process states</h3>
+<ul>
+<li><strong>Process</strong>: a program that is being executed.</li>
+<li><strong>Running</strong>: the process is using the CPU.</li>
+<li><strong>Ready</strong>: the process could run and is waiting in the ready queue for the CPU.</li>
+<li><strong>Blocked (waiting)</strong>: the process cannot run until an event happens, e.g. I/O completes.</li>
+<li>Transitions: Ready → Running (dispatched by the scheduler); Running → Ready (time slice used up, or interrupted by a higher priority process); Running → Blocked (waits for I/O); Blocked → Ready (the I/O completes). A process <strong>cannot</strong> go straight from Blocked to Running.</li>
+<li><strong>Process control block (PCB)</strong>: stores each process's state, PC, registers, priority and memory information, so it can be resumed.</li>
+</ul>
+<h3>Scheduling</h3>
+<ul>
+<li><strong>Low-level scheduler</strong>: decides which ready process gets the CPU next. <strong>High-level scheduler</strong>: decides which processes are loaded into memory.</li>
+<li>Aims: keep the CPU busy, be fair, give quick responses, maximise throughput.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>How it works</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>First come first served (FCFS)</strong></td>
+<td>In order of arrival</td>
+<td>Simple; short jobs can wait a long time behind long ones</td>
+</tr>
+<tr>
+<td><strong>Shortest job first (SJF)</strong></td>
+<td>The process with the shortest burst time runs next (non-preemptive)</td>
+<td>Minimum average waiting time; long jobs may <strong>starve</strong>; burst times must be estimated</td>
+</tr>
+<tr>
+<td><strong>Shortest remaining time (SRT)</strong></td>
+<td>Preemptive SJF: a new shorter job interrupts the current one</td>
+<td>Good for short jobs; more context switching</td>
+</tr>
+<tr>
+<td><strong>Round robin</strong></td>
+<td>Each process gets a fixed <strong>time slice (quantum)</strong> in turn; unfinished processes go to the back of the queue</td>
+<td>Fair and responsive; performance depends on the quantum size</td>
+</tr>
+</tbody>
+</table>
+<h3>Memory management</h3>
+<ul>
+<li><strong>Paging</strong>: memory is split into equal-sized physical blocks called <strong>frames</strong>, and programs into same-sized <strong>pages</strong>. A <strong>page table</strong> maps each page to a frame. Pages need not be contiguous, so there is no external fragmentation.</li>
+<li><strong>Segmentation</strong>: the program is split into variable-sized logical <strong>segments</strong> (e.g. code, data, stack); a segment table holds the base address and length of each.</li>
+<li><strong>Virtual memory</strong>: part of secondary storage is used as if it were main memory. Pages not currently needed are kept on disk and <strong>swapped</strong> into RAM when needed.</li>
+<li>Benefit: programs larger than RAM can run, and more programs can run at once.</li>
+<li>
+<p>Drawback: disk access is far slower than RAM.</p>
+</li>
+<li>
+<p><strong>Page replacement</strong>: when RAM is full and a new page is needed, a page is removed, e.g. by first-in-first-out, least recently used, or least frequently used.</p>
+</li>
+<li><strong>Disk thrashing</strong>: so much time is spent swapping pages between RAM and disk that very little useful processing happens. It occurs when too many processes compete for too little RAM. Fix it by adding more RAM or running fewer programs.</li>
+</ul>
+<h2>16.2 Translation software</h2>
+<h3>Stages of compilation</h3>
+<ol>
+<li><strong>Lexical analysis</strong>: removes white space and comments; breaks the source code into <strong>tokens</strong>; adds identifiers to the <strong>symbol table</strong>; reports invalid tokens.</li>
+<li><strong>Syntax analysis (parsing)</strong>: checks the token sequence against the grammar rules of the language (e.g. BNF) and builds a parse tree; reports syntax errors.</li>
+<li><strong>Code generation</strong>: produces object code (machine code) from the parse tree.</li>
+<li><strong>Optimisation</strong>: makes the code faster, smaller or use less memory, e.g. by removing redundant instructions or unreachable code, or moving fixed calculations out of loops.</li>
+</ol>
+<h3>BNF (Backus–Naur Form)</h3>
+<ul>
+<li>Defines the <strong>syntax</strong> of a language. <code>&lt;...&gt;</code> is a non-terminal, <code>::=</code> means "is defined as", <code>|</code> means "or".</li>
+</ul>
+<pre><code>&lt;digit&gt;   ::= 0|1|2|3|4|5|6|7|8|9
+&lt;letter&gt;  ::= A|B|C|...|Z
+&lt;integer&gt; ::= &lt;digit&gt; | &lt;digit&gt;&lt;integer&gt;          (recursive: one or more digits)
+&lt;identifier&gt; ::= &lt;letter&gt; | &lt;identifier&gt;&lt;letter&gt; | &lt;identifier&gt;&lt;digit&gt;
+</code></pre>
+<ul>
+<li><strong>Recursion</strong> in a rule lets an item repeat any number of times.</li>
+</ul>
+<h3>Syntax diagrams</h3>
+<ul>
+<li>These show the same rules graphically: rectangles for non-terminals, rounded boxes or circles for terminals, and arrows for the allowed paths. A loop-back arrow shows repetition.</li>
+</ul>
+<h3>Reverse Polish Notation (RPN)</h3>
+<ul>
+<li><strong>RPN (postfix)</strong>: operators come <strong>after</strong> their operands, e.g. <code>A + B</code> becomes <code>A B +</code>.</li>
+<li>Benefits: <strong>no brackets</strong> are needed; there are no precedence rules; it is evaluated easily with a <strong>stack</strong>, so compilers and interpreters use it.</li>
+<li>Converting infix to RPN: (A + B) × C → <code>A B + C ×</code>; A + B × C → <code>A B C × +</code>.</li>
+<li><strong>Evaluating with a stack</strong>: read left to right. For an operand, <strong>push</strong> it. For an operator, <strong>pop</strong> two values, apply the operator (second popped value OP first popped value), and push the result. The final value on the stack is the answer.</li>
+<li>Example <code>5 3 2 × +</code>: push 5, push 3, push 2; × pops 2 and 3 and pushes 6; + pops 6 and 5 and pushes <strong>11</strong>.</li>
+</ul>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>Process state diagram: there is <strong>no</strong> arrow from Blocked to Running.</li>
+<li>For scheduling, give the <strong>benefit and drawback</strong> of each algorithm, e.g. "SJF can starve long processes".</li>
+<li>Name the <strong>stage</strong> of compilation precisely; lexical analysis creates tokens and the symbol table.</li>
+<li>In RPN evaluation, keep the operand order correct for − and ÷.</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>Explain the difference between paging and segmentation.</li>
+<li>Describe how disk thrashing happens.</li>
+<li>Convert (A − B) × (C + D) to RPN. <em>(A B − C D + ×)</em></li>
+<li>Explain how round robin scheduling ensures every process gets CPU time.</li>
+</ol>

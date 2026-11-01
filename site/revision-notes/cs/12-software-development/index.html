@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Software development: AS &amp; A Level Computer Science 9618 revision notes | BeforeExams</title>
+<meta name="description" content="What you must be able to do Describe the stages of the program development life cycle and compare waterfall, iterative and RAD models. Draw and use…">
+<meta property="og:title" content="Software development: AS &amp; A Level Computer Science 9618 revision notes | BeforeExams">
+<meta property="og:description" content="What you must be able to do Describe the stages of the program development life cycle and compare waterfall, iterative and RAD models. Draw and use…">
+<meta property="og:url" content="https://beforexams.netlify.app/revision-notes/cs/12-software-development/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BeforeExams">
+<link rel="canonical" href="https://beforexams.netlify.app/revision-notes/cs/12-software-development/">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/style.css">
+<script>try{if(localStorage.getItem("be-theme")==="light")document.documentElement.classList.remove("dark")}catch(e){}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Software development", "educationalLevel": "AS & A Level", "about": "Computer Science", "author": [{"@type": "Person", "name": "DusboyevC"}, {"@type": "Person", "name": "Magnetars"}], "url": "https://beforexams.netlify.app/revision-notes/cs/12-software-development/"}</script>
+</head>
+<body data-view="static" data-glow="cs">
+<header class="topbar"><div class="wrap topbar-inner">
+<a href="/" class="brand" aria-label="BeforeExams home"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x="4" y="4" width="25" height="9" rx="3.2" fill="#F57C00"/><rect x="8" y="6.9" width="8" height="2.2" rx="1.1" fill="#1A1A18"/><rect x="7" y="15.5" width="29" height="9" rx="3.2" fill="#4FC79A"/><rect x="11" y="18.4" width="8" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/><rect x="3" y="27" width="31" height="10" rx="3.2" fill="#0F5C46"/><rect x="7" y="30.4" width="9" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/></svg><span class="font-brand brand-word">Before<span>Exams</span></span></a>
+<nav class="topbar-actions" aria-label="Main"><a href="/#library" class="nav-link">Library</a><a href="/revision-notes/" class="nav-link">Notes</a><a href="/about/" class="nav-link">About</a></nav>
+</div></header>
+<main class="page"><div class="wrap static-page"><p class="label-caps eyebrow"><a href="/subjects/a-level-computer-science-9618/">AS &amp; A Level Computer Science 9618</a></p><article class="notes"><h1>12 Software development</h1>
+<h2>What you must be able to do</h2>
+<ul>
+<li>Describe the stages of the program development life cycle and compare waterfall, iterative and RAD models.</li>
+<li>Draw and use structure charts and state-transition diagrams.</li>
+<li>Explain the types of error, testing methods, test data and types of maintenance.</li>
+</ul>
+<h2>12.1 Program development life cycle (PDLC)</h2>
+<ol>
+<li><strong>Analysis</strong>: understand the problem and gather requirements (interviews, questionnaires, observation, documents); produce a requirements specification.</li>
+<li><strong>Design</strong>: plan the solution: algorithms (pseudocode, flowcharts), structure charts, data structures, file and database design, interface design, and test plan.</li>
+<li><strong>Coding</strong>: write the program in a programming language and test modules as they are written.</li>
+<li><strong>Testing</strong>: check the program works and meets the requirements, using a test plan and test data.</li>
+<li><strong>Maintenance</strong>: change the program after it is in use: fix errors, adapt to new needs, improve performance.</li>
+</ol>
+<h3>Development models</h3>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>How it works</th>
+<th>Benefits</th>
+<th>Drawbacks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Waterfall</strong></td>
+<td>Each stage is completed and signed off before the next begins; going back is difficult</td>
+<td>Simple and easy to manage; clear deadlines and documentation; suits projects with fixed, well-understood requirements</td>
+<td>Inflexible to change; the client sees the working program only at the end; errors found late are costly</td>
+</tr>
+<tr>
+<td><strong>Iterative</strong></td>
+<td>The program is built in increments, each going through design, code and test; repeated and extended</td>
+<td>A working version is available early; feedback guides the next iteration; risks are found earlier</td>
+<td>Needs good planning; scope can creep; the overall design must be stable</td>
+</tr>
+<tr>
+<td><strong>RAD (rapid application development)</strong></td>
+<td>Quick prototypes built with heavy user involvement and refined repeatedly; reusable components; time-boxed</td>
+<td>Very responsive to user feedback; fast delivery; the final product meets users' needs</td>
+<td>Needs committed users and skilled developers; less suited to large, complex systems; less documentation</td>
+</tr>
+</tbody>
+</table>
+<h2>12.2 Program design</h2>
+<ul>
+<li><strong>Structure chart</strong>: shows how a problem is decomposed into modules in a hierarchy, and the <strong>parameters</strong> passed between them.</li>
+<li>Data parameter: an arrow with an open circle. Flag (Boolean) parameter: an arrow with a filled circle.</li>
+<li>
+<p>Selection is shown with a diamond, and iteration with a curved arrow.</p>
+</li>
+<li>
+<p><strong>State-transition diagram</strong>: shows the <strong>states</strong> of a system, the <strong>events</strong> (inputs) that cause a change, and the resulting transitions.</p>
+</li>
+<li>States are circles, transitions are arrows labelled with the event (and output). The start state has an arrow coming from nowhere; the final state is a double circle.</li>
+</ul>
+<h2>12.3 Program testing and maintenance</h2>
+<h3>Types of error</h3>
+<ul>
+<li><strong>Syntax error</strong>: breaks the grammar rules of the language, e.g. a misspelled keyword or a missing bracket. The translator finds it, and the program will not run.</li>
+<li><strong>Logic error</strong>: the program runs but gives the wrong result, because the algorithm is wrong, e.g. <code>&lt;</code> instead of <code>&lt;=</code>. Found by testing and dry runs.</li>
+<li><strong>Run-time error</strong>: the program crashes while running, e.g. division by zero, an array index out of range, or a missing file.</li>
+</ul>
+<h3>Testing methods</h3>
+<ul>
+<li><strong>Dry run</strong>: working through the algorithm by hand, recording variable values in a <strong>trace table</strong>.</li>
+<li><strong>Walkthrough</strong>: the programmer explains the code step by step to colleagues, who look for errors.</li>
+<li><strong>White-box testing</strong>: tests every path through the code, chosen using knowledge of the code's structure.</li>
+<li><strong>Black-box testing</strong>: tests inputs against expected outputs <strong>without</strong> looking at the code.</li>
+<li><strong>Integration testing</strong>: modules are combined and tested together to check they work with each other.</li>
+<li><strong>Stub testing</strong>: a simple placeholder (stub) replaces a module that hasn't been written yet, so other modules can be tested.</li>
+<li><strong>Alpha testing</strong>: done in-house by the developers or testers, before release.</li>
+<li><strong>Beta testing</strong>: a near-final version is given to a group of real users outside the company, who report bugs and feedback.</li>
+<li><strong>Acceptance testing</strong>: the client tests the finished system against the requirements to decide whether to accept it.</li>
+</ul>
+<h3>Test data</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Meaning</th>
+<th>Example (valid range 1–100)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Normal</strong></td>
+<td>Valid data that should be accepted</td>
+<td>50</td>
+</tr>
+<tr>
+<td><strong>Abnormal / erroneous</strong></td>
+<td>Invalid data that should be rejected</td>
+<td>−5, "abc", 150</td>
+</tr>
+<tr>
+<td><strong>Extreme</strong></td>
+<td>The largest and smallest acceptable values</td>
+<td>1, 100</td>
+</tr>
+<tr>
+<td><strong>Boundary</strong></td>
+<td>Values either side of the limits: the largest or smallest acceptable value <strong>and</strong> the first value that should be rejected</td>
+<td>0, 1 and 100, 101</td>
+</tr>
+</tbody>
+</table>
+<p>A <strong>test plan</strong> lists each test: purpose, test data, type of test data, expected result, actual result, and whether it passed.</p>
+<h3>Types of maintenance</h3>
+<ul>
+<li><strong>Corrective</strong>: fixing errors found after the system is in use.</li>
+<li><strong>Adaptive</strong>: changing the program to meet new requirements or a changed environment, e.g. a new OS, new laws or new hardware.</li>
+<li><strong>Perfective</strong>: improving performance or usability without changing what it does, e.g. making it faster or easier to use.</li>
+</ul>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>Match the <strong>model</strong> to the scenario: fixed requirements suit waterfall; a client who is unsure suits RAD or iterative.</li>
+<li>When asked for test data, give the <strong>value</strong>, its <strong>type</strong> and the <strong>expected result</strong>.</li>
+<li>Boundary data must include the value just <strong>outside</strong> the range.</li>
+<li>Adaptive versus perfective: adaptive = <strong>change in requirements or environment</strong>; perfective = <strong>improve</strong> what already works.</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>Give two reasons a client who is unsure of their requirements would prefer RAD.</li>
+<li>Identify the error type: an array index of 11 is used for an array declared as ARRAY[1:10].</li>
+<li>Give boundary test data for an age that must be between 18 and 65.</li>
+<li>Describe the difference between alpha and beta testing.</li>
+</ol></article><nav class="notes-nav"><a class="mini" href="/revision-notes/cs/11-programming/">← Programming</a><a class="mini" href="/revision-notes/cs/13-data-representation/">Data representation (A Level) →</a></nav></div></main>
+<footer class="foot"><div class="wrap"><div class="foot-grid"><div class="foot-brand"><a class="brand" href="/" aria-label="BeforeExams home"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x="4" y="4" width="25" height="9" rx="3.2" fill="#F57C00"/><rect x="8" y="6.9" width="8" height="2.2" rx="1.1" fill="#1A1A18"/><rect x="7" y="15.5" width="29" height="9" rx="3.2" fill="#4FC79A"/><rect x="11" y="18.4" width="8" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/><rect x="3" y="27" width="31" height="10" rx="3.2" fill="#0F5C46"/><rect x="7" y="30.4" width="9" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/></svg><span class="font-brand brand-word">Before<span>Exams</span></span></a><p>Free revision for Cambridge IGCSE and AS &amp; A Level students.</p><p class="foot-mail">Email: <a href="mailto:dusboyevc@gmail.com">dusboyevc@gmail.com</a></p></div><nav class="foot-col" aria-label="Library"><h2>Library</h2><a href="/#/?mode=topicals" data-foot-mode="topicals">Topical questions</a><a href="/#/?mode=papers" data-foot-mode="papers">Past papers</a><a href="/#/?mode=notes" data-foot-mode="notes">Revision notes</a><a href="/#/?mode=guide" data-foot-mode="guide">Exam guide</a><a href="/#/?mode=trends" data-foot-mode="trends">Topic trends</a></nav><nav class="foot-col" aria-label="IGCSE"><h2>IGCSE</h2><a href="/subjects/igcse-physics-0625/">Physics</a><a href="/subjects/igcse-chemistry-0620/">Chemistry</a><a href="/subjects/igcse-biology-0610/">Biology</a><a href="/subjects/igcse-mathematics-0580/">Mathematics</a><a href="/subjects/igcse-computer-science-0478/">Computer Science</a></nav><nav class="foot-col" aria-label="AS &amp; A Level"><h2>AS &amp; A Level</h2><a href="/subjects/a-level-physics-9702/">Physics</a><a href="/subjects/a-level-chemistry-9701/">Chemistry</a><a href="/subjects/a-level-biology-9700/">Biology</a><a href="/subjects/a-level-mathematics-9709/">Mathematics</a><a href="/subjects/a-level-computer-science-9618/">Computer Science</a></nav><nav class="foot-col" aria-label="BeforeExams"><h2>BeforeExams</h2><a href="/about/">About and authors</a><a href="/revision-notes/">All revision notes</a><a href="/#/account">My account</a><a href="/#/account">Mock tests</a></nav></div><p class="foot-note">Past papers and mark schemes © Cambridge University Press &amp; Assessment. BeforeExams is an independent study site, not affiliated with Cambridge.</p><div class="foot-bar"><span>© 2026 BeforeExams. Made by <b>DusboyevC</b> and <b>Magnetars</b>.</span><a href="/privacy/">Privacy Policy</a></div></div></footer>
+</body>
+</html>

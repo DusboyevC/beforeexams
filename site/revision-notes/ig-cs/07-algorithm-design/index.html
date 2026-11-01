@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Algorithm design and problem solving: IGCSE Computer Science 0478 revision notes | BeforeExams</title>
+<meta name="description" content="Program development life cycle Analysis : abstraction, decomposition, identifying the problem and the requirements. Design : structure diagrams,…">
+<meta property="og:title" content="Algorithm design and problem solving: IGCSE Computer Science 0478 revision notes | BeforeExams">
+<meta property="og:description" content="Program development life cycle Analysis : abstraction, decomposition, identifying the problem and the requirements. Design : structure diagrams,…">
+<meta property="og:url" content="https://beforexams.netlify.app/revision-notes/ig-cs/07-algorithm-design/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BeforeExams">
+<link rel="canonical" href="https://beforexams.netlify.app/revision-notes/ig-cs/07-algorithm-design/">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/style.css">
+<script>try{if(localStorage.getItem("be-theme")==="light")document.documentElement.classList.remove("dark")}catch(e){}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Algorithm design and problem solving", "educationalLevel": "IGCSE", "about": "Computer Science", "author": [{"@type": "Person", "name": "DusboyevC"}, {"@type": "Person", "name": "Magnetars"}], "url": "https://beforexams.netlify.app/revision-notes/ig-cs/07-algorithm-design/"}</script>
+</head>
+<body data-view="static" data-glow="cs">
+<header class="topbar"><div class="wrap topbar-inner">
+<a href="/" class="brand" aria-label="BeforeExams home"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x="4" y="4" width="25" height="9" rx="3.2" fill="#F57C00"/><rect x="8" y="6.9" width="8" height="2.2" rx="1.1" fill="#1A1A18"/><rect x="7" y="15.5" width="29" height="9" rx="3.2" fill="#4FC79A"/><rect x="11" y="18.4" width="8" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/><rect x="3" y="27" width="31" height="10" rx="3.2" fill="#0F5C46"/><rect x="7" y="30.4" width="9" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/></svg><span class="font-brand brand-word">Before<span>Exams</span></span></a>
+<nav class="topbar-actions" aria-label="Main"><a href="/#library" class="nav-link">Library</a><a href="/revision-notes/" class="nav-link">Notes</a><a href="/about/" class="nav-link">About</a></nav>
+</div></header>
+<main class="page"><div class="wrap static-page"><p class="label-caps eyebrow"><a href="/subjects/igcse-computer-science-0478/">IGCSE Computer Science 0478</a></p><article class="notes"><h1>7 Algorithm design and problem solving</h1>
+<h2>Program development life cycle</h2>
+<ol>
+<li><strong>Analysis</strong>: abstraction, decomposition, identifying the problem and the requirements.</li>
+<li><strong>Design</strong>: structure diagrams, flowcharts, pseudocode.</li>
+<li><strong>Coding</strong>: writing the program and iterative testing.</li>
+<li><strong>Testing</strong>: using test data.</li>
+</ol>
+<h2>Computational thinking</h2>
+<ul>
+<li><strong>Abstraction</strong>: removing unnecessary details and keeping only what matters.</li>
+<li><strong>Decomposition</strong>: breaking a problem into <strong>smaller sub-problems</strong> that are easier to solve.</li>
+<li>Every system is made of sub-systems. Each one has <strong>inputs, processes, outputs and storage</strong>.</li>
+</ul>
+<h2>Designing solutions</h2>
+<ul>
+<li><strong>Structure diagram</strong>: shows the problem broken down (top-down) into sub-systems.</li>
+<li><strong>Flowchart symbols</strong>: terminator (start/stop, rounded), process (rectangle), input/output (parallelogram), decision (diamond, with Yes/No), subroutine (rectangle with double sides), flow lines.</li>
+<li><strong>Pseudocode</strong>: uses the Cambridge style (<code>INPUT</code>, <code>OUTPUT</code>, <code>IF … THEN … ELSE … ENDIF</code>, <code>FOR … TO … NEXT</code>, etc.).</li>
+</ul>
+<h2>Standard methods</h2>
+<ul>
+<li><strong>Totalling</strong>: <code>Total ← Total + Value</code>.</li>
+<li><strong>Counting</strong>: <code>Count ← Count + 1</code>.</li>
+<li><strong>Maximum, minimum and average</strong>: set Max to the first value (or a very low value); <code>IF Value &gt; Max THEN Max ← Value</code>. Average = Total / Count.</li>
+<li><strong>Linear search</strong>: check each element in turn until it is found or the end is reached.</li>
+</ul>
+<pre><code>Found ← FALSE
+Index ← 1
+WHILE Found = FALSE AND Index &lt;= 50 DO
+   IF Names[Index] = SearchName THEN
+      Found ← TRUE
+   ELSE
+      Index ← Index + 1
+   ENDIF
+ENDWHILE
+</code></pre>
+<ul>
+<li><strong>Bubble sort</strong>: compare adjacent pairs and swap them if they are in the wrong order; repeat passes until there are <strong>no swaps</strong> in a pass.</li>
+</ul>
+<pre><code>REPEAT
+   Swap ← FALSE
+   FOR i ← 1 TO n - 1
+      IF List[i] &gt; List[i + 1] THEN
+         Temp ← List[i]
+         List[i] ← List[i + 1]
+         List[i + 1] ← Temp
+         Swap ← TRUE
+      ENDIF
+   NEXT i
+UNTIL Swap = FALSE
+</code></pre>
+<h2>Validation and verification</h2>
+<ul>
+<li><strong>Validation</strong>: an automatic check that the data is <strong>reasonable / acceptable</strong>. It doesn't check that it is correct.</li>
+<li><strong>Range check</strong>: between limits (e.g. 0–100).</li>
+<li><strong>Length check</strong>: the number of characters.</li>
+<li><strong>Type check</strong>: the data type (e.g. an integer).</li>
+<li><strong>Presence check</strong>: not left blank.</li>
+<li><strong>Format check</strong>: a pattern (e.g. AB1234).</li>
+<li>
+<p><strong>Check digit</strong>: a calculated digit.</p>
+</li>
+<li>
+<p><strong>Verification</strong>: checks that the data has been <strong>copied or entered accurately</strong>.</p>
+</li>
+<li><strong>Double entry</strong>: entered twice and compared.</li>
+<li><strong>Visual check</strong>: the user checks it on screen.</li>
+</ul>
+<h2>Test data</h2>
+<ul>
+<li><strong>Normal</strong>: accepted, e.g. 50 for the range 1–100.</li>
+<li><strong>Abnormal</strong>: rejected, e.g. −5 or "abc".</li>
+<li><strong>Extreme</strong>: the largest and smallest acceptable values, e.g. 1 and 100.</li>
+<li><strong>Boundary</strong>: values either side of each limit, one accepted and one rejected, e.g. 0 and 1, and 100 and 101.</li>
+</ul>
+<h2>Trace tables and errors</h2>
+<ul>
+<li><strong>Trace table</strong>: records the value of each variable as each line of an algorithm runs. Use it to dry-run code and find errors.</li>
+<li>To find errors, look for the wrong comparison (<code>&lt;</code> vs <code>&lt;=</code>), a wrong initial value, the wrong variable, or a missing increment.</li>
+<li>Know how to <strong>correct</strong> the line and to explain the <strong>purpose</strong> of an algorithm.</li>
+</ul>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>Boundary data must include <strong>both</strong> the accepted and the rejected value on each side.</li>
+<li>In bubble sort, use a <strong>flag</strong> to stop early when no swaps occur.</li>
+<li>When writing algorithms, <strong>initialise</strong> every total and count before the loop.</li>
+<li>This chapter is often examined together with <strong>Programming</strong> (chapter 8).</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>Give one example each of normal, abnormal and extreme data for a mark from 0 to 100.</li>
+<li>What is the difference between validation and verification?</li>
+<li>Write the pseudocode to count how many of 30 input numbers are greater than 10.</li>
+</ol></article><nav class="notes-nav"><a class="mini" href="/revision-notes/ig-cs/06-automated-emerging/">← Automated and emerging technologies</a><a class="mini" href="/revision-notes/ig-cs/08-programming/">Programming →</a></nav></div></main>
+<footer class="foot"><div class="wrap"><div class="foot-grid"><div class="foot-brand"><a class="brand" href="/" aria-label="BeforeExams home"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x="4" y="4" width="25" height="9" rx="3.2" fill="#F57C00"/><rect x="8" y="6.9" width="8" height="2.2" rx="1.1" fill="#1A1A18"/><rect x="7" y="15.5" width="29" height="9" rx="3.2" fill="#4FC79A"/><rect x="11" y="18.4" width="8" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/><rect x="3" y="27" width="31" height="10" rx="3.2" fill="#0F5C46"/><rect x="7" y="30.4" width="9" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/></svg><span class="font-brand brand-word">Before<span>Exams</span></span></a><p>Free revision for Cambridge IGCSE and AS &amp; A Level students.</p><p class="foot-mail">Email: <a href="mailto:dusboyevc@gmail.com">dusboyevc@gmail.com</a></p></div><nav class="foot-col" aria-label="Library"><h2>Library</h2><a href="/#/?mode=topicals" data-foot-mode="topicals">Topical questions</a><a href="/#/?mode=papers" data-foot-mode="papers">Past papers</a><a href="/#/?mode=notes" data-foot-mode="notes">Revision notes</a><a href="/#/?mode=guide" data-foot-mode="guide">Exam guide</a><a href="/#/?mode=trends" data-foot-mode="trends">Topic trends</a></nav><nav class="foot-col" aria-label="IGCSE"><h2>IGCSE</h2><a href="/subjects/igcse-physics-0625/">Physics</a><a href="/subjects/igcse-chemistry-0620/">Chemistry</a><a href="/subjects/igcse-biology-0610/">Biology</a><a href="/subjects/igcse-mathematics-0580/">Mathematics</a><a href="/subjects/igcse-computer-science-0478/">Computer Science</a></nav><nav class="foot-col" aria-label="AS &amp; A Level"><h2>AS &amp; A Level</h2><a href="/subjects/a-level-physics-9702/">Physics</a><a href="/subjects/a-level-chemistry-9701/">Chemistry</a><a href="/subjects/a-level-biology-9700/">Biology</a><a href="/subjects/a-level-mathematics-9709/">Mathematics</a><a href="/subjects/a-level-computer-science-9618/">Computer Science</a></nav><nav class="foot-col" aria-label="BeforeExams"><h2>BeforeExams</h2><a href="/about/">About and authors</a><a href="/revision-notes/">All revision notes</a><a href="/#/account">My account</a><a href="/#/account">Mock tests</a></nav></div><p class="foot-note">Past papers and mark schemes © Cambridge University Press &amp; Assessment. BeforeExams is an independent study site, not affiliated with Cambridge.</p><div class="foot-bar"><span>© 2026 BeforeExams. Made by <b>DusboyevC</b> and <b>Magnetars</b>.</span><a href="/privacy/">Privacy Policy</a></div></div></footer>
+</body>
+</html>

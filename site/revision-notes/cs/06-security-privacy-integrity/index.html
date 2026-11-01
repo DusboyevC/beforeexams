@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Security, privacy and data integrity: AS &amp; A Level Computer Science 9618 revision notes | BeforeExams</title>
+<meta name="description" content="What you must be able to do Explain the difference between security, privacy and integrity of data. Describe threats to computer systems and data,…">
+<meta property="og:title" content="Security, privacy and data integrity: AS &amp; A Level Computer Science 9618 revision notes | BeforeExams">
+<meta property="og:description" content="What you must be able to do Explain the difference between security, privacy and integrity of data. Describe threats to computer systems and data,…">
+<meta property="og:url" content="https://beforexams.netlify.app/revision-notes/cs/06-security-privacy-integrity/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BeforeExams">
+<link rel="canonical" href="https://beforexams.netlify.app/revision-notes/cs/06-security-privacy-integrity/">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/style.css">
+<script>try{if(localStorage.getItem("be-theme")==="light")document.documentElement.classList.remove("dark")}catch(e){}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Security, privacy and data integrity", "educationalLevel": "AS & A Level", "about": "Computer Science", "author": [{"@type": "Person", "name": "DusboyevC"}, {"@type": "Person", "name": "Magnetars"}], "url": "https://beforexams.netlify.app/revision-notes/cs/06-security-privacy-integrity/"}</script>
+</head>
+<body data-view="static" data-glow="cs">
+<header class="topbar"><div class="wrap topbar-inner">
+<a href="/" class="brand" aria-label="BeforeExams home"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x="4" y="4" width="25" height="9" rx="3.2" fill="#F57C00"/><rect x="8" y="6.9" width="8" height="2.2" rx="1.1" fill="#1A1A18"/><rect x="7" y="15.5" width="29" height="9" rx="3.2" fill="#4FC79A"/><rect x="11" y="18.4" width="8" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/><rect x="3" y="27" width="31" height="10" rx="3.2" fill="#0F5C46"/><rect x="7" y="30.4" width="9" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/></svg><span class="font-brand brand-word">Before<span>Exams</span></span></a>
+<nav class="topbar-actions" aria-label="Main"><a href="/#library" class="nav-link">Library</a><a href="/revision-notes/" class="nav-link">Notes</a><a href="/about/" class="nav-link">About</a></nav>
+</div></header>
+<main class="page"><div class="wrap static-page"><p class="label-caps eyebrow"><a href="/subjects/a-level-computer-science-9618/">AS &amp; A Level Computer Science 9618</a></p><article class="notes"><h1>6 Security, privacy and data integrity</h1>
+<h2>What you must be able to do</h2>
+<ul>
+<li>Explain the difference between security, privacy and integrity of data.</li>
+<li>Describe threats to computer systems and data, and the measures that protect against them.</li>
+<li>Explain validation and verification, and describe the methods of each.</li>
+<li>Describe the error-detection methods used in data transmission.</li>
+</ul>
+<h2>6.1 Data security</h2>
+<h3>Key terms</h3>
+<ul>
+<li><strong>Data security</strong>: protecting data from loss, damage or unauthorised access.</li>
+<li><strong>Data privacy</strong>: keeping personal data confidential so it is only seen and used by people authorised to, as required by data protection law.</li>
+<li><strong>Data integrity</strong>: making sure data is accurate, complete and consistent, and stays that way when stored, processed or transmitted.</li>
+</ul>
+<h3>Threats</h3>
+<ul>
+<li><strong>Malware</strong>: software designed to cause harm.</li>
+<li><strong>Virus</strong>: attaches to a file, replicates when the file runs, and corrupts or deletes data.</li>
+<li><strong>Worm</strong>: replicates on its own and spreads across networks, using up bandwidth.</li>
+<li><strong>Trojan horse</strong>: pretends to be useful software but carries a harmful payload, e.g. it opens a back door.</li>
+<li><strong>Spyware / keylogger</strong>: secretly records activity, such as keystrokes, and sends it to a third party to steal passwords.</li>
+<li>
+<p><strong>Ransomware</strong>: encrypts the victim's data and demands payment for the key.</p>
+</li>
+<li>
+<p><strong>Hacking</strong>: gaining unauthorised access to a system to steal, delete or change data.</p>
+</li>
+<li><strong>Phishing</strong>: emails or messages pretending to be from a trusted organisation, with links to fake sites that capture personal details.</li>
+<li><strong>Pharming</strong>: malicious code redirects a user from a genuine website to a fake one, even when they type the correct URL (e.g. by altering DNS or the hosts file).</li>
+<li><strong>Denial of service (DoS / DDoS)</strong>: floods a server with requests so genuine users cannot access it.</li>
+<li><strong>Accidental threats</strong>: human error such as deleting files, hardware failure, power cuts, fire and flood.</li>
+</ul>
+<h3>Protection measures (say what each one does)</h3>
+<ul>
+<li><strong>User accounts and passwords</strong>: only authorised users can log in. Use strong passwords that are changed regularly.</li>
+<li><strong>Access rights / levels</strong>: each user can read, write or delete only what their role needs.</li>
+<li><strong>Biometrics</strong>: authentication by a unique physical feature (fingerprint, face, iris). It cannot be forgotten and is hard to copy.</li>
+<li><strong>Two-step / multi-factor authentication</strong>: a second check, such as a code sent to a phone.</li>
+<li><strong>Firewall</strong>: hardware or software that monitors incoming and outgoing traffic and blocks traffic that breaks set rules, e.g. by blocking certain IP addresses and ports.</li>
+<li><strong>Anti-virus / anti-malware</strong>: scans for and removes malware. Keep it updated.</li>
+<li><strong>Encryption</strong>: scrambles data with a key, so intercepted data is meaningless without the decryption key. It does <strong>not</strong> stop interception; it makes intercepted data unreadable.</li>
+<li><strong>Digital signatures and certificates</strong>: confirm who sent data and that it has not been altered.</li>
+<li><strong>Physical security</strong>: locked rooms, CCTV and keycards.</li>
+<li><strong>Backups</strong>: copies kept off-site or in the cloud, so data can be restored after loss.</li>
+<li><strong>Disk mirroring (RAID)</strong>: data is written to two disks at once, so a failed disk can be replaced without losing data.</li>
+<li><strong>Uninterruptible power supply (UPS)</strong>: keeps the system running during a power cut so data can be saved.</li>
+</ul>
+<h2>6.2 Data integrity</h2>
+<h3>Validation</h3>
+<p><strong>Validation</strong>: an automatic check by the computer that data entered is <strong>reasonable and sensible</strong>, i.e. that it follows set rules. It cannot check that data is <em>correct</em>.</p>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>What it does</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Range check</strong></td>
+<td>Value lies between set limits</td>
+<td>Age between 0 and 120</td>
+</tr>
+<tr>
+<td><strong>Limit check</strong></td>
+<td>Value is above or below a single limit</td>
+<td>Mark must be ≤ 100</td>
+</tr>
+<tr>
+<td><strong>Length check</strong></td>
+<td>Correct number of characters</td>
+<td>Password at least 8 characters</td>
+</tr>
+<tr>
+<td><strong>Type check</strong></td>
+<td>Correct data type</td>
+<td>Quantity must be an integer</td>
+</tr>
+<tr>
+<td><strong>Format check</strong></td>
+<td>Matches a set pattern</td>
+<td>Date as DD/MM/YYYY; code as 2 letters then 3 digits</td>
+</tr>
+<tr>
+<td><strong>Presence check</strong></td>
+<td>Field is not left empty</td>
+<td>Surname must be entered</td>
+</tr>
+<tr>
+<td><strong>Existence check</strong></td>
+<td>Value exists in a list or file</td>
+<td>Product code must exist in the products table</td>
+</tr>
+<tr>
+<td><strong>Check digit</strong></td>
+<td>An extra digit calculated from the others is recalculated and compared</td>
+<td>ISBN, barcodes</td>
+</tr>
+</tbody>
+</table>
+<h3>Verification</h3>
+<p><strong>Verification</strong>: checking that data has been <strong>copied or entered accurately</strong> from its source, i.e. that it matches the original.</p>
+<ul>
+<li><strong>Double entry</strong>: data is entered twice and the two versions are compared; e.g. "re-enter your password".</li>
+<li><strong>Visual check / proofreading</strong>: the user checks the entered data on screen against the original document.</li>
+</ul>
+<h3>Error detection in transmission</h3>
+<ul>
+<li><strong>Parity check</strong>: an extra parity bit is added so the number of 1s is even (even parity) or odd (odd parity). The receiver counts the 1s; if the parity is wrong, there is an error.</li>
+<li>Limitation: if <strong>two</strong> bits flip, the parity stays correct and the error is not detected.</li>
+<li>
+<p><strong>Parity block / byte</strong>: parity is calculated for each byte (row) and for each bit position (column). The row and column that are both wrong show <strong>exactly which bit</strong> is wrong, so it can be corrected.</p>
+</li>
+<li>
+<p><strong>Checksum</strong>: the sender calculates a value from the block of data (e.g. the sum of the bytes) and sends it with the data. The receiver recalculates it; if the values differ, the data is re-sent.</p>
+</li>
+<li><strong>Echo check</strong>: the receiver sends the data back to the sender, who compares it with the original. Weakness: the error could have happened on the way back.</li>
+<li><strong>Check digit</strong>: used to catch errors when data is <em>input</em>, e.g. in a barcode.</li>
+<li><strong>ARQ (automatic repeat request)</strong>: the receiver sends a positive or negative <strong>acknowledgement</strong>. If the sender gets a negative acknowledgement, or none at all within a <strong>timeout</strong>, it re-sends the data.</li>
+</ul>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>Validation versus verification is asked almost every year. Validation = <strong>reasonable</strong>; verification = <strong>matches the original</strong>. Neither one guarantees the data is correct.</li>
+<li>Always give an <strong>example</strong> for a validation check when asked to "describe".</li>
+<li>Encryption does not <em>prevent</em> hacking or interception; it makes the stolen data <strong>unusable</strong>.</li>
+<li>Phishing needs the user to click a link; pharming redirects them <strong>without</strong> their action.</li>
+<li>Parity block questions: identify the byte <strong>and</strong> the bit position, then explain using the row and column.</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>Explain why a range check cannot detect every data entry error.</li>
+<li>Describe how a parity block can identify and correct a single-bit error.</li>
+<li>Explain the difference between phishing and pharming.</li>
+<li>Give two ways a firewall protects a network.</li>
+</ol></article><nav class="notes-nav"><a class="mini" href="/revision-notes/cs/05-system-software/">← System software</a><a class="mini" href="/revision-notes/cs/07-ethics-ownership/">Ethics and ownership →</a></nav></div></main>
+<footer class="foot"><div class="wrap"><div class="foot-grid"><div class="foot-brand"><a class="brand" href="/" aria-label="BeforeExams home"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x="4" y="4" width="25" height="9" rx="3.2" fill="#F57C00"/><rect x="8" y="6.9" width="8" height="2.2" rx="1.1" fill="#1A1A18"/><rect x="7" y="15.5" width="29" height="9" rx="3.2" fill="#4FC79A"/><rect x="11" y="18.4" width="8" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/><rect x="3" y="27" width="31" height="10" rx="3.2" fill="#0F5C46"/><rect x="7" y="30.4" width="9" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/></svg><span class="font-brand brand-word">Before<span>Exams</span></span></a><p>Free revision for Cambridge IGCSE and AS &amp; A Level students.</p><p class="foot-mail">Email: <a href="mailto:dusboyevc@gmail.com">dusboyevc@gmail.com</a></p></div><nav class="foot-col" aria-label="Library"><h2>Library</h2><a href="/#/?mode=topicals" data-foot-mode="topicals">Topical questions</a><a href="/#/?mode=papers" data-foot-mode="papers">Past papers</a><a href="/#/?mode=notes" data-foot-mode="notes">Revision notes</a><a href="/#/?mode=guide" data-foot-mode="guide">Exam guide</a><a href="/#/?mode=trends" data-foot-mode="trends">Topic trends</a></nav><nav class="foot-col" aria-label="IGCSE"><h2>IGCSE</h2><a href="/subjects/igcse-physics-0625/">Physics</a><a href="/subjects/igcse-chemistry-0620/">Chemistry</a><a href="/subjects/igcse-biology-0610/">Biology</a><a href="/subjects/igcse-mathematics-0580/">Mathematics</a><a href="/subjects/igcse-computer-science-0478/">Computer Science</a></nav><nav class="foot-col" aria-label="AS &amp; A Level"><h2>AS &amp; A Level</h2><a href="/subjects/a-level-physics-9702/">Physics</a><a href="/subjects/a-level-chemistry-9701/">Chemistry</a><a href="/subjects/a-level-biology-9700/">Biology</a><a href="/subjects/a-level-mathematics-9709/">Mathematics</a><a href="/subjects/a-level-computer-science-9618/">Computer Science</a></nav><nav class="foot-col" aria-label="BeforeExams"><h2>BeforeExams</h2><a href="/about/">About and authors</a><a href="/revision-notes/">All revision notes</a><a href="/#/account">My account</a><a href="/#/account">Mock tests</a></nav></div><p class="foot-note">Past papers and mark schemes © Cambridge University Press &amp; Assessment. BeforeExams is an independent study site, not affiliated with Cambridge.</p><div class="foot-bar"><span>© 2026 BeforeExams. Made by <b>DusboyevC</b> and <b>Magnetars</b>.</span><a href="/privacy/">Privacy Policy</a></div></div></footer>
+</body>
+</html>

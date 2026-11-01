@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Databases: AS &amp; A Level Computer Science 9618 revision notes | BeforeExams</title>
+<meta name="description" content="What you must be able to do Explain the limitations of a file-based approach and the benefits of a relational database. Use the correct relational…">
+<meta property="og:title" content="Databases: AS &amp; A Level Computer Science 9618 revision notes | BeforeExams">
+<meta property="og:description" content="What you must be able to do Explain the limitations of a file-based approach and the benefits of a relational database. Use the correct relational…">
+<meta property="og:url" content="https://beforexams.netlify.app/revision-notes/cs/08-databases/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BeforeExams">
+<link rel="canonical" href="https://beforexams.netlify.app/revision-notes/cs/08-databases/">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/style.css">
+<script>try{if(localStorage.getItem("be-theme")==="light")document.documentElement.classList.remove("dark")}catch(e){}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Databases", "educationalLevel": "AS & A Level", "about": "Computer Science", "author": [{"@type": "Person", "name": "DusboyevC"}, {"@type": "Person", "name": "Magnetars"}], "url": "https://beforexams.netlify.app/revision-notes/cs/08-databases/"}</script>
+</head>
+<body data-view="static" data-glow="cs">
+<header class="topbar"><div class="wrap topbar-inner">
+<a href="/" class="brand" aria-label="BeforeExams home"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x="4" y="4" width="25" height="9" rx="3.2" fill="#F57C00"/><rect x="8" y="6.9" width="8" height="2.2" rx="1.1" fill="#1A1A18"/><rect x="7" y="15.5" width="29" height="9" rx="3.2" fill="#4FC79A"/><rect x="11" y="18.4" width="8" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/><rect x="3" y="27" width="31" height="10" rx="3.2" fill="#0F5C46"/><rect x="7" y="30.4" width="9" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/></svg><span class="font-brand brand-word">Before<span>Exams</span></span></a>
+<nav class="topbar-actions" aria-label="Main"><a href="/#library" class="nav-link">Library</a><a href="/revision-notes/" class="nav-link">Notes</a><a href="/about/" class="nav-link">About</a></nav>
+</div></header>
+<main class="page"><div class="wrap static-page"><p class="label-caps eyebrow"><a href="/subjects/a-level-computer-science-9618/">AS &amp; A Level Computer Science 9618</a></p><article class="notes"><h1>8 Databases</h1>
+<h2>What you must be able to do</h2>
+<ul>
+<li>Explain the limitations of a file-based approach and the benefits of a relational database.</li>
+<li>Use the correct relational terms and draw E-R diagrams.</li>
+<li>Normalise data to 3NF.</li>
+<li>Describe the features of a DBMS.</li>
+<li>Write SQL: DDL to create and change tables, and DML to query and maintain data.</li>
+</ul>
+<h2>8.1 Database concepts</h2>
+<h3>File-based versus relational</h3>
+<table>
+<thead>
+<tr>
+<th>File-based approach – limitations</th>
+<th>Relational database – benefits</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Data redundancy</strong>: the same data is stored in several files</td>
+<td>Data is stored once, so there is little redundancy</td>
+</tr>
+<tr>
+<td><strong>Data inconsistency</strong>: a change in one file is not copied to the others</td>
+<td>Updating it in one place keeps data <strong>consistent</strong></td>
+</tr>
+<tr>
+<td><strong>Data dependency</strong>: programs depend on the file structure, so changing the structure means rewriting programs</td>
+<td><strong>Program–data independence</strong>: the structure can change without rewriting applications</td>
+</tr>
+<tr>
+<td>Hard to search across files</td>
+<td>Tables can be <strong>linked</strong> and queried with SQL</td>
+</tr>
+<tr>
+<td>Poor security: hard to set access per field</td>
+<td>The DBMS provides <strong>access rights</strong>, backup and integrity checks</td>
+</tr>
+</tbody>
+</table>
+<h3>Relational terms</h3>
+<ul>
+<li><strong>Entity</strong>: an object or thing about which data is stored, e.g. Student.</li>
+<li><strong>Table (relation)</strong>: a set of related data organised in rows and columns.</li>
+<li><strong>Record (tuple)</strong>: a row; one instance of an entity.</li>
+<li><strong>Field (attribute)</strong>: a column; one property of the entity.</li>
+<li><strong>Primary key</strong>: an attribute (or set) that <strong>uniquely identifies</strong> each record in a table.</li>
+<li><strong>Candidate key</strong>: any attribute or set that could be the primary key.</li>
+<li><strong>Secondary key</strong>: a candidate key not chosen as primary, often used as an index for searching.</li>
+<li><strong>Foreign key</strong>: an attribute in one table that is the <strong>primary key of another table</strong>, creating the link (relationship).</li>
+<li><strong>Composite key</strong>: a primary key made from two or more attributes.</li>
+<li><strong>Referential integrity</strong>: every foreign-key value must match an existing primary-key value in the linked table, so there are no orphan records.</li>
+<li><strong>Indexing</strong>: an extra data structure on a field that speeds up searching and sorting.</li>
+</ul>
+<h3>Relationships and E-R diagrams</h3>
+<ul>
+<li><strong>One-to-one (1:1)</strong>, <strong>one-to-many (1:M)</strong>, <strong>many-to-many (M:M)</strong>.</li>
+<li>In an E-R diagram, entities are boxes joined by lines; a "crow's foot" marks the <em>many</em> end.</li>
+<li><strong>A M:M relationship cannot be built directly.</strong> Resolve it with a <strong>link table</strong> that holds the primary keys of both tables as foreign keys. This creates two 1:M relationships.</li>
+<li>Example: STUDENT M:M COURSE becomes STUDENT 1:M ENROLMENT M:1 COURSE.</li>
+</ul>
+<h3>Normalisation</h3>
+<ul>
+<li><strong>First normal form (1NF)</strong>: no repeating groups of attributes; every field is <strong>atomic</strong> (one value); each record has a primary key.</li>
+<li><strong>Second normal form (2NF)</strong>: in 1NF <strong>and</strong> no <strong>partial dependencies</strong>: every non-key attribute depends on the <em>whole</em> primary key. This only matters when the key is composite.</li>
+<li><strong>Third normal form (3NF)</strong>: in 2NF <strong>and</strong> no <strong>non-key (transitive) dependencies</strong>: non-key attributes depend only on the key, not on another non-key attribute.</li>
+<li>Memory aid: every non-key attribute depends on "the key, the whole key, and nothing but the key".</li>
+</ul>
+<p><strong>Worked example</strong>
+ORDER(OrderID, CustomerID, CustomerName, ProductID, ProductName, Quantity)</p>
+<ol>
+<li><strong>1NF</strong>: an order can have several products, so remove the repeating group: ORDER(OrderID, CustomerID, CustomerName) and ORDER_LINE(OrderID, ProductID, ProductName, Quantity).</li>
+<li><strong>2NF</strong>: in ORDER_LINE the key is (OrderID, ProductID), and ProductName depends only on ProductID, which is a partial dependency. Split: ORDER_LINE(OrderID, ProductID, Quantity) and PRODUCT(ProductID, ProductName).</li>
+<li><strong>3NF</strong>: in ORDER, CustomerName depends on CustomerID, a non-key attribute. Split: ORDER(OrderID, CustomerID) and CUSTOMER(CustomerID, CustomerName).</li>
+</ol>
+<h2>8.2 Database Management System (DBMS)</h2>
+<ul>
+<li><strong>DBMS</strong>: software that creates, manages and controls access to a database, sitting between the users or applications and the data.</li>
+<li><strong>Data dictionary</strong>: stores <strong>metadata</strong>: table and field names, data types, field sizes, validation rules, keys and relationships.</li>
+<li><strong>Data modelling</strong>: using the DBMS to define the logical structure (the <strong>logical schema</strong>) of tables, fields and relationships.</li>
+<li><strong>Logical schema</strong>: the overall design of the whole database, independent of how the data is physically stored.</li>
+<li><strong>Security</strong>: user accounts, passwords and <strong>access rights</strong> (who can view or edit which tables or fields); views; automatic <strong>backups</strong>; audit logs.</li>
+<li><strong>Integrity</strong>: validation rules, referential integrity and record locking for multi-user access.</li>
+<li><strong>Developer interface</strong>: lets developers create forms, reports and queries.</li>
+<li><strong>Query processor</strong>: takes queries (e.g. SQL), works out the most efficient way to run them, and returns the results.</li>
+</ul>
+<h2>8.3 SQL</h2>
+<h3>DDL (data definition language): defines the structure</h3>
+<pre><code class="language-sql">CREATE DATABASE School;
+
+CREATE TABLE Student (
+  StudentID   CHARACTER(6) NOT NULL,
+  Name        VARCHAR(30),
+  DateOfBirth DATE,
+  ClassID     CHARACTER(3),
+  PRIMARY KEY (StudentID)
+);
+
+ALTER TABLE Student ADD Email VARCHAR(40);
+ALTER TABLE Student ADD FOREIGN KEY (ClassID) REFERENCES Class(ClassID);
+</code></pre>
+<p>Data types to know: <code>CHARACTER(n)</code>, <code>VARCHAR(n)</code>, <code>BOOLEAN</code>, <code>INTEGER</code>, <code>REAL</code>, <code>DATE</code>, <code>TIME</code>.</p>
+<h3>DML (data manipulation language): queries and maintains the data</h3>
+<pre><code class="language-sql">SELECT Name, DateOfBirth
+FROM Student
+WHERE ClassID = '12A' AND DateOfBirth &gt; '2008-01-01'
+ORDER BY Name ASC;
+
+SELECT ClassID, COUNT(*) FROM Student GROUP BY ClassID;
+SELECT AVG(Mark), SUM(Mark), MAX(Mark) FROM Result;
+
+-- joining two tables
+SELECT Student.Name, Class.TeacherName
+FROM Student INNER JOIN Class ON Student.ClassID = Class.ClassID;
+
+INSERT INTO Student (StudentID, Name, ClassID) VALUES ('S00123', 'Aziz', '12A');
+UPDATE Student SET ClassID = '12B' WHERE StudentID = 'S00123';
+DELETE FROM Student WHERE StudentID = 'S00123';
+</code></pre>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>A <strong>foreign key</strong> links to the primary key of <strong>another</strong> table. State both tables.</li>
+<li>In normalisation answers, <strong>name the dependency</strong> you removed (partial or non-key) and show the new tables with keys underlined or stated.</li>
+<li>SQL is marked for exact keywords and order: SELECT … FROM … WHERE … ORDER BY. Put text values in quotes; don't put quotes around numbers.</li>
+<li>When joining tables, include the join condition (<code>ON</code> or <code>WHERE Table1.Key = Table2.Key</code>).</li>
+<li><code>GROUP BY</code> is needed when you use <code>COUNT</code>, <code>SUM</code> or <code>AVG</code> alongside another field.</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>Explain why a M:M relationship needs a link table.</li>
+<li>Define "partial dependency" and say which normal form removes it.</li>
+<li>Write SQL to list the names of all students in class 13C in alphabetical order.</li>
+<li>Give three items of metadata stored in a data dictionary.</li>
+</ol></article><nav class="notes-nav"><a class="mini" href="/revision-notes/cs/07-ethics-ownership/">← Ethics and ownership</a><a class="mini" href="/revision-notes/cs/09-algorithm-design/">Algorithm design and problem-solving →</a></nav></div></main>
+<footer class="foot"><div class="wrap"><div class="foot-grid"><div class="foot-brand"><a class="brand" href="/" aria-label="BeforeExams home"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x="4" y="4" width="25" height="9" rx="3.2" fill="#F57C00"/><rect x="8" y="6.9" width="8" height="2.2" rx="1.1" fill="#1A1A18"/><rect x="7" y="15.5" width="29" height="9" rx="3.2" fill="#4FC79A"/><rect x="11" y="18.4" width="8" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/><rect x="3" y="27" width="31" height="10" rx="3.2" fill="#0F5C46"/><rect x="7" y="30.4" width="9" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/></svg><span class="font-brand brand-word">Before<span>Exams</span></span></a><p>Free revision for Cambridge IGCSE and AS &amp; A Level students.</p><p class="foot-mail">Email: <a href="mailto:dusboyevc@gmail.com">dusboyevc@gmail.com</a></p></div><nav class="foot-col" aria-label="Library"><h2>Library</h2><a href="/#/?mode=topicals" data-foot-mode="topicals">Topical questions</a><a href="/#/?mode=papers" data-foot-mode="papers">Past papers</a><a href="/#/?mode=notes" data-foot-mode="notes">Revision notes</a><a href="/#/?mode=guide" data-foot-mode="guide">Exam guide</a><a href="/#/?mode=trends" data-foot-mode="trends">Topic trends</a></nav><nav class="foot-col" aria-label="IGCSE"><h2>IGCSE</h2><a href="/subjects/igcse-physics-0625/">Physics</a><a href="/subjects/igcse-chemistry-0620/">Chemistry</a><a href="/subjects/igcse-biology-0610/">Biology</a><a href="/subjects/igcse-mathematics-0580/">Mathematics</a><a href="/subjects/igcse-computer-science-0478/">Computer Science</a></nav><nav class="foot-col" aria-label="AS &amp; A Level"><h2>AS &amp; A Level</h2><a href="/subjects/a-level-physics-9702/">Physics</a><a href="/subjects/a-level-chemistry-9701/">Chemistry</a><a href="/subjects/a-level-biology-9700/">Biology</a><a href="/subjects/a-level-mathematics-9709/">Mathematics</a><a href="/subjects/a-level-computer-science-9618/">Computer Science</a></nav><nav class="foot-col" aria-label="BeforeExams"><h2>BeforeExams</h2><a href="/about/">About and authors</a><a href="/revision-notes/">All revision notes</a><a href="/#/account">My account</a><a href="/#/account">Mock tests</a></nav></div><p class="foot-note">Past papers and mark schemes © Cambridge University Press &amp; Assessment. BeforeExams is an independent study site, not affiliated with Cambridge.</p><div class="foot-bar"><span>© 2026 BeforeExams. Made by <b>DusboyevC</b> and <b>Magnetars</b>.</span><a href="/privacy/">Privacy Policy</a></div></div></footer>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<h1>13 Data representation</h1>
+<h2>What you must be able to do</h2>
+<ul>
+<li>Define and use user-defined data types: non-composite (enumerated, pointer) and composite (record, set, class).</li>
+<li>Describe serial, sequential and random file organisation, and the methods of access.</li>
+<li>Explain hashing and collision handling.</li>
+<li>Convert to and from normalised binary floating-point, and explain precision, range and rounding errors.</li>
+</ul>
+<h2>13.1 User-defined data types</h2>
+<ul>
+<li><strong>User-defined data type</strong>: a data type created by the programmer, built from existing types, to model the problem better.</li>
+<li><strong>Non-composite</strong>: defined without referring to other types.</li>
+<li><strong>Enumerated</strong>: a list of all possible values, in order.
+    <code>TYPE Season = (Spring, Summer, Autumn, Winter)</code></li>
+<li>
+<p><strong>Pointer</strong>: holds the memory address of a variable of a given type.
+    <code>TYPE TIntPointer = ^INTEGER</code>  <code>DECLARE P : TIntPointer</code>  <code>P ← @Value</code>  <code>OUTPUT P^</code> (dereference)</p>
+</li>
+<li>
+<p><strong>Composite</strong>: defined using other data types.</p>
+</li>
+<li><strong>Record</strong>: fields of different types (see chapter 10).</li>
+<li><strong>Set</strong>: an unordered collection of unique values of one type, which supports union, intersection and membership tests.</li>
+<li>
+<p><strong>Class</strong>: data (attributes) plus methods (see chapter 20).</p>
+</li>
+<li>
+<p><strong>Why use them?</strong> The code models real data more closely, is easier to read, and lets the translator catch invalid values.</p>
+</li>
+</ul>
+<h2>13.2 File organisation and access</h2>
+<table>
+<thead>
+<tr>
+<th>Organisation</th>
+<th>How records are stored</th>
+<th>Access</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Serial</strong></td>
+<td>In the order they were added (chronological)</td>
+<td>Sequential access only: read from the start until found. New records are appended. Good for transaction logs</td>
+</tr>
+<tr>
+<td><strong>Sequential</strong></td>
+<td>In order of a <strong>key field</strong></td>
+<td>Sequential access: read in order. Can stop early once the key has been passed. Good for batch processing, e.g. payroll</td>
+</tr>
+<tr>
+<td><strong>Random (direct access)</strong></td>
+<td>At an address calculated from the key by a <strong>hashing algorithm</strong></td>
+<td><strong>Direct</strong> access: go straight to the record. Good when single records are needed quickly, e.g. booking systems</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Hashing algorithm</strong>: a calculation on the key that gives the address where the record is stored, e.g. <code>address = key MOD number_of_locations</code>.</li>
+<li><strong>Collision</strong>: two different keys give the same address. It can be handled by:</li>
+<li><strong>Open hashing (linear probing)</strong>: store the record in the next free location, and search forward from the hashed address when reading.</li>
+<li><strong>Closed hashing (overflow area)</strong>: put the record in a separate overflow area, searched serially, or in a linked list (chaining) from that address.</li>
+</ul>
+<h2>13.3 Floating-point numbers</h2>
+<ul>
+<li>A real number is stored as a <strong>mantissa</strong> and an <strong>exponent</strong>, both in two's complement: value = M × 2ᴱ.</li>
+<li><strong>Normalised</strong>: the first two bits of the mantissa are <strong>different</strong>: <code>0.1…</code> for positive and <code>1.0…</code> for negative.</li>
+<li>Normalisation gives the <strong>maximum precision</strong> for the bits available, and a <strong>unique</strong> representation of each number.</li>
+</ul>
+<h3>Converting floating-point to denary (8-bit mantissa, 4-bit exponent)</h3>
+<p>Mantissa <code>0.1011000</code>, exponent <code>0011</code> (= +3).
+Move the binary point 3 places right: 0101.1000 = 4 + 1 + 0.5 = <strong>5.5</strong></p>
+<p>Negative example: mantissa <code>1.0100000</code> (= −1 + 0.25 = −0.75), exponent <code>0010</code> (+2) → move the point 2 places: <code>101.00000</code> → −4 + 1 = <strong>−3</strong> (check: −0.75 × 2² = −3)</p>
+<h3>Converting denary to normalised floating point</h3>
+<p>Example: 6.75.</p>
+<ol>
+<li>In binary: 110.11</li>
+<li>Normalise so the point follows the first 1 (for a positive number, written as 0.1…): 0.11011 × 2³</li>
+<li>Mantissa = <code>0.1101100</code>, exponent = 3 = <code>0011</code></li>
+</ol>
+<p>For a negative number, find the positive binary first, then take the two's complement of the mantissa, and normalise to start <code>1.0</code>.</p>
+<h3>Range versus precision</h3>
+<ul>
+<li><strong>More bits in the mantissa</strong> → greater <strong>precision</strong> (accuracy).</li>
+<li><strong>More bits in the exponent</strong> → greater <strong>range</strong> of numbers.</li>
+<li>With a fixed total, increasing one reduces the other.</li>
+</ul>
+<h3>Errors</h3>
+<ul>
+<li><strong>Rounding / truncation error</strong>: many denary fractions (e.g. 0.1) cannot be represented exactly in binary, so the stored value is approximate.</li>
+<li><strong>Overflow</strong>: the number is too large for the exponent.</li>
+<li><strong>Underflow</strong>: the number is too close to zero to be represented, so it becomes 0.</li>
+<li><strong>Consequence</strong>: comparisons such as <code>IF x = 0.3</code> can fail; small errors grow over repeated calculations.</li>
+</ul>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>A normalised mantissa starts <code>01</code> (positive) or <code>10</code> (negative). Check this first.</li>
+<li>Show your working: binary form, then the exponent, then the shift.</li>
+<li>In hashing questions, show the calculation and follow the stated collision method exactly.</li>
+<li>The precision versus range trade-off is a reliable 2-mark question; link each to mantissa or exponent.</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>Mantissa 0.1100000, exponent 0100. What is the denary value? <em>(12)</em></li>
+<li>Explain why normalisation increases precision.</li>
+<li>Explain why random access is better than sequential access for an airline seat-booking system.</li>
+<li>Define a collision and describe one way to handle it.</li>
+</ol>

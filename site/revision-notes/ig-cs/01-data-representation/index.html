@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data representation: IGCSE Computer Science 0478 revision notes | BeforeExams</title>
+<meta name="description" content="Number systems Computers use binary (base 2) because they are built from switches (transistors) that have two states, on and off (1 and 0). All data…">
+<meta property="og:title" content="Data representation: IGCSE Computer Science 0478 revision notes | BeforeExams">
+<meta property="og:description" content="Number systems Computers use binary (base 2) because they are built from switches (transistors) that have two states, on and off (1 and 0). All data…">
+<meta property="og:url" content="https://beforexams.netlify.app/revision-notes/ig-cs/01-data-representation/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BeforeExams">
+<link rel="canonical" href="https://beforexams.netlify.app/revision-notes/ig-cs/01-data-representation/">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/style.css">
+<script>try{if(localStorage.getItem("be-theme")==="light")document.documentElement.classList.remove("dark")}catch(e){}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Data representation", "educationalLevel": "IGCSE", "about": "Computer Science", "author": [{"@type": "Person", "name": "DusboyevC"}, {"@type": "Person", "name": "Magnetars"}], "url": "https://beforexams.netlify.app/revision-notes/ig-cs/01-data-representation/"}</script>
+</head>
+<body data-view="static" data-glow="cs">
+<header class="topbar"><div class="wrap topbar-inner">
+<a href="/" class="brand" aria-label="BeforeExams home"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x="4" y="4" width="25" height="9" rx="3.2" fill="#F57C00"/><rect x="8" y="6.9" width="8" height="2.2" rx="1.1" fill="#1A1A18"/><rect x="7" y="15.5" width="29" height="9" rx="3.2" fill="#4FC79A"/><rect x="11" y="18.4" width="8" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/><rect x="3" y="27" width="31" height="10" rx="3.2" fill="#0F5C46"/><rect x="7" y="30.4" width="9" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/></svg><span class="font-brand brand-word">Before<span>Exams</span></span></a>
+<nav class="topbar-actions" aria-label="Main"><a href="/#library" class="nav-link">Library</a><a href="/revision-notes/" class="nav-link">Notes</a><a href="/about/" class="nav-link">About</a></nav>
+</div></header>
+<main class="page"><div class="wrap static-page"><p class="label-caps eyebrow"><a href="/subjects/igcse-computer-science-0478/">IGCSE Computer Science 0478</a></p><article class="notes"><h1>1 Data representation</h1>
+<h2>Number systems</h2>
+<ul>
+<li>Computers use <strong>binary</strong> (base 2) because they are built from <strong>switches (transistors)</strong> that have two states, on and off (1 and 0). All data must be converted to binary to be processed.</li>
+<li><strong>Denary</strong>: base 10. <strong>Hexadecimal</strong>: base 16 (0–9, A–F).</li>
+<li>Place values (8-bit): 128, 64, 32, 16, 8, 4, 2, 1.</li>
+</ul>
+<p><strong>Conversions</strong></p>
+<ul>
+<li>Binary → denary: add the place values where there is a 1. <code>0110 1001</code> = 64 + 32 + 8 + 1 = <strong>105</strong>.</li>
+<li>Denary → binary: subtract the largest place value that fits, write 1, and repeat.</li>
+<li>Binary ↔ hex: split into groups of 4 bits (nibbles). <code>1010 1111</code> = <strong>AF</strong>.</li>
+<li>Hex → denary: multiply by 16s. <code>3C</code> = 3 × 16 + 12 = <strong>60</strong>.</li>
+</ul>
+<p><strong>Why hexadecimal is used</strong>: it is <strong>shorter</strong> and <strong>easier for humans to read</strong> than binary, so there are fewer mistakes, and it converts easily (1 hex digit = 4 bits).</p>
+<ul>
+<li>Uses: <strong>MAC addresses</strong>, <strong>HTML colour codes</strong>, <strong>error codes</strong>, IPv6 addresses, memory dumps and assembly language.</li>
+</ul>
+<h2>Binary addition and overflow</h2>
+<ul>
+<li>0 + 0 = 0; 0 + 1 = 1; 1 + 1 = 0 carry 1; 1 + 1 + 1 = 1 carry 1.</li>
+<li><strong>Overflow error</strong>: the result needs <strong>more than 8 bits</strong>, so it is too large for the register, e.g. 200 + 100 = 300 &gt; 255.</li>
+</ul>
+<h2>Logical shifts</h2>
+<ul>
+<li><strong>Left shift</strong> by n places: each bit moves left and 0s fill the gaps on the right. This <strong>multiplies by 2ⁿ</strong>. Bits shifted off the left end are <strong>lost</strong>, which makes the result wrong.</li>
+<li><strong>Right shift</strong> by n places: <strong>divides by 2ⁿ</strong>. Bits lost on the right make it inaccurate (the remainder is lost).</li>
+</ul>
+<h2>Two's complement (8-bit)</h2>
+<ul>
+<li>The leftmost bit has the value <strong>−128</strong>. Range: −128 to +127.</li>
+<li>To store −35: write +35 as <code>0010 0011</code>, flip the bits (<code>1101 1100</code>), add 1 → <strong><code>1101 1101</code></strong>.</li>
+</ul>
+<h2>Text, sound and images</h2>
+<ul>
+<li><strong>Character set</strong>: all the characters a computer can use, each with a unique binary code.</li>
+<li><strong>ASCII</strong>: 7 bits (128 characters), or 8-bit extended (256). English characters only.</li>
+<li>
+<p><strong>Unicode</strong>: up to 32 bits per character, so it covers <strong>every language and emojis</strong>. It needs <strong>more storage per character</strong> than ASCII.</p>
+</li>
+<li>
+<p><strong>Sound</strong>: the sound wave is <strong>sampled</strong> at regular intervals, and each sample's <strong>amplitude</strong> is stored in binary.</p>
+</li>
+<li><strong>Sample rate</strong>: the number of samples per second (Hz).</li>
+<li><strong>Sample resolution</strong>: the number of bits per sample.</li>
+<li>
+<p>Increasing either makes the recording <strong>more accurate</strong> (closer to the original), but the <strong>file is larger</strong>.</p>
+</li>
+<li>
+<p><strong>Images</strong>: a bitmap is made of <strong>pixels</strong>.</p>
+</li>
+<li><strong>Resolution</strong>: the number of pixels (width × height).</li>
+<li><strong>Colour depth</strong>: the number of bits per pixel (n bits give 2ⁿ colours).</li>
+<li>Increasing either gives <strong>better quality</strong> but a <strong>larger file</strong>.</li>
+</ul>
+<h2>Data storage and file size</h2>
+<ul>
+<li>bit → nibble (4 bits) → byte (8 bits) → <strong>KiB (1024 bytes)</strong> → MiB → GiB → TiB → PiB → EiB.</li>
+<li><strong>Image file size</strong> = resolution × colour depth (bits). Divide by 8 for bytes and by 1024 for KiB.</li>
+<li><strong>Sound file size</strong> = sample rate × sample resolution × length in seconds (bits).</li>
+<li>Worked example: 1024 × 512 image, 16-bit colour → 1024 × 512 × 16 = 8 388 608 bits = 1 048 576 bytes = <strong>1 MiB</strong>.</li>
+</ul>
+<h2>Compression</h2>
+<ul>
+<li><strong>Why compress?</strong> It uses less storage space, makes files quicker to send and upload or download, uses less bandwidth, and keeps files under email attachment limits.</li>
+<li><strong>Lossy</strong>: <strong>permanently removes</strong> data, so the original can't be restored. It gives a much smaller file.</li>
+<li>Methods: reduce the resolution or colour depth; reduce the sample rate or resolution; <strong>perceptual music shaping</strong> (remove sounds humans can't hear well).</li>
+<li>
+<p>Used for JPEG images and MP3/MP4 files.</p>
+</li>
+<li>
+<p><strong>Lossless</strong>: no data is lost; the original can be reconstructed <strong>exactly</strong>. Used for text and program files.</p>
+</li>
+<li>Method: <strong>run-length encoding (RLE)</strong>, which stores runs of repeated data as one value and a count, e.g. <code>WWWWBBB</code> becomes <code>4W3B</code>.</li>
+</ul>
+<h2>Exam tips and common mistakes</h2>
+<ul>
+<li>Show your working in conversions and file-size calculations.</li>
+<li>When asked "why binary?", answer "computers are made of switches/transistors with two states", not "it's easier".</li>
+<li>For hex uses, give a <strong>specific</strong> example, such as MAC addresses or HTML colour codes.</li>
+</ul>
+<h2>Quick self-check</h2>
+<ol>
+<li>Convert 1011 0110 into hexadecimal. <em>(B6)</em></li>
+<li>What is the effect of a logical left shift of 2 places on 0001 0110? <em>(0101 1000: the value is multiplied by 4, from 22 to 88)</em></li>
+<li>Give one benefit and one drawback of Unicode compared with ASCII.</li>
+</ol></article><nav class="notes-nav"><span></span><a class="mini" href="/revision-notes/ig-cs/02-data-transmission/">Data transmission →</a></nav></div></main>
+<footer class="foot"><div class="wrap"><div class="foot-grid"><div class="foot-brand"><a class="brand" href="/" aria-label="BeforeExams home"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x="4" y="4" width="25" height="9" rx="3.2" fill="#F57C00"/><rect x="8" y="6.9" width="8" height="2.2" rx="1.1" fill="#1A1A18"/><rect x="7" y="15.5" width="29" height="9" rx="3.2" fill="#4FC79A"/><rect x="11" y="18.4" width="8" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/><rect x="3" y="27" width="31" height="10" rx="3.2" fill="#0F5C46"/><rect x="7" y="30.4" width="9" height="2.2" rx="1.1" fill="#fff" fill-opacity=".75"/></svg><span class="font-brand brand-word">Before<span>Exams</span></span></a><p>Free revision for Cambridge IGCSE and AS &amp; A Level students.</p><p class="foot-mail">Email: <a href="mailto:dusboyevc@gmail.com">dusboyevc@gmail.com</a></p></div><nav class="foot-col" aria-label="Library"><h2>Library</h2><a href="/#/?mode=topicals" data-foot-mode="topicals">Topical questions</a><a href="/#/?mode=papers" data-foot-mode="papers">Past papers</a><a href="/#/?mode=notes" data-foot-mode="notes">Revision notes</a><a href="/#/?mode=guide" data-foot-mode="guide">Exam guide</a><a href="/#/?mode=trends" data-foot-mode="trends">Topic trends</a></nav><nav class="foot-col" aria-label="IGCSE"><h2>IGCSE</h2><a href="/subjects/igcse-physics-0625/">Physics</a><a href="/subjects/igcse-chemistry-0620/">Chemistry</a><a href="/subjects/igcse-biology-0610/">Biology</a><a href="/subjects/igcse-mathematics-0580/">Mathematics</a><a href="/subjects/igcse-computer-science-0478/">Computer Science</a></nav><nav class="foot-col" aria-label="AS &amp; A Level"><h2>AS &amp; A Level</h2><a href="/subjects/a-level-physics-9702/">Physics</a><a href="/subjects/a-level-chemistry-9701/">Chemistry</a><a href="/subjects/a-level-biology-9700/">Biology</a><a href="/subjects/a-level-mathematics-9709/">Mathematics</a><a href="/subjects/a-level-computer-science-9618/">Computer Science</a></nav><nav class="foot-col" aria-label="BeforeExams"><h2>BeforeExams</h2><a href="/about/">About and authors</a><a href="/revision-notes/">All revision notes</a><a href="/#/account">My account</a><a href="/#/account">Mock tests</a></nav></div><p class="foot-note">Past papers and mark schemes © Cambridge University Press &amp; Assessment. BeforeExams is an independent study site, not affiliated with Cambridge.</p><div class="foot-bar"><span>© 2026 BeforeExams. Made by <b>DusboyevC</b> and <b>Magnetars</b>.</span><a href="/privacy/">Privacy Policy</a></div></div></footer>
+</body>
+</html>
