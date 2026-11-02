@@ -624,7 +624,7 @@ html body.on-hero .topbar.topbar { background: transparent; }
 .seg[hidden] { display: none; }
 
 /* subject header glow: a baked image, so nothing is blurred while scrolling */
-.section-head { padding: 24px; border: 1px solid var(--border); border-radius: 20px; background: var(--surface); }
+.section-head { padding: 24px; border: 1px solid var(--border); border-radius: 20px; background: var(--surface) var(--glow) right bottom / cover no-repeat; }
 .section-head .seg { background: color-mix(in srgb, var(--surface) 86%, transparent); }
 @media (max-width: 640px) { .section-head { padding: 18px 16px; } }
 /* one glow per subject: [data-glow] sets --glow, on the body or on a single card */
@@ -681,6 +681,7 @@ body[data-glow]:not([data-glow="site"]) { --forest-hover: color-mix(in srgb, var
 .subject-nums, .subject-code { text-shadow: 0 0 6px var(--surface), 0 0 2px var(--surface); }
 
 
+@media (max-width: 999px) { .section-head { background-image: linear-gradient(to right, var(--surface) 52%, color-mix(in srgb, var(--surface) 35%, transparent)), var(--glow); background-size: auto, cover; } }
 .subject-card:nth-child(1)::after { background-size: 200% auto; }
 @media (min-width: 1000px) { .subject-card:nth-child(2)::after { background-size: 200% auto; } }
 
