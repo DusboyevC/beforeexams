@@ -463,7 +463,8 @@ select.st-field { appearance: auto; }
 /* site password screen */
 .gate-form { margin: 16px auto 0; display: flex; gap: 8px; max-width: 340px; }
 .gate-form .gate-field { flex: 1; min-width: 0; padding-left: 14px; }
-.gate-login { margin: 14px 0 0; }
+.gate-login { max-width: 420px; margin: 18px auto 0; padding-top: 16px; border-top: 1px solid var(--border); }
+.gate-login p { margin: 0 0 12px; font-size: .88rem; }
 /* topical covers wear their subject's colour */
 @media (max-width: 640px) { .account-more { display: none; } }
 @media (max-width: 480px) {
@@ -532,16 +533,23 @@ body[data-view="viewer"] .explore, body[data-view="notes"] .explore { display: n
 /* admin */
 #adminLink[hidden] { display: none; }
 .admin .stats { margin-top: 12px; }
-.ad-chart { position: relative; margin-top: 18px; padding-top: 18px; border-bottom: 1px solid var(--border-strong); }
-.ad-max { position: absolute; top: 0; left: 0; font-size: .75rem; color: var(--muted); }
-.ad-bars { display: flex; align-items: stretch; gap: 2px; height: 180px; }
-.ad-col { flex: 1 1 0; min-width: 0; display: flex; align-items: flex-end; border-radius: 4px 4px 0 0; outline-offset: 1px; }
-.ad-col:hover { background: var(--surface-2); }
-.ad-col i { display: block; width: 100%; background: var(--forest); border-radius: 4px 4px 0 0; }
-.ad-tip { position: absolute; top: 0; padding: 5px 9px; border-radius: 8px; background: var(--ink); color: var(--paper); font-size: .76rem; white-space: nowrap; pointer-events: none; }
-.ad-axis { display: flex; justify-content: space-between; margin-top: 6px; font-size: .75rem; color: var(--muted); }
-.ad-table { margin-top: 12px; font-size: .86rem; }
-.ad-table summary { cursor: pointer; color: var(--muted); }
+/* sn- and not ad-: ad blockers hide class names such as .ad-col and .ad-table */
+.sn-legend { display: flex; gap: 16px; margin-top: 12px; font-size: .78rem; color: var(--muted); }
+.sn-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sn-legend span::before { content: ""; width: 10px; height: 10px; border-radius: 3px; background: var(--forest); }
+.sn-legend .u::before { background: var(--pop); }
+.sn-chart { position: relative; margin-top: 12px; padding-top: 18px; }
+.sn-max { position: absolute; top: 0; left: 0; font-size: .75rem; color: var(--muted); }
+.sn-bars { display: flex; align-items: stretch; gap: 4px; height: 180px; border-bottom: 1px solid var(--border-strong); }
+.sn-col { flex: 0 1 56px; min-width: 0; display: flex; align-items: flex-end; gap: 2px; border-radius: 4px 4px 0 0; outline-offset: 1px; }
+.sn-col:hover { background: var(--surface-2); }
+.sn-col i { flex: 1 1 0; min-width: 0; background: var(--forest); border-radius: 3px 3px 0 0; }
+.sn-col i.u { background: var(--pop); }
+.sn-tip { position: absolute; top: 0; padding: 5px 9px; border-radius: 8px; background: var(--ink); color: var(--paper); font-size: .76rem; white-space: nowrap; pointer-events: none; }
+.sn-axis { display: flex; gap: 4px; margin-top: 6px; font-size: .75rem; color: var(--muted); }
+.sn-axis span { flex: 0 1 56px; min-width: 0; white-space: nowrap; }
+.sn-table { margin-top: 12px; font-size: .86rem; }
+.sn-table summary { cursor: pointer; color: var(--muted); }
 /* trends */
 .tr-two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .tr-moves { list-style: none; margin: 12px 0 0; padding: 0; }
@@ -595,10 +603,10 @@ html body.on-hero .topbar.topbar { background: transparent; }
 .report-box .field { width: 100%; margin-top: 6px; padding: 9px 12px; }
 .report-box textarea.field { min-height: 84px; resize: vertical; }
 .report-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px; }
-.ad-report { display: flex; justify-content: space-between; gap: 12px; padding: 12px 0; border-top: 1px solid var(--border); font-size: .88rem; }
-.ad-report:first-of-type { margin-top: 12px; }
-.ad-report p { margin: 2px 0 0; color: var(--muted); }
-.ad-report a { color: var(--forest); font-weight: 600; }
+.sn-report { display: flex; justify-content: space-between; gap: 12px; padding: 12px 0; border-top: 1px solid var(--border); font-size: .88rem; }
+.sn-report:first-of-type { margin-top: 12px; }
+.sn-report p { margin: 2px 0 0; color: var(--muted); }
+.sn-report a { color: var(--forest); font-weight: 600; }
 /* jump to a question */
 .jump { display: flex; align-items: center; gap: 8px; padding-top: 12px; }
 .jump:empty { display: none; }
@@ -616,7 +624,7 @@ html body.on-hero .topbar.topbar { background: transparent; }
 .seg[hidden] { display: none; }
 
 /* subject header glow: a baked image, so nothing is blurred while scrolling */
-.section-head { padding: 24px; border: 1px solid var(--border); border-radius: 20px; background: var(--surface) var(--glow) right bottom / cover no-repeat; }
+.section-head { padding: 24px; border: 1px solid var(--border); border-radius: 20px; background: var(--surface); }
 .section-head .seg { background: color-mix(in srgb, var(--surface) 86%, transparent); }
 @media (max-width: 640px) { .section-head { padding: 18px 16px; } }
 /* one glow per subject: [data-glow] sets --glow, on the body or on a single card */
@@ -672,33 +680,107 @@ body[data-glow]:not([data-glow="site"]) { --forest-hover: color-mix(in srgb, var
 
 .subject-nums, .subject-code { text-shadow: 0 0 6px var(--surface), 0 0 2px var(--surface); }
 
-@media (max-width: 999px) { .section-head { background-image: linear-gradient(to right, var(--surface) 52%, color-mix(in srgb, var(--surface) 35%, transparent)), var(--glow); background-size: auto, cover; } }
 
 .subject-card:nth-child(1)::after { background-size: 200% auto; }
 @media (min-width: 1000px) { .subject-card:nth-child(2)::after { background-size: 200% auto; } }
 
 @media (min-width: 1000px) { .section-head .seg { align-self: center; } }
 
-/* one soft subject gradient in the background below the tabs; the cards stay plain */
-body[data-glow="physics"] { --sa: #1fb98a; --sb: #27c4d8; }
-body[data-glow="chemistry"] { --sa: #3f7bea; --sb: #27c4d8; }
-body[data-glow="biology"] { --sa: #6fbf3f; --sb: #d6c62a; }
-body[data-glow="maths"] { --sa: #f08a1d; --sb: #f4524d; }
-body[data-glow="cs"] { --sa: #8a63ea; --sb: #e05cc4; }
 main.page { overflow-x: clip; isolation: isolate; }
 
-/* each subject's own long gradient behind the section; nothing repeats */
-body[data-glow="physics"] { --flow: radial-gradient(46% 10% at 76% 9%, color-mix(in srgb, var(--sa) 24%, transparent), transparent 100%), radial-gradient(30% 6% at 30% 17%, color-mix(in srgb, var(--sb) 14%, transparent), transparent 100%), radial-gradient(22% 9% at 62% 27%, color-mix(in srgb, var(--sb) 20%, transparent), transparent 100%), radial-gradient(40% 8% at 18% 37%, color-mix(in srgb, var(--sa) 20%, transparent), transparent 100%), radial-gradient(34% 7% at 84% 46%, color-mix(in srgb, var(--sa) 17%, transparent), transparent 100%), radial-gradient(26% 11% at 42% 56%, color-mix(in srgb, var(--sb) 16%, transparent), transparent 100%), radial-gradient(30% 7% at 12% 68%, color-mix(in srgb, var(--sb) 18%, transparent), transparent 100%), radial-gradient(44% 9% at 70% 76%, color-mix(in srgb, var(--sa) 22%, transparent), transparent 100%), radial-gradient(38% 7% at 30% 91%, color-mix(in srgb, var(--sa) 16%, transparent), transparent 100%); }
-body[data-glow="chemistry"] { --flow: radial-gradient(24% 7% at 72% 8%, color-mix(in srgb, var(--sa) 26%, transparent), transparent 100%), radial-gradient(16% 5% at 86% 13%, color-mix(in srgb, var(--sb) 24%, transparent), transparent 100%), radial-gradient(14% 4% at 62% 15%, color-mix(in srgb, var(--sa) 16%, transparent), transparent 100%), radial-gradient(26% 8% at 20% 29%, color-mix(in srgb, var(--sb) 16%, transparent), transparent 100%), radial-gradient(14% 4% at 10% 35%, color-mix(in srgb, var(--sa) 22%, transparent), transparent 100%), radial-gradient(20% 6% at 78% 46%, color-mix(in srgb, var(--sa) 22%, transparent), transparent 100%), radial-gradient(12% 4% at 66% 52%, color-mix(in srgb, var(--sb) 24%, transparent), transparent 100%), radial-gradient(14% 5% at 90% 55%, color-mix(in srgb, var(--sa) 16%, transparent), transparent 100%), radial-gradient(22% 7% at 26% 68%, color-mix(in srgb, var(--sa) 20%, transparent), transparent 100%), radial-gradient(13% 4% at 38% 74%, color-mix(in srgb, var(--sb) 20%, transparent), transparent 100%), radial-gradient(28% 8% at 74% 86%, color-mix(in srgb, var(--sa) 20%, transparent), transparent 100%), radial-gradient(13% 4% at 84% 93%, color-mix(in srgb, var(--sb) 20%, transparent), transparent 100%); }
-body[data-glow="biology"] { --flow: radial-gradient(30% 8% at 78% 8%, color-mix(in srgb, var(--sa) 24%, transparent), transparent 100%), radial-gradient(26% 7% at 64% 17%, color-mix(in srgb, var(--sb) 16%, transparent), transparent 100%), radial-gradient(30% 7% at 44% 25%, color-mix(in srgb, var(--sa) 18%, transparent), transparent 100%), radial-gradient(28% 8% at 24% 34%, color-mix(in srgb, var(--sa) 20%, transparent), transparent 100%), radial-gradient(22% 7% at 14% 44%, color-mix(in srgb, var(--sb) 16%, transparent), transparent 100%), radial-gradient(28% 7% at 30% 54%, color-mix(in srgb, var(--sa) 18%, transparent), transparent 100%), radial-gradient(30% 7% at 54% 62%, color-mix(in srgb, var(--sb) 14%, transparent), transparent 100%), radial-gradient(28% 8% at 76% 71%, color-mix(in srgb, var(--sa) 20%, transparent), transparent 100%), radial-gradient(22% 7% at 84% 81%, color-mix(in srgb, var(--sb) 16%, transparent), transparent 100%), radial-gradient(32% 7% at 62% 91%, color-mix(in srgb, var(--sa) 18%, transparent), transparent 100%); }
-body[data-glow="maths"] { --flow: radial-gradient(62% 12% at 100% 12%, color-mix(in srgb, var(--sa) 24%, transparent), transparent 100%), radial-gradient(30% 6% at 92% 21%, color-mix(in srgb, var(--sb) 20%, transparent), transparent 100%), radial-gradient(56% 10% at 0% 36%, color-mix(in srgb, var(--sb) 16%, transparent), transparent 100%), radial-gradient(26% 6% at 10% 44%, color-mix(in srgb, var(--sa) 20%, transparent), transparent 100%), radial-gradient(70% 13% at 100% 62%, color-mix(in srgb, var(--sa) 20%, transparent), transparent 100%), radial-gradient(28% 6% at 84% 69%, color-mix(in srgb, var(--sb) 18%, transparent), transparent 100%), radial-gradient(64% 11% at 0% 90%, color-mix(in srgb, var(--sa) 18%, transparent), transparent 100%), radial-gradient(26% 5% at 16% 96%, color-mix(in srgb, var(--sb) 16%, transparent), transparent 100%); }
-body[data-glow="cs"] { --flow: linear-gradient(112deg, transparent 6%, color-mix(in srgb, var(--sa) 18%, transparent) 13%, transparent 20%), linear-gradient(112deg, transparent 16%, color-mix(in srgb, var(--sb) 14%, transparent) 20%, transparent 23%), linear-gradient(112deg, transparent 30%, color-mix(in srgb, var(--sa) 20%, transparent) 34%, transparent 39%), linear-gradient(112deg, transparent 42%, color-mix(in srgb, var(--sb) 18%, transparent) 45%, transparent 47%), linear-gradient(112deg, transparent 55%, color-mix(in srgb, var(--sa) 18%, transparent) 60%, transparent 66%), linear-gradient(112deg, transparent 71%, color-mix(in srgb, var(--sb) 16%, transparent) 73%, transparent 76%), linear-gradient(112deg, transparent 84%, color-mix(in srgb, var(--sa) 20%, transparent) 89%, transparent 95%); }
-body[data-glow="site"] { --sa: #12a374; --sb: #f57c00; --flow: radial-gradient(52% 9% at 78% 5%, color-mix(in srgb, var(--sa) 24%, transparent), transparent 100%), radial-gradient(34% 8% at 18% 15%, color-mix(in srgb, var(--sb) 12%, transparent), transparent 100%), radial-gradient(30% 10% at 88% 28%, color-mix(in srgb, var(--sa) 16%, transparent), transparent 100%), radial-gradient(44% 10% at 26% 40%, color-mix(in srgb, var(--sa) 16%, transparent), transparent 100%), radial-gradient(36% 8% at 72% 54%, color-mix(in srgb, var(--sb) 12%, transparent), transparent 100%), radial-gradient(32% 9% at 12% 68%, color-mix(in srgb, var(--sa) 16%, transparent), transparent 100%), radial-gradient(44% 9% at 82% 80%, color-mix(in srgb, var(--sa) 18%, transparent), transparent 100%), radial-gradient(40% 6% at 34% 93%, color-mix(in srgb, var(--sb) 10%, transparent), transparent 100%); }
-/* the soft gradient behind every page; Privacy sets data-glow="none" and stays plain */
-main.page::before {
-  content: ""; position: absolute; z-index: -1; left: 0; right: 0; top: 0; bottom: 0; pointer-events: none; background: var(--flow, none);
-  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 320px, #000 calc(100% - 320px), transparent), linear-gradient(to right, transparent, #000 24%, #000 76%, transparent); mask-image: linear-gradient(to bottom, transparent, #000 320px, #000 calc(100% - 320px), transparent), linear-gradient(to right, transparent, #000 24%, #000 76%, transparent); -webkit-mask-composite: source-in; mask-composite: intersect;
-}
+/* the background: soft lights over a dark base, in a different layout for each subject and for About and Account.
+   It scrolls with the page, with different lights further down, so nothing repeats. Privacy and the paper viewer stay plain */
+body { --ga: #ffb04a; --gb: #5fe0b0; }
+body[data-glow="physics"] { --ga: #ff9a3d; --gb: #4fd8e6; }
+body[data-glow="chemistry"] { --ga: #ff5f57; --gb: #3fb0ff; }
+body[data-glow="biology"] { --ga: #dcec6c; --gb: #dcec6c; }
+body[data-glow="maths"] { --ga: #f2a062; --gb: #f2a062; }
+body[data-glow="cs"] { --ga: #c79bff; --gb: #c79bff; }
+.dark body[data-glow] { --surface: color-mix(in srgb, var(--paper) 91%, #fff); --surface-2: color-mix(in srgb, var(--paper) 85%, #fff); }
+.dark body[data-glow="site"] { --paper: #0b0f0d; }
+.dark body[data-glow="physics"] { --paper: #0a0f14; }
+.dark body[data-glow="chemistry"] { --paper: #0e0d1e; }
+.dark body[data-glow="biology"] { --paper: #0c1610; }
+.dark body[data-glow="maths"] { --paper: #14100c; }
+.dark body[data-glow="cs"] { --paper: #0e0b1d; }
+main.page::before { content: ""; position: absolute; z-index: -1; left: 0; right: 0; top: 0; bottom: 0; pointer-events: none; -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 200px), transparent); mask-image: linear-gradient(to bottom, #000 calc(100% - 200px), transparent); }
+main.page::before { background:
+    radial-gradient(14vw 9vh at 0 20vh, color-mix(in srgb, color-mix(in srgb, var(--ga) 78%, #fff) 88%, transparent), color-mix(in srgb, var(--ga) 52%, transparent) 24%, color-mix(in srgb, var(--ga) 24%, transparent) 50%, color-mix(in srgb, var(--ga) 7%, transparent) 78%, transparent),
+    radial-gradient(14vw 9vh at 100% 20vh, color-mix(in srgb, color-mix(in srgb, var(--gb) 78%, #fff) 88%, transparent), color-mix(in srgb, var(--gb) 52%, transparent) 24%, color-mix(in srgb, var(--gb) 24%, transparent) 50%, color-mix(in srgb, var(--gb) 7%, transparent) 78%, transparent),
+    radial-gradient(40vw 28vh at 0 20vh, color-mix(in srgb, var(--ga) 42%, transparent), color-mix(in srgb, var(--ga) 26%, transparent) 25%, color-mix(in srgb, var(--ga) 13%, transparent) 50%, color-mix(in srgb, var(--ga) 4%, transparent) 75%, transparent),
+    radial-gradient(40vw 28vh at 100% 20vh, color-mix(in srgb, var(--gb) 42%, transparent), color-mix(in srgb, var(--gb) 26%, transparent) 25%, color-mix(in srgb, var(--gb) 13%, transparent) 50%, color-mix(in srgb, var(--gb) 4%, transparent) 75%, transparent),
+    radial-gradient(22vw 2vh at 0 68vh, color-mix(in srgb, var(--ga) 70%, #fff), color-mix(in srgb, var(--ga) 46%, transparent) 28%, color-mix(in srgb, var(--ga) 14%, transparent) 62%, transparent),
+    radial-gradient(22vw 2vh at 100% 68vh, color-mix(in srgb, var(--gb) 70%, #fff), color-mix(in srgb, var(--gb) 46%, transparent) 28%, color-mix(in srgb, var(--gb) 14%, transparent) 62%, transparent),
+    radial-gradient(30vw 14vh at 0 68vh, color-mix(in srgb, var(--ga) 40%, transparent), color-mix(in srgb, var(--ga) 25%, transparent) 25%, color-mix(in srgb, var(--ga) 12%, transparent) 50%, color-mix(in srgb, var(--ga) 4%, transparent) 75%, transparent),
+    radial-gradient(30vw 14vh at 100% 68vh, color-mix(in srgb, var(--gb) 40%, transparent), color-mix(in srgb, var(--gb) 25%, transparent) 25%, color-mix(in srgb, var(--gb) 12%, transparent) 50%, color-mix(in srgb, var(--gb) 4%, transparent) 75%, transparent),
+    radial-gradient(46vw 34vh at 100% 46%, color-mix(in srgb, var(--gb) 40%, transparent), color-mix(in srgb, var(--gb) 25%, transparent) 25%, color-mix(in srgb, var(--gb) 12%, transparent) 50%, color-mix(in srgb, var(--gb) 4%, transparent) 75%, transparent),
+    radial-gradient(12vw 9vh at 100% 46%, color-mix(in srgb, color-mix(in srgb, var(--gb) 78%, #fff) 88%, transparent), color-mix(in srgb, var(--gb) 52%, transparent) 24%, color-mix(in srgb, var(--gb) 24%, transparent) 50%, color-mix(in srgb, var(--gb) 7%, transparent) 78%, transparent),
+    radial-gradient(38vw 26vh at 0 66%, color-mix(in srgb, var(--ga) 38%, transparent), color-mix(in srgb, var(--ga) 24%, transparent) 25%, color-mix(in srgb, var(--ga) 11%, transparent) 50%, color-mix(in srgb, var(--ga) 4%, transparent) 75%, transparent),
+    radial-gradient(26vw 2vh at 100% 86%, color-mix(in srgb, var(--gb) 70%, #fff), color-mix(in srgb, var(--gb) 46%, transparent) 28%, color-mix(in srgb, var(--gb) 14%, transparent) 62%, transparent),
+    radial-gradient(32vw 16vh at 100% 86%, color-mix(in srgb, var(--gb) 36%, transparent), color-mix(in srgb, var(--gb) 22%, transparent) 25%, color-mix(in srgb, var(--gb) 11%, transparent) 50%, color-mix(in srgb, var(--gb) 4%, transparent) 75%, transparent); }
+body[data-view="about"] main.page::before { background:
+    radial-gradient(18vw 13vh at 0 16vh, color-mix(in srgb, color-mix(in srgb, var(--ga) 78%, #fff) 88%, transparent), color-mix(in srgb, var(--ga) 52%, transparent) 24%, color-mix(in srgb, var(--ga) 24%, transparent) 50%, color-mix(in srgb, var(--ga) 7%, transparent) 78%, transparent),
+    radial-gradient(58vw 42vh at 0 16vh, color-mix(in srgb, var(--ga) 46%, transparent), color-mix(in srgb, var(--ga) 29%, transparent) 25%, color-mix(in srgb, var(--ga) 14%, transparent) 50%, color-mix(in srgb, var(--ga) 5%, transparent) 75%, transparent),
+    radial-gradient(18vw 13vh at 100% 88vh, color-mix(in srgb, color-mix(in srgb, var(--gb) 78%, #fff) 88%, transparent), color-mix(in srgb, var(--gb) 52%, transparent) 24%, color-mix(in srgb, var(--gb) 24%, transparent) 50%, color-mix(in srgb, var(--gb) 7%, transparent) 78%, transparent),
+    radial-gradient(58vw 42vh at 100% 88vh, color-mix(in srgb, var(--gb) 46%, transparent), color-mix(in srgb, var(--gb) 29%, transparent) 25%, color-mix(in srgb, var(--gb) 14%, transparent) 50%, color-mix(in srgb, var(--gb) 5%, transparent) 75%, transparent),
+    radial-gradient(44vw 32vh at 0 72%, color-mix(in srgb, var(--ga) 38%, transparent), color-mix(in srgb, var(--ga) 24%, transparent) 25%, color-mix(in srgb, var(--ga) 11%, transparent) 50%, color-mix(in srgb, var(--ga) 4%, transparent) 75%, transparent); }
+body[data-view="account"] main.page::before { background:
+    radial-gradient(70vw 30vh at 50% 92vh, color-mix(in srgb, var(--gb) 44%, transparent), color-mix(in srgb, var(--gb) 27%, transparent) 25%, color-mix(in srgb, var(--gb) 13%, transparent) 50%, color-mix(in srgb, var(--gb) 4%, transparent) 75%, transparent),
+    radial-gradient(60vw 2vh at 50% 84vh, color-mix(in srgb, var(--gb) 70%, #fff), color-mix(in srgb, var(--gb) 46%, transparent) 28%, color-mix(in srgb, var(--gb) 14%, transparent) 62%, transparent),
+    radial-gradient(26vw 2vh at 100% 24vh, color-mix(in srgb, var(--ga) 70%, #fff), color-mix(in srgb, var(--ga) 46%, transparent) 28%, color-mix(in srgb, var(--ga) 14%, transparent) 62%, transparent),
+    radial-gradient(30vw 14vh at 100% 24vh, color-mix(in srgb, var(--ga) 34%, transparent), color-mix(in srgb, var(--ga) 21%, transparent) 25%, color-mix(in srgb, var(--ga) 10%, transparent) 50%, color-mix(in srgb, var(--ga) 3%, transparent) 75%, transparent),
+    radial-gradient(42vw 30vh at 0 58%, color-mix(in srgb, var(--ga) 36%, transparent), color-mix(in srgb, var(--ga) 22%, transparent) 25%, color-mix(in srgb, var(--ga) 11%, transparent) 50%, color-mix(in srgb, var(--ga) 4%, transparent) 75%, transparent),
+    radial-gradient(46vw 30vh at 100% 84%, color-mix(in srgb, var(--gb) 38%, transparent), color-mix(in srgb, var(--gb) 24%, transparent) 25%, color-mix(in srgb, var(--gb) 11%, transparent) 50%, color-mix(in srgb, var(--gb) 4%, transparent) 75%, transparent); }
+body[data-glow="physics"] main.page::before { background:
+    radial-gradient(24vw 20vh at 100% 12vh, color-mix(in srgb, color-mix(in srgb, var(--gb) 78%, #fff) 88%, transparent), color-mix(in srgb, var(--gb) 52%, transparent) 24%, color-mix(in srgb, var(--gb) 24%, transparent) 50%, color-mix(in srgb, var(--gb) 7%, transparent) 78%, transparent),
+    radial-gradient(70vw 60vh at 100% 12vh, color-mix(in srgb, var(--gb) 54%, transparent), color-mix(in srgb, var(--gb) 33%, transparent) 25%, color-mix(in srgb, var(--gb) 16%, transparent) 50%, color-mix(in srgb, var(--gb) 5%, transparent) 75%, transparent),
+    radial-gradient(34vw 2vh at 0 82vh, color-mix(in srgb, var(--ga) 70%, #fff), color-mix(in srgb, var(--ga) 46%, transparent) 28%, color-mix(in srgb, var(--ga) 14%, transparent) 62%, transparent),
+    radial-gradient(40vw 24vh at 0 82vh, color-mix(in srgb, var(--ga) 46%, transparent), color-mix(in srgb, var(--ga) 29%, transparent) 25%, color-mix(in srgb, var(--ga) 14%, transparent) 50%, color-mix(in srgb, var(--ga) 5%, transparent) 75%, transparent),
+    radial-gradient(54vw 44vh at 0 48%, color-mix(in srgb, var(--gb) 40%, transparent), color-mix(in srgb, var(--gb) 25%, transparent) 25%, color-mix(in srgb, var(--gb) 12%, transparent) 50%, color-mix(in srgb, var(--gb) 4%, transparent) 75%, transparent),
+    radial-gradient(30vw 2vh at 100% 68%, color-mix(in srgb, var(--ga) 70%, #fff), color-mix(in srgb, var(--ga) 46%, transparent) 28%, color-mix(in srgb, var(--ga) 14%, transparent) 62%, transparent),
+    radial-gradient(34vw 18vh at 100% 68%, color-mix(in srgb, var(--ga) 40%, transparent), color-mix(in srgb, var(--ga) 25%, transparent) 25%, color-mix(in srgb, var(--ga) 12%, transparent) 50%, color-mix(in srgb, var(--ga) 4%, transparent) 75%, transparent),
+    radial-gradient(50vw 36vh at 0 90%, color-mix(in srgb, var(--gb) 38%, transparent), color-mix(in srgb, var(--gb) 24%, transparent) 25%, color-mix(in srgb, var(--gb) 11%, transparent) 50%, color-mix(in srgb, var(--gb) 4%, transparent) 75%, transparent); }
+body[data-glow="chemistry"] main.page::before { background:
+    radial-gradient(34vw 14vh at 16% 96vh, color-mix(in srgb, color-mix(in srgb, var(--ga) 78%, #fff) 88%, transparent), color-mix(in srgb, var(--ga) 52%, transparent) 24%, color-mix(in srgb, var(--ga) 24%, transparent) 50%, color-mix(in srgb, var(--ga) 7%, transparent) 78%, transparent),
+    radial-gradient(34vw 14vh at 84% 96vh, color-mix(in srgb, color-mix(in srgb, var(--gb) 78%, #fff) 88%, transparent), color-mix(in srgb, var(--gb) 52%, transparent) 24%, color-mix(in srgb, var(--gb) 24%, transparent) 50%, color-mix(in srgb, var(--gb) 7%, transparent) 78%, transparent),
+    radial-gradient(66vw 52vh at 14% 96vh, color-mix(in srgb, var(--ga) 66%, transparent), color-mix(in srgb, var(--ga) 41%, transparent) 25%, color-mix(in srgb, var(--ga) 20%, transparent) 50%, color-mix(in srgb, var(--ga) 7%, transparent) 75%, transparent),
+    radial-gradient(66vw 52vh at 86% 96vh, color-mix(in srgb, var(--gb) 66%, transparent), color-mix(in srgb, var(--gb) 41%, transparent) 25%, color-mix(in srgb, var(--gb) 20%, transparent) 50%, color-mix(in srgb, var(--gb) 7%, transparent) 75%, transparent),
+    radial-gradient(50vw 38vh at 8% 54%, color-mix(in srgb, var(--gb) 44%, transparent), color-mix(in srgb, var(--gb) 27%, transparent) 25%, color-mix(in srgb, var(--gb) 13%, transparent) 50%, color-mix(in srgb, var(--gb) 4%, transparent) 75%, transparent),
+    radial-gradient(50vw 38vh at 92% 72%, color-mix(in srgb, var(--ga) 44%, transparent), color-mix(in srgb, var(--ga) 27%, transparent) 25%, color-mix(in srgb, var(--ga) 13%, transparent) 50%, color-mix(in srgb, var(--ga) 4%, transparent) 75%, transparent),
+    radial-gradient(60vw 40vh at 40% 94%, color-mix(in srgb, var(--gb) 42%, transparent), color-mix(in srgb, var(--gb) 26%, transparent) 25%, color-mix(in srgb, var(--gb) 13%, transparent) 50%, color-mix(in srgb, var(--gb) 4%, transparent) 75%, transparent); }
+body[data-glow="biology"] main.page::before { background:
+    radial-gradient(11vw 54vh at 0 46vh, color-mix(in srgb, color-mix(in srgb, var(--ga) 78%, #fff) 88%, transparent), color-mix(in srgb, var(--ga) 52%, transparent) 24%, color-mix(in srgb, var(--ga) 24%, transparent) 50%, color-mix(in srgb, var(--ga) 7%, transparent) 78%, transparent),
+    radial-gradient(40vw 110vh at 0 46vh, color-mix(in srgb, var(--ga) 46%, transparent), color-mix(in srgb, var(--ga) 29%, transparent) 25%, color-mix(in srgb, var(--ga) 14%, transparent) 50%, color-mix(in srgb, var(--ga) 5%, transparent) 75%, transparent),
+    radial-gradient(36vw 100vh at 100% 52%, color-mix(in srgb, var(--ga) 40%, transparent), color-mix(in srgb, var(--ga) 25%, transparent) 25%, color-mix(in srgb, var(--ga) 12%, transparent) 50%, color-mix(in srgb, var(--ga) 4%, transparent) 75%, transparent),
+    radial-gradient(9vw 42vh at 100% 52%, color-mix(in srgb, color-mix(in srgb, var(--ga) 78%, #fff) 88%, transparent), color-mix(in srgb, var(--ga) 52%, transparent) 24%, color-mix(in srgb, var(--ga) 24%, transparent) 50%, color-mix(in srgb, var(--ga) 7%, transparent) 78%, transparent),
+    radial-gradient(38vw 90vh at 0 88%, color-mix(in srgb, var(--ga) 38%, transparent), color-mix(in srgb, var(--ga) 24%, transparent) 25%, color-mix(in srgb, var(--ga) 11%, transparent) 50%, color-mix(in srgb, var(--ga) 4%, transparent) 75%, transparent); }
+body[data-glow="maths"] main.page::before { background:
+    radial-gradient(40vw 16vh at 50% 11vh, color-mix(in srgb, color-mix(in srgb, var(--ga) 78%, #fff) 88%, transparent), color-mix(in srgb, var(--ga) 52%, transparent) 24%, color-mix(in srgb, var(--ga) 24%, transparent) 50%, color-mix(in srgb, var(--ga) 7%, transparent) 78%, transparent),
+    radial-gradient(96vw 62vh at 50% 6vh, color-mix(in srgb, var(--ga) 58%, transparent), color-mix(in srgb, var(--ga) 36%, transparent) 25%, color-mix(in srgb, var(--ga) 17%, transparent) 50%, color-mix(in srgb, var(--ga) 6%, transparent) 75%, transparent),
+    radial-gradient(92vw 34vh at 50% 48%, color-mix(in srgb, var(--ga) 30%, transparent), color-mix(in srgb, var(--ga) 19%, transparent) 25%, color-mix(in srgb, var(--ga) 9%, transparent) 50%, color-mix(in srgb, var(--ga) 3%, transparent) 75%, transparent),
+    radial-gradient(24vw 2vh at 0 66%, color-mix(in srgb, var(--ga) 70%, #fff), color-mix(in srgb, var(--ga) 46%, transparent) 28%, color-mix(in srgb, var(--ga) 14%, transparent) 62%, transparent),
+    radial-gradient(30vw 16vh at 0 66%, color-mix(in srgb, var(--ga) 38%, transparent), color-mix(in srgb, var(--ga) 24%, transparent) 25%, color-mix(in srgb, var(--ga) 11%, transparent) 50%, color-mix(in srgb, var(--ga) 4%, transparent) 75%, transparent),
+    radial-gradient(80vw 40vh at 60% 90%, color-mix(in srgb, var(--ga) 36%, transparent), color-mix(in srgb, var(--ga) 22%, transparent) 25%, color-mix(in srgb, var(--ga) 11%, transparent) 50%, color-mix(in srgb, var(--ga) 4%, transparent) 75%, transparent); }
+body[data-glow="cs"] main.page::before { background:
+    radial-gradient(20vw 7vh at 0 24vh, color-mix(in srgb, color-mix(in srgb, var(--ga) 78%, #fff) 88%, transparent), color-mix(in srgb, var(--ga) 52%, transparent) 24%, color-mix(in srgb, var(--ga) 24%, transparent) 50%, color-mix(in srgb, var(--ga) 7%, transparent) 78%, transparent),
+    radial-gradient(44vw 22vh at 0 24vh, color-mix(in srgb, var(--ga) 44%, transparent), color-mix(in srgb, var(--ga) 27%, transparent) 25%, color-mix(in srgb, var(--ga) 13%, transparent) 50%, color-mix(in srgb, var(--ga) 4%, transparent) 75%, transparent),
+    radial-gradient(13vw 5vh at 0 78vh, color-mix(in srgb, color-mix(in srgb, var(--ga) 78%, #fff) 88%, transparent), color-mix(in srgb, var(--ga) 52%, transparent) 24%, color-mix(in srgb, var(--ga) 24%, transparent) 50%, color-mix(in srgb, var(--ga) 7%, transparent) 78%, transparent),
+    radial-gradient(30vw 15vh at 0 78vh, color-mix(in srgb, var(--ga) 36%, transparent), color-mix(in srgb, var(--ga) 22%, transparent) 25%, color-mix(in srgb, var(--ga) 11%, transparent) 50%, color-mix(in srgb, var(--ga) 4%, transparent) 75%, transparent),
+    radial-gradient(16vw 6vh at 100% 46vh, color-mix(in srgb, color-mix(in srgb, var(--gb) 78%, #fff) 88%, transparent), color-mix(in srgb, var(--gb) 52%, transparent) 24%, color-mix(in srgb, var(--gb) 24%, transparent) 50%, color-mix(in srgb, var(--gb) 7%, transparent) 78%, transparent),
+    radial-gradient(38vw 20vh at 100% 46vh, color-mix(in srgb, var(--gb) 42%, transparent), color-mix(in srgb, var(--gb) 26%, transparent) 25%, color-mix(in srgb, var(--gb) 13%, transparent) 50%, color-mix(in srgb, var(--gb) 4%, transparent) 75%, transparent),
+    radial-gradient(11vw 4vh at 100% 92vh, color-mix(in srgb, color-mix(in srgb, var(--gb) 78%, #fff) 88%, transparent), color-mix(in srgb, var(--gb) 52%, transparent) 24%, color-mix(in srgb, var(--gb) 24%, transparent) 50%, color-mix(in srgb, var(--gb) 7%, transparent) 78%, transparent),
+    radial-gradient(26vw 12vh at 100% 92vh, color-mix(in srgb, var(--gb) 32%, transparent), color-mix(in srgb, var(--gb) 20%, transparent) 25%, color-mix(in srgb, var(--gb) 10%, transparent) 50%, color-mix(in srgb, var(--gb) 3%, transparent) 75%, transparent),
+    radial-gradient(15vw 6vh at 0 42%, color-mix(in srgb, color-mix(in srgb, var(--ga) 78%, #fff) 88%, transparent), color-mix(in srgb, var(--ga) 52%, transparent) 24%, color-mix(in srgb, var(--ga) 24%, transparent) 50%, color-mix(in srgb, var(--ga) 7%, transparent) 78%, transparent),
+    radial-gradient(36vw 18vh at 0 42%, color-mix(in srgb, var(--ga) 40%, transparent), color-mix(in srgb, var(--ga) 25%, transparent) 25%, color-mix(in srgb, var(--ga) 12%, transparent) 50%, color-mix(in srgb, var(--ga) 4%, transparent) 75%, transparent),
+    radial-gradient(18vw 7vh at 100% 58%, color-mix(in srgb, color-mix(in srgb, var(--gb) 78%, #fff) 88%, transparent), color-mix(in srgb, var(--gb) 52%, transparent) 24%, color-mix(in srgb, var(--gb) 24%, transparent) 50%, color-mix(in srgb, var(--gb) 7%, transparent) 78%, transparent),
+    radial-gradient(42vw 22vh at 100% 58%, color-mix(in srgb, var(--gb) 42%, transparent), color-mix(in srgb, var(--gb) 26%, transparent) 25%, color-mix(in srgb, var(--gb) 13%, transparent) 50%, color-mix(in srgb, var(--gb) 4%, transparent) 75%, transparent),
+    radial-gradient(12vw 5vh at 0 74%, color-mix(in srgb, color-mix(in srgb, var(--ga) 78%, #fff) 88%, transparent), color-mix(in srgb, var(--ga) 52%, transparent) 24%, color-mix(in srgb, var(--ga) 24%, transparent) 50%, color-mix(in srgb, var(--ga) 7%, transparent) 78%, transparent),
+    radial-gradient(30vw 14vh at 0 74%, color-mix(in srgb, var(--ga) 34%, transparent), color-mix(in srgb, var(--ga) 21%, transparent) 25%, color-mix(in srgb, var(--ga) 10%, transparent) 50%, color-mix(in srgb, var(--ga) 3%, transparent) 75%, transparent),
+    radial-gradient(14vw 5vh at 100% 90%, color-mix(in srgb, color-mix(in srgb, var(--gb) 78%, #fff) 88%, transparent), color-mix(in srgb, var(--gb) 52%, transparent) 24%, color-mix(in srgb, var(--gb) 24%, transparent) 50%, color-mix(in srgb, var(--gb) 7%, transparent) 78%, transparent),
+    radial-gradient(32vw 15vh at 100% 90%, color-mix(in srgb, var(--gb) 36%, transparent), color-mix(in srgb, var(--gb) 22%, transparent) 25%, color-mix(in srgb, var(--gb) 11%, transparent) 50%, color-mix(in srgb, var(--gb) 4%, transparent) 75%, transparent); }
+html:not(.dark) main.page::before { opacity: .5; }
+body[data-glow="none"] main.page::before, body[data-view="viewer"] main.page::before { display: none; }
+@media (max-width: 700px) { main.page::before { opacity: .75; } html:not(.dark) main.page::before { opacity: .4; } }
 
 /* footer */
 footer.foot { padding: 44px 0 26px; }

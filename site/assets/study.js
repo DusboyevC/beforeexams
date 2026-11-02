@@ -38,9 +38,16 @@
         loading = null; return;
       }
       S.profile = r[0].data; S.dates = r[1].data || []; S.scores = r[2].data || []; S.loaded = true; loading = null;
+      saveLevel();
       if (document.body.getAttribute("data-view") === "library") L().render();
     }, function () { S.failed = true; loading = null; });
     return loading;
+  }
+  /* the level picked in the library goes on the account, so nobody has to choose it twice */
+  function saveLevel() {
+    var lv = L().store("be-level");
+    if ((S.profile && S.profile.level) || (lv !== "ig" && lv !== "al")) return;
+    db("profiles").upsert({ id: S.uid, level: lv, updated_at: new Date().toISOString() }).select().single().then(function (r) { if (!r.error) S.profile = r.data; });
   }
   function myExams() { return S.dates.filter(function (d) { return daysTo(d.exam_date) >= 0; }); }
 
@@ -190,7 +197,7 @@
       else { body = '<p class="lede">Loading your study plan…</p>'; load().then(function () { if (/^#\/account/.test(location.hash)) L().render(); }); }
     } else {
       var skipped = L().store("be-setup-skip") === S.uid;
-      var showSetup = S.editing || (!S.profile && !skipped);
+      var showSetup = S.editing || (!(S.profile && S.profile.subjects && S.profile.subjects.length) && !skipped);
       var item = params.get("log") ? L().byId(params.get("log")) : null;
       var keys = ((S.profile && S.profile.subjects) || []).slice();
       S.scores.forEach(function (r) { if (keys.indexOf(r.subject) < 0) keys.push(r.subject); });
@@ -300,16 +307,16 @@
     stopClock();
     var p = L().byId(id), m = running();
     if (!p || p.kind !== "paper") { app.innerHTML = '<main class="page"><div class="wrap"><div class="panel empty"><h3>Paper not found</h3><p><a class="mini primary" href="#/account">Back to your account</a></p></div></div></main>'; return; }
-    if (!window.BE_auth.user()) { app.innerHTML = '<main class="page"><div class="wrap"><div class="panel empty locked"><h3>Log in to take a mock test</h3><p><button class="mini primary" id="mockLogin" type="button">Log in or create an account</button></p></div></div></main>'; document.getElementById("mockLogin").addEventListener("click", function () { window.BE_auth.open(L().render); }); return; }
     window.scrollTo(0, 0);
-    if (!window.BE_auth.allowed()) { L().lock(p); return; }
+    if (!window.BE_auth.allowed() && !L().guestOpen(id)) { L().lock(p); return; }
+    var home = window.BE_auth.user() ? "#/account" : "#/";
     if (m && m.id === id) { if (m.ended) marking(app, p, m); else runMock(app, p, m); return; }
     var t = timing(p);
     app.innerHTML = '<main class="page"><div class="wrap account-page"><p class="label-caps eyebrow">Mock test</p><section class="panel st-box"><h1 class="font-brand mock-title">' + esc(paperTitle(p)) + '</h1>' +
       '<ul class="st-rules"><li>Close your notes and clear your desk, like the real exam.</li><li>The timer keeps running if you refresh this page.</li><li>When you finish, the mark scheme opens so you can mark your own work.</li></ul>' +
       (m ? '<p class="st-error">Starting this will end your other unfinished mock test.</p>' : "") +
       '<form id="startForm" class="st-row"><label><span>Time (minutes)</span><input class="field st-field" name="minutes" type="number" min="1" max="300" value="' + t[0] + '" required></label>' +
-      '<button class="mini primary" type="submit">Start mock test</button><a class="mini" href="#/account">Not now</a></form><p class="st-note">Older papers can have different timings. Follow the front cover of the paper if it differs.</p></section></main>' + L().footer();
+      '<button class="mini primary" type="submit">Start mock test</button><a class="mini" href="' + home + '">Not now</a></form><p class="st-note">Older papers can have different timings. Follow the front cover of the paper if it differs.</p></section></main>' + L().footer();
     document.getElementById("startForm").addEventListener("submit", function (e) {
       e.preventDefault();
       var mins = Number(e.target.minutes.value) || t[0], now = Date.now();
@@ -332,22 +339,28 @@
     tick(); clock = setInterval(tick, 500);
   }
   function marking(app, p, m) {
-    var mins = Math.max(1, Math.round((m.ended - m.start) / 6e4));
+    var mins = Math.max(1, Math.round((m.ended - m.start) / 6e4)), guest = !window.BE_auth.user();
     app.innerHTML = '<div class="viewer"><div class="mock-bar"><div class="wrap"><b>Mark your paper</b><span class="st-note">Time used: ' + mins + ' min</span></div></div>' +
-      '<div class="wrap mock-mark"><form id="markForm" class="st-row"><label><span>Your marks</span><input class="field st-field" name="marks" type="number" min="0" step="0.5" required></label>' +
-      '<label><span>Out of</span><input class="field st-field" name="total" type="number" min="1" step="0.5" required value="' + timing(p)[1] + '"></label><button class="mini primary" type="submit">Save score</button><button class="mini" type="button" id="markSkip">Discard</button></form><p class="st-error" id="markErr" role="alert"></p></div>' +
+      '<div class="wrap mock-mark"><form id="markForm" class="st-row"><label><span>Your marks</span><input class="field st-field" name="marks" type="number" min="0" step="0.5" required value="' + (m.marks === undefined ? "" : m.marks) + '"></label>' +
+      '<label><span>Out of</span><input class="field st-field" name="total" type="number" min="1" step="0.5" required value="' + (m.total || timing(p)[1]) + '"></label><button class="mini primary" type="submit">Save score</button><button class="mini" type="button" id="markSkip">Discard</button></form><p class="st-error" id="markErr" role="alert"></p>' +
+      (guest ? '<p class="st-note">A free account keeps this score and shows your progress over time.</p>' : "") + '</div>' +
       '<div class="viewer-body' + (p.ms ? " split" : "") + '">' + L().pane("Question paper", p.qp, p.qp.split("/").pop()) + (p.ms ? L().pane("Mark scheme", p.ms, p.ms.split("/").pop()) : "") + "</div></div>";
     L().hydratePanes();
-    document.getElementById("markSkip").addEventListener("click", function () { if (window.confirm("Discard this mock test without saving?")) { clearMock(); location.hash = "#/account"; } });
+    document.getElementById("markSkip").addEventListener("click", function () { if (window.confirm("Discard this mock test without saving?")) { clearMock(); location.hash = guest ? "#/" : "#/account"; } });
+    function save(marks, total) {
+      db("scores").insert({ subject: p.subject, kind: "mock", item_id: p.id, label: "Paper " + L().paperNo(p) + ", " + L().SESSION[p.session] + " " + p.year, marks: marks, total: total, minutes: mins, taken_on: today() }).select().single().then(function (r) {
+        if (r.error) { document.getElementById("markErr").textContent = S.missing ? "The study tracker is not switched on yet." : "That could not be saved. Try again."; return; }
+        S.scores.unshift(r.data); clearMock(); location.hash = "#/account";
+      });
+    }
     document.getElementById("markForm").addEventListener("submit", function (e) {
       e.preventDefault();
       var f = e.target, marks = Number(f.marks.value), total = Number(f.total.value), err = document.getElementById("markErr");
       if (f.marks.value === "" || !(total > 0)) { err.textContent = "Enter your marks and the total."; return; }
       if (marks > total) { err.textContent = "Marks cannot be more than the total."; return; }
-      db("scores").insert({ subject: p.subject, kind: "mock", item_id: p.id, label: "Paper " + L().paperNo(p) + ", " + L().SESSION[p.session] + " " + p.year, marks: marks, total: total, minutes: mins, taken_on: today() }).select().single().then(function (r) {
-        if (r.error) { err.textContent = S.missing ? "The study tracker is not switched on yet." : "That could not be saved. Try again."; return; }
-        S.scores.unshift(r.data); clearMock(); location.hash = "#/account";
-      });
+      if (window.BE_auth.user()) { save(marks, total); return; }
+      m.marks = marks; m.total = total; L().store("be-mock", JSON.stringify(m));   // kept if the account takes a while
+      window.BE_auth.open(function () { save(marks, total); }, "Create a free account to save your score of " + marks + "/" + total + " and see your progress.", "up");
     });
   }
 

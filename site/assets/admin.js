@@ -25,19 +25,25 @@
   }
 
   function chart(days) {
-    var max = Math.max.apply(null, days.map(function (d) { return d.visits; }).concat(1));
-    var bars = days.map(function (d, i) {
+    var max = Math.max.apply(null, days.map(function (d) { return Math.max(d.visits, d.visitors); }).concat(1));
+    function bar(v, cls) { return '<i class="' + cls + '" style="height:' + (v ? Math.max(2, v / max * 100) : 0) + '%"></i>'; }
+    var last = days.length - 1, step = Math.ceil(days.length / 6);
+    var bars = days.map(function (d) {
       var tip = dayLabel(d.day) + ": " + n(d.visits) + " visits, " + n(d.visitors) + " visitors";
-      return '<div class="ad-col" tabindex="0" aria-label="' + tip + '" data-tip="' + tip + '"><i style="height:' + (d.visits ? Math.max(2, d.visits / max * 100) : 0) + '%"></i></div>';
+      return '<div class="sn-col" tabindex="0" aria-label="' + tip + '" data-tip="' + tip + '">' + bar(d.visits, "v") + bar(d.visitors, "u") + '</div>';
     }).join("");
-    return '<div class="ad-chart"><span class="ad-max">' + n(max) + '</span><div class="ad-bars">' + bars + '</div><div class="ad-tip" id="adTip" hidden></div></div>' +
-      '<div class="ad-axis"><span>' + dayLabel(days[0].day) + '</span><span>Today</span></div>';
+    var axis = days.map(function (d, i) {
+      return '<span>' + (i === last ? "Today" : i % step === 0 && last - i >= step ? dayLabel(d.day) : "") + '</span>';
+    }).join("");
+    return '<div class="sn-legend"><span class="v">Visits</span><span class="u">Visitors</span></div>' +
+      '<div class="sn-chart"><span class="sn-max">' + n(max) + '</span><div class="sn-bars">' + bars + '</div><div class="sn-tip" id="snTip" hidden></div></div>' +
+      '<div class="sn-axis">' + axis + '</div>';
   }
 
   function tile(v, label) { return '<div class="panel stat"><b>' + v + '</b><span>' + label + '</span></div>'; }
 
   function page(app, s, reports) {
-    var days = s.days || [];
+    var days = (s.days || []).filter(function (d) { return !s.first_day || d.day >= s.first_day; });
     var since = s.first_day ? "Counting since " + dayLabel(s.first_day) + "." : "No visits counted yet.";
     app.innerHTML = '<main class="page"><div class="wrap about admin">' +
       '<p class="label-caps eyebrow">Admin</p><h1 class="hero">Site numbers</h1>' +
@@ -46,18 +52,18 @@
       '<p class="st-note">' + n(s.igcse) + ' IGCSE and ' + n(s.alevel) + ' A Level students have set their level. ' + n(s.unconfirmed) + ' sign-ups never confirmed their code.</p>' +
       '<h2 class="explain-title">Visits</h2><div class="stats">' +
         tile(n(s.today), "visits today") + tile(n(s.visitors_today), "visitors today") + tile(n(s.visits7), "visits, 7 days") + tile(n(s.visits), "visits in total") + '</div>' +
-      (days.length ? '<section class="panel st-box"><h2>Visits per day, last 30 days</h2>' + chart(days) +
-        '<details class="ad-table"><summary>Show as a table</summary><div class="table-wrap"><table class="tbl"><thead><tr><th>Day</th><th>Visits</th><th>Visitors</th></tr></thead><tbody>' +
+      (days.length ? '<section class="panel st-box"><h2>Visits and visitors per day</h2>' + chart(days) +
+        '<details class="sn-table"><summary>Show as a table</summary><div class="table-wrap"><table class="tbl"><thead><tr><th>Day</th><th>Visits</th><th>Visitors</th></tr></thead><tbody>' +
         days.slice().reverse().map(function (d) { return '<tr><td>' + dayLabel(d.day) + '</td><td>' + n(d.visits) + '</td><td>' + n(d.visitors) + '</td></tr>'; }).join("") +
         '</tbody></table></div></details></section>' : '') +
       '<p class="st-note">' + since + ' A visit is one browser session. A visitor is one browser per day, in Tashkent time.</p>' +
       reportsBox(reports) + '</div></main>' + window.BE_lib.footer();
     window.scrollTo(0, 0);
-    var tip = document.getElementById("adTip");
+    var tip = document.getElementById("snTip");
     if (!tip) return;
     var box = tip.parentNode;
     function show(e) {
-      var c = e.target.closest && e.target.closest(".ad-col");
+      var c = e.target.closest && e.target.closest(".sn-col");
       if (!c) { tip.hidden = true; return; }
       tip.textContent = c.getAttribute("data-tip");
       tip.hidden = false;
@@ -73,7 +79,7 @@
   function reportsBox(list) {
     return '<h2 class="explain-title">Mistake reports</h2><section class="panel st-box"><h2>' + (list.length ? n(list.length) + ' waiting' : 'Nothing waiting') + '</h2>' +
       list.map(function (r) {
-        return '<div class="ad-report"><div><a href="#/view/' + esc(r.item_id) + '">' + esc(r.title) + '</a><p>' + esc(r.kind) + (r.question ? ', question ' + esc(r.question) : '') + ' · ' + dayLabel(r.created_at.slice(0, 10)) + '</p>' + (r.note ? '<p>' + esc(r.note) + '</p>' : '') + '</div>' +
+        return '<div class="sn-report"><div><a href="#/view/' + esc(r.item_id) + '">' + esc(r.title) + '</a><p>' + esc(r.kind) + (r.question ? ', question ' + esc(r.question) : '') + ' · ' + dayLabel(r.created_at.slice(0, 10)) + '</p>' + (r.note ? '<p>' + esc(r.note) + '</p>' : '') + '</div>' +
           '<button class="mini" type="button" data-done="' + r.id + '">Mark done</button></div>';
       }).join("") + '</section>';
   }

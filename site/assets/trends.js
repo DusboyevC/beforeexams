@@ -32,7 +32,7 @@
       dots += '<circle cx="' + X(i) + '" cy="' + Y(v[i]) + '" r="4" class="tr-dot"/>';
     });
     box.innerHTML = '<svg width="' + W + '" height="' + H + '" role="img" aria-label="' + esc(r.name) + ', share of ' + unit + ' per year">' + grid + labels +
-      '<path d="' + line + '" class="tr-line"/>' + dots + '<line class="tr-cross" y1="' + T + '" y2="' + (H - B) + '" hidden/></svg><div class="ad-tip tr-tip" hidden></div>';
+      '<path d="' + line + '" class="tr-line"/>' + dots + '<line class="tr-cross" y1="' + T + '" y2="' + (H - B) + '" hidden/></svg><div class="sn-tip tr-tip" hidden></div>';
     var cross = box.querySelector(".tr-cross"), tip = box.querySelector(".tr-tip");
     function move(e) {
       var b = box.getBoundingClientRect(), x = (e.touches ? e.touches[0].clientX : e.clientX) - b.left;

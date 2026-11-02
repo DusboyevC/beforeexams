@@ -27,7 +27,7 @@ FOOTER = ('<footer class="foot"><div class="wrap"><div class="foot-grid"><div cl
           + foot_col('AS & A Level', [(n, f'/subjects/a-level-{s}/', '') for n, s in (('Physics', 'physics-9702'), ('Chemistry', 'chemistry-9701'), ('Biology', 'biology-9700'), ('Mathematics', 'mathematics-9709'), ('Computer Science', 'computer-science-9618'))])
           + foot_col('BeforeExams', [('About and authors', '/about/', ''), ('All revision notes', '/revision-notes/', ''), ('My account', '/#/account', ''), ('Mock tests', '/#/account', '')])
           + '</div><p class="foot-note">Past papers and mark schemes © Cambridge University Press &amp; Assessment. BeforeExams is an independent study site, not affiliated with Cambridge.</p>'
-          '<div class="foot-bar"><span>© 2026 BeforeExams. Made by <b>DusboyevC</b> and <b>Magnetars</b>.</span><a href="/privacy/">Privacy Policy</a></div></div></footer>')
+          '<div class="foot-bar"><span>© 2026 BeforeExams v2. Made by <b>DusboyevC</b> and <b>Magnetars</b>.</span><a href="/privacy/">Privacy Policy</a></div></div></footer>')
 with open(os.path.join(SITE, 'assets', 'footer.js'), 'w', encoding='utf8', newline='\n') as f:
     f.write('window.BE_FOOTER=' + json.dumps(FOOTER, ensure_ascii=False) + ';\n')
 

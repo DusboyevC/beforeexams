@@ -541,8 +541,8 @@
       (member ? '<p>We ask once every 15 days.</p>' : '') +
       '<form id="gateForm" class="gate-form"><input class="field gate-field" id="gatePw" type="password" autocomplete="off" aria-label="Site password" placeholder="Password"><button class="mini primary" type="submit">Open</button></form>' +
       '<p class="st-error" id="gateErr" role="alert"></p>' +
-      (member ? '' : '<p class="gate-login"><button class="auth-link" id="unlockBtn" type="button">Log in to be asked only once every 15 days</button></p>') + '</div></div></main></div>';
-    if (!member) document.getElementById("unlockBtn").addEventListener("click", function () { window.BE_auth.open(render); });
+      (member ? '' : '<div class="gate-login"><p>With a free account the password is asked once every 15 days, and your mock scores and progress are saved.</p><button class="mini" id="unlockBtn" type="button">Create a free account</button></div>') + '</div></div></main></div>';
+    if (!member) document.getElementById("unlockBtn").addEventListener("click", function () { window.BE_auth.open(render, "Enter the password once every 15 days, save your mock scores and track your progress.", "up"); });
     document.getElementById("gateForm").addEventListener("submit", function (e) {
       e.preventDefault();
       var pw = document.getElementById("gatePw").value, err = document.getElementById("gateErr");
@@ -649,7 +649,8 @@
 
   window.addEventListener("hashchange", render);
   window.BE_lib = {
-    lock: function (p) { lockedView(p, "Paper " + paperNo(p), subj(p.subject).name + " " + p.code, "#/account"); },
+    lock: function (p) { lockedView(p, "Paper " + paperNo(p), subj(p.subject).name + " " + p.code, window.BE_auth.user() ? "#/account" : "#/"); },
+    guestOpen: function (id) { return guestFor === id; },
     esc: esc, subj: subj, levelOf: levelOf, paperNo: paperNo, SESSION: SESSION, footer: footer, render: render, store: store, pane: pane, hydratePanes: hydratePanes,
     data: function () { return DATA; }, papers: function () { return PAPERS; }, byId: function (id) { return BY_ID[id] || null; },
     itemLabel: function (p) { return p.kind === "topical" ? p.name : "Paper " + paperNo(p) + ", " + SESSION[p.session] + " " + p.year; }

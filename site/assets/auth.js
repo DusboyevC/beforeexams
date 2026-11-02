@@ -39,12 +39,12 @@
 
   /* ---------- modal ---------- */
   var modal = null, tab = "in", codeEmail = "", codeKind = "signup";
-  function open(after, reason) {
+  function open(after, reason, startTab) {
     if (!enabled) { if (after) after(); return; }
     pendingAfterLogin = after || null;
     if (!modal) build();
     modal.querySelector(".auth-reason").textContent = reason || "Log in to see the site password only once every 15 days, take mock tests and track your scores. Revision notes stay free for everyone.";
-    setTab("in");
+    setTab(startTab || "in");
     modal.hidden = false; document.body.classList.add("auth-open");
     setTimeout(function () { var f = modal.querySelector("input:not([hidden])"); if (f) f.focus(); }, 30);
   }
@@ -59,7 +59,7 @@
     tab = t; showPw(false);
     modal.querySelectorAll("[data-tab]").forEach(function (b) { b.setAttribute("aria-selected", String(b.dataset.tab === t)); });
     modal.querySelector(".auth-name").hidden = t !== "up";
-    modal.querySelector(".auth-gate").hidden = t !== "up";
+    modal.querySelector(".auth-gate").hidden = t !== "up" || Boolean(guestPw);   // a guest who already entered it is not asked twice
     modal.querySelector(".auth-mail").hidden = t === "new" || t === "code";
     modal.querySelector(".auth-tabs").hidden = t === "new" || t === "code";
     modal.querySelector(".auth-pw").hidden = t === "reset" || t === "code";
@@ -176,7 +176,7 @@
           });
           return;
         }
-        var gate = tab === "up" ? checkPassword(f.gate.value) : Promise.resolve(true);
+        var gate = tab === "up" ? checkPassword(guestPw || f.gate.value) : Promise.resolve(true);
         gate.then(function (ok) {
           if (!ok) throw new Error("gate");
           if (tab === "up") store("be-gate-at", String(Date.now()));
