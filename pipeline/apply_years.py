@@ -31,7 +31,7 @@ def pagemeta(path):
             kinds.append('x' if q and m and ANS.search(b) else 'm' if m else 'q' if q else 'c')
             if kinds[-1] == 'x':
                 strips[i] = [round(float(v) - 3.6, 1) for v in STRIP.findall(b)]
-            elif kinds[-1] in 'qm':
+            if kinds[-1] != 'c':
                 labels[i] = [[round(float(y) - 3.6, 2), t.decode('latin-1')] for y, t in LABEL.findall(b)]
     srcs, answers = {}, {}
     with pikepdf.open(path) as pdf:

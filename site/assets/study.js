@@ -97,8 +97,40 @@
     return '<svg class="chart" viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="Score percentage over time, ' + list.length + ' scores">' + grid + goal +
       (list.length > 1 ? '<path class="ch-line" d="' + path + '"/>' : "") + dots + "</svg>";
   }
+  function isPractice(r) { return /\(online practice\)$/.test(r.label || ""); }
+  /* multiple choice practice: per topic accuracy, rounds and best score, then the latest rounds */
+  function practiceParts(r) {   // "Topic · 2025, 2026 (online practice)" -> [topic, years]; older rounds have no years
+    var t = (r.label || "").replace(/ \(online practice\)$/, ""), i = t.lastIndexOf(" · ");
+    return i > 0 ? [t.slice(0, i), t.slice(i + 3)] : [t, ""];
+  }
+  function practiceSection() {
+    var rows = S.scores.filter(isPractice);
+    if (!rows.length) return "";
+    var topics = {}, order = [];
+    rows.forEach(function (r) {   // newest first, as the scores are loaded
+      var k = r.item_id || r.label;
+      if (!topics[k]) { topics[k] = { id: r.item_id, name: practiceParts(r)[0], subject: r.subject, rounds: [] }; order.push(k); }
+      topics[k].rounds.push(r);
+    });
+    var cards = order.map(function (k) {
+      var t = topics[k], right = 0, total = 0, best = 0;
+      t.rounds.forEach(function (r) { right += +r.marks; total += +r.total; best = Math.max(best, pct(r)); });
+      var acc = total ? Math.round(right / total * 100) : 0, latest = t.rounds[0];
+      var ys = []; t.rounds.forEach(function (r) { (practiceParts(r)[1].match(/\d{4}/g) || []).forEach(function (y) { if (ys.indexOf(+y) < 0) ys.push(+y); }); }); ys.sort();
+      return '<div class="pc-topic"><div class="pc-head"><div><b>' + esc(t.name) + '</b><small>' + esc(subjectName(t.subject)) + (ys.length ? ' · years practised: ' + (ys.length > 2 && ys[ys.length - 1] - ys[0] === ys.length - 1 ? ys[0] + ' – ' + ys[ys.length - 1] : ys.join(", ")) : '') + '</small></div>' +
+        (t.id && L().byId(t.id) ? '<a class="mini" href="#/practice/' + t.id + '">Practise again</a>' : '') + '</div>' +
+        '<div class="pc-bar"><i style="width:' + acc + '%"></i></div>' +
+        '<div class="pc-figs"><span><b>' + acc + '%</b> correct overall</span><span><b>' + right + '/' + total + '</b> questions</span><span><b>' + t.rounds.length + '</b> ' + (t.rounds.length === 1 ? "round" : "rounds") + '</span><span>best <b>' + best + '%</b></span><span>latest <b>' + latest.marks + '/' + latest.total + '</b></span></div></div>';
+    }).join("");
+    var recent = rows.slice(0, 8).map(function (r) {
+      var parts = practiceParts(r);
+      return '<tr><td>' + esc(parts[0]) + '</td><td>' + esc(parts[1] || "–") + '</td><td>' + esc(nice(r.taken_on)) + '</td><td><b>' + r.marks + '/' + r.total + '</b></td><td>' + pct(r) + '%</td></tr>';
+    }).join("");
+    return '<section class="panel st-box"><h2>Multiple choice practice</h2><p class="st-note">Every practice round you finish or save early, topic by topic.</p><div class="pc-topics">' + cards + '</div>' +
+      '<h3 class="pc-h">Latest rounds</h3><div class="table-wrap"><table class="tbl"><thead><tr><th>Topic</th><th>Years</th><th>Date</th><th>Correct</th><th>Score</th></tr></thead><tbody>' + recent + '</tbody></table></div></section>';
+  }
   function subjectCard(key) {
-    var rows = S.scores.filter(function (r) { return r.subject === key; }).slice().reverse();
+    var rows = S.scores.filter(function (r) { return r.subject === key && !isPractice(r); }).slice().reverse();
     var target = S.profile && S.profile.target_percent;
     var head = '<h3>' + esc(subjectName(key)) + "</h3>";
     if (!rows.length) return '<div class="panel st-subject">' + head + '<p class="st-note">No scores yet. Log one below, or start a mock test.</p></div>';
@@ -201,7 +233,8 @@
       var item = params.get("log") ? L().byId(params.get("log")) : null;
       var keys = ((S.profile && S.profile.subjects) || []).slice();
       S.scores.forEach(function (r) { if (keys.indexOf(r.subject) < 0) keys.push(r.subject); });
-      body = (showSetup ? setupForm() : "") + statStrip() + examSection() + mockSection() + logSection(item) +
+      keys = keys.filter(function (k) { return S.scores.some(function (r) { return r.subject === k && !isPractice(r); }) || ((S.profile && S.profile.subjects) || []).indexOf(k) >= 0; });
+      body = (showSetup ? setupForm() : "") + statStrip() + examSection() + practiceSection() + mockSection() + logSection(item) +
         (keys.length ? '<div class="st-subjects">' + keys.map(subjectCard).join("") + "</div>" : "") + heatmap() + historySection();
     }
     app.innerHTML = '<main class="page"><div class="wrap account-page">' + card + body + '</div></main><div class="st-tip" id="stTip" hidden></div>' + L().footer();

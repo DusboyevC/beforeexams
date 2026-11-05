@@ -53,6 +53,7 @@
     var back = id ? "#/topic/" + id : "#/practice?subject=" + p.subject;
     var want = (params.get("y") || "").split(",").filter(Boolean);
     var picked = rows.filter(function (r) { return r.tid && (!want.length || want.indexOf(String(r.year)) >= 0); });
+    var yearsLabel = lib.yearsText(picked.map(function (r) { return r.year; }).filter(function (y, i, a) { return a.indexOf(y) === i; })).replace(/^\[|\]$/g, "");   // saved with the score
     document.body.setAttribute("data-glow", p.subject.replace(/^ig-/, ""));
     app.innerHTML = '<main class="page"><div class="wrap practice"><a class="back" href="' + back + '">' + lib.icon("back") + ' ' + esc(id ? name : "Back to picking topics") + '</a>' +
       '<div id="prBox"><p class="lede">Getting the questions ready…</p></div></div></main>' + lib.footer();
@@ -74,10 +75,10 @@
     });
 
     function start(qs, pool) {
-      var at = 0, right = 0, wrong = [], began = Date.now();
+      var at = 0, right = 0, wrong = [], answered = 0, began = Date.now();
       function show() {
         var q = qs[at];
-        box.innerHTML = '<div class="pr-top"><span class="label-caps">Question ' + (at + 1) + ' of ' + qs.length + '</span><span class="pr-score">' + right + ' correct</span></div>' +
+        box.innerHTML = '<div class="pr-top"><span class="label-caps">Question ' + (at + 1) + ' of ' + qs.length + '</span><span class="pr-score">' + right + ' correct</span><button class="mini pr-stop" id="prStop" type="button">Finish and save</button></div>' +
           '<div class="pr-bar"><i style="width:' + (at / qs.length * 100) + '%"></i></div>' +
           '<section class="panel pr-card"><div class="pr-q" id="prQ"><p class="lede">Loading…</p></div>' +
           '<div class="pr-opts">' + "ABCD".split("").map(function (o) { return '<button type="button" class="pr-opt" data-o="' + o + '">' + o + '</button>'; }).join("") + '</div>' +
@@ -87,6 +88,7 @@
           b.addEventListener("click", function () {
             if (box.querySelector(".pr-opt[disabled]")) return;
             var ok = b.dataset.o === q.answer;
+            answered++;
             if (ok) right++; else wrong.push(q);
             box.querySelectorAll(".pr-opt").forEach(function (x) { x.disabled = true; if (x.dataset.o === q.answer) x.classList.add("good"); });
             if (!ok) { b.classList.add("bad"); lib.shake(b); }
@@ -97,6 +99,10 @@
           });
         });
         document.getElementById("prNext").addEventListener("click", function () { at++; if (at < qs.length) show(); else done(); });
+        document.getElementById("prStop").addEventListener("click", function () {
+          if (!answered) { location.hash = back; return; }
+          if (window.confirm("Finish now and save your score for the " + answered + (answered === 1 ? " question" : " questions") + " you answered?")) done();
+        });
       }
       /* keyboard: A to D answers, Enter goes on */
       document.addEventListener("keydown", function key(e) {
@@ -107,15 +113,16 @@
         else if (e.key === "Enter" && n && !n.hidden && document.activeElement !== n) { e.preventDefault(); n.click(); }
       });
       function done() {
-        var pct = Math.round(right / qs.length * 100), mins = Math.max(1, Math.round((Date.now() - began) / 6e4));
-        box.innerHTML = '<section class="panel pr-done"><div class="pr-ring" style="--p:' + pct + '"><b>' + pct + '%</b></div><div><h2>' + right + ' out of ' + qs.length + ' correct</h2>' +
-          '<p class="st-note">' + mins + ' min · ' + esc(name) + (pool > qs.length ? ' · ' + qs.length + ' of ' + pool + ' questions, picked at random' : '') + '</p>' +
+        if (!answered) { lib.render(); return; }   // stopped before answering anything: nothing to score
+        var total = answered, pct = Math.round(right / total * 100), mins = Math.max(1, Math.round((Date.now() - began) / 6e4));
+        box.innerHTML = '<section class="panel pr-done"><div class="pr-ring" style="--p:' + pct + '"><b>' + pct + '%</b></div><div><h2>' + right + ' out of ' + total + ' correct</h2>' +
+          '<p class="st-note">' + mins + ' min · ' + esc(name) + (total < qs.length ? ' · finished early, ' + total + ' of ' + qs.length + ' answered' : pool > qs.length ? ' · ' + qs.length + ' of ' + pool + ' questions, picked at random' : '') + '</p>' +
           '<p class="pr-saved" id="prSaved"></p><div class="pr-actions"><button class="mini primary" id="prAgain" type="button">Practise again</button><a class="mini" href="' + back + '">' + (id ? "Back to the topic" : "Pick other topics") + '</a></div></div></section>' +
           (wrong.length ? '<h3 class="pr-h">Questions to look at again</h3>' + wrong.map(function (q, i) { return '<section class="panel pr-card"><div class="pr-q" data-w="' + i + '"></div><p class="pr-msg no">Answer: ' + q.answer + ' · ' + esc(q.src) + '</p></section>'; }).join("") : '');
         document.getElementById("prAgain").addEventListener("click", function () { lib.render(); });
         box.querySelectorAll("[data-w]").forEach(function (el) { draw(wrong[+el.dataset.w], el); });
         var u = window.BE_auth && window.BE_auth.user();
-        if (u) window.BE_auth.db("scores").insert({ subject: p.subject, kind: "topical", item_id: ids[0], label: name + " (online practice)", marks: right, total: qs.length, minutes: mins, taken_on: new Date().toISOString().slice(0, 10) })
+        if (u) window.BE_auth.db("scores").insert({ subject: p.subject, kind: "topical", item_id: ids[0], label: name + " · " + yearsLabel + " (online practice)", marks: right, total: total, minutes: mins, taken_on: new Date().toISOString().slice(0, 10) })
           .then(function (r) { document.getElementById("prSaved").textContent = r.error ? "" : "Saved to your account."; window.BE_study.reset(); });
         window.scrollTo(0, 0);
       }

@@ -643,39 +643,120 @@
       document.head.appendChild(s);
     });
   }
-  /* mode "both" keeps every page. "q" drops mark scheme pages and covers each multiple choice answer line;
-     "m" keeps the covers and mark scheme pages, and turns multiple choice answers into an answer key page */
+  /* a joined download gets one cover saying exactly what is inside; each year's own cover is left out.
+     "both" keeps question and mark scheme pages, "q" drops mark scheme pages and covers each multiple choice answer line,
+     "m" keeps mark scheme pages and turns multiple choice answers into an answer key */
+  var MODE_NAME = { both: "Questions and mark schemes", q: "Questions only", m: "Mark schemes only" };
+  /* the topical cover, drawn exactly like pipeline/cover.py (same font, positions, sizes and colours) with this download's details */
+  var coverAssets = null;
+  function loadCover() {
+    return coverAssets = coverAssets || new Promise(function (ok, fail) {
+      var s = document.createElement("script");
+      s.src = "https://cdn.jsdelivr.net/npm/@pdf-lib/fontkit@1.1.1/dist/fontkit.umd.min.js";
+      s.onload = ok; s.onerror = function () { coverAssets = null; fail(new Error("lib")); };
+      document.head.appendChild(s);
+    }).then(function () {
+      return Promise.all(["/assets/cover/Chococooky.ttf", "/assets/cover/logo.png"].map(function (u) { return fetch(u).then(function (r) { if (!r.ok) throw new Error("fetch"); return r.arrayBuffer(); }); }));
+    });
+  }
+  var SUBJECT_LINE = { "ig-physics": "IGCSE Physics", "ig-chemistry": "IGCSE Chemistry", "ig-biology": "IGCSE Biology", "ig-maths": "IGCSE Mathematics", "ig-cs": "IGCSE Computer Science",
+    biology: "A-Level Biology", chemistry: "A-Level Chemistry", physics: "A-Level Physics", maths: "A-Level Mathematics", cs: "A-Level Computer Science" };
+  function makeCover(L, out, o) {
+    return loadCover().then(function (a) {
+      out.registerFontkit(window.fontkit);
+      return Promise.all([out.embedFont(a[0], { subset: true }), out.embedPng(a[1])]);
+    }).then(function (r) {
+      var font = r[0], logo = r[1], W = 595.2756, H = 841.8898, page = out.addPage([W, H]);
+      var c = function (rr, g, b) { return L.rgb(rr / 255, g / 255, b / 255); };
+      var GREEN = c(74, 158, 124), DGREEN = c(46, 110, 84), ORANGE = c(233, 162, 59), GREY = c(118, 118, 118), LGREY = L.rgb(0.86, 0.86, 0.86), RING = L.rgb(0.92, 0.92, 0.92), BLACK = L.rgb(0.08, 0.08, 0.08);
+      var width = function (t, size) { return font.widthOfTextAtSize(t, size); };
+      var spaced = function (x, y, text, size, color, sp, right) {
+        var ws = text.split("").map(function (ch) { return width(ch, size); }), total = ws.reduce(function (a, b) { return a + b; }, 0) + sp * (text.length - 1);
+        if (right) x -= total;
+        text.split("").forEach(function (ch, i) { page.drawText(ch, { x: x, y: y, size: size, font: font, color: color }); x += ws[i] + sp; });
+      };
+      var cx = 555, cy = H - 397;
+      page.drawCircle({ x: cx, y: cy, size: 207, borderColor: RING, borderWidth: 1.6 });
+      page.drawCircle({ x: cx, y: cy, size: 147, borderColor: RING, borderWidth: 1.6 });
+      page.drawCircle({ x: cx, y: cy, size: 87, color: GREEN });
+      page.drawImage(logo, { x: 48, y: H - 78, width: 34, height: 32 });
+      page.drawText("Before", { x: 96, y: H - 70, size: 21, font: font, color: BLACK });
+      page.drawText("Exams", { x: 96 + width("Before", 21), y: H - 70, size: 21, font: font, color: DGREEN });
+      spaced(550, H - 66, o.series || "TOPICAL SERIES", 8.5, GREY, 1.6, true);
+      spaced(44, H - 300, o.kicker, 8.5, DGREEN, 1.9);
+      var wrap = function (size) {
+        var lines = [], cur = "";
+        o.title.split(/\s+/).forEach(function (w) { var t = (cur + " " + w).trim(); if (width(t, size) <= 400 || !cur) cur = t; else { lines.push(cur); cur = w; } });
+        if (cur) lines.push(cur);
+        return lines;
+      };
+      var size = 50, lines;
+      for (;;) {
+        lines = wrap(size);
+        if (((lines.length <= 2 && lines.every(function (l) { return width(l, size) <= 410; })) || size <= 30) && lines.length <= 3) break;
+        size -= 2;
+      }
+      var y = H - 360, lh = size * 1.25;
+      lines.forEach(function (l) { page.drawText(l, { x: 44, y: y, size: size, font: font, color: BLACK }); y -= lh; });
+      y += lh;
+      page.drawText(o.subject, { x: 44, y: y - 48, size: 19, font: font, color: L.rgb(0.2, 0.2, 0.2) });
+      page.drawLine({ start: { x: 45, y: y - 72 }, end: { x: 96, y: y - 72 }, thickness: 3, color: ORANGE });
+      page.drawLine({ start: { x: 45, y: H - 659 }, end: { x: 550, y: H - 659 }, thickness: 0.8, color: LGREY });
+      var cols = [45, 219, 394];
+      o.fields.forEach(function (f, i) {
+        var x = cols[i % 3], ylab = i < 3 ? 688 : 739;
+        spaced(x, H - ylab, f[0], 8.3, GREY, 1.5);
+        page.drawText(String(f[1]), { x: x, y: H - ylab - 19, size: 14, font: font, color: BLACK });
+      });
+      page.drawText(o.footer || "Practice with purpose. Track what you learn.", { x: 45, y: H - 798, size: 9, font: font, color: GREY });
+    });
+  }
+  function yearsText(ys) {
+    var n = ys.map(Number).sort(function (a, b) { return a - b; });
+    var run = n.every(function (y, i) { return !i || y === n[i - 1] + 1; });
+    return n.length > 2 && run ? "[" + n[0] + " – " + n[n.length - 1] + "]" : "[" + n.join(", ") + "]";
+  }
+  /* multiple choice mark schemes are only letters, so they become an answer key: number, letter, where it came from */
   function keyPages(L, out, font, bold, title, answers) {
-    var lines = answers.map(function (a) { return ["Q" + a[0], a[2] || "-", a[1]]; }), y = 0, page = null;
-    lines.forEach(function (l, i) {
+    var y = 0, page = null;
+    answers.forEach(function (a, i) {
       if (!page || y < 50) { page = out.addPage([595.28, 841.89]); page.drawText(title + (i ? " (cont.)" : ""), { x: 40, y: 790, size: 13, font: bold }); y = 760; }
-      page.drawText(l[0], { x: 40, y: y, size: 10, font: bold }); page.drawText(l[1], { x: 90, y: y, size: 10, font: bold }); page.drawText(l[2], { x: 120, y: y, size: 9, font: font, color: L.rgb(0.4, 0.4, 0.4) });
+      page.drawText("Q" + a[0], { x: 40, y: y, size: 10, font: bold }); page.drawText(a[2] || "-", { x: 90, y: y, size: 10, font: bold });
+      page.drawText(a[1], { x: 120, y: y, size: 9, font: font, color: L.rgb(0.4, 0.4, 0.4) });
       y -= 17;
     });
   }
-  function joinPdfs(items, mode, step) {
+  function joinPdfs(items, mode, step, info) {
     return loadPdfLib().then(function (L) {
       return L.PDFDocument.create().then(function (out) {
         return Promise.all([out.embedFont(L.StandardFonts.Helvetica), out.embedFont(L.StandardFonts.HelveticaBold)]).then(function (fonts) {
-          return items.reduce(function (chain, it, i) {
+          var offset = 0;   // questions run Q1, Q2, ... straight through all the years
+          return makeCover(L, out, info.cover).then(function () { return items.reduce(function (chain, it, i) {
             return chain.then(function () {
               step(i + 1);
               return fetch(it.url).then(function (r) { if (!r.ok) throw new Error("fetch"); return r.arrayBuffer(); })
                 .then(function (b) { return L.PDFDocument.load(b); })
                 .then(function (src) {
-                  var meta = mode === "both" ? null : it.meta, all = src.getPageIndices();
-                  var keep = !meta ? all : all.filter(function (n) { var k = meta.p.charAt(n); return mode === "q" ? k !== "m" : k === "c" || k === "m"; });
+                  var meta = it.meta, all = src.getPageIndices(), shift = offset;
+                  var keep = !meta ? all.slice(1) : all.filter(function (n) { var k = meta.p.charAt(n); return k !== "c" && (mode === "both" || (mode === "q" ? k !== "m" : k === "m")); });
                   return out.copyPages(src, keep).then(function (pages) {
                     pages.forEach(function (pg, j) {
                       out.addPage(pg);
+                      if (meta && shift) (meta.l[keep[j]] || []).forEach(function (l) {
+                        if (mode === "q" && /MARK SCHEME/.test(l[1])) return;   // that strip is covered below
+                        var text = l[1].replace(/^Q(\d+)/, function (m, d) { return "Q" + (+d + shift); }), w = Math.max(l[1].length, text.length) * 4.3 + 10;
+                        pg.drawRectangle({ x: 14, y: l[0], width: w, height: 12, color: L.rgb(0.18, 0.49, 0.36) });
+                        pg.drawText(text, { x: 19, y: l[0] + 3.6, size: 7, font: fonts[1], color: L.rgb(1, 1, 1) });
+                      });
                       var strips = meta && mode === "q" && meta.s[keep[j]];
                       if (strips) strips.forEach(function (y) { pg.drawRectangle({ x: 0, y: y - 3, width: pg.getWidth(), height: 17, color: L.rgb(1, 1, 1) }); });
                     });
-                    if (meta && mode === "m" && meta.a.length) keyPages(L, out, fonts[0], fonts[1], "Answer key - " + it.label, meta.a);
+                    if (meta && mode === "m" && meta.a.length) keyPages(L, out, fonts[0], fonts[1], "Answer key, " + it.year, meta.a.map(function (a) { return [a[0] + shift, a[1], a[2]]; }));
+                    offset += it.count || 0;
                   });
                 });
             });
-          }, Promise.resolve()).then(function () { return out.save(); });
+          }, Promise.resolve()).then(function () { return out.save(); }); });
         });
       });
     });
@@ -721,12 +802,16 @@
       var maps = {};
       Promise.all([].concat(
         list.map(function (r) { return window.BE_auth ? window.BE_auth.signedUrl(r.path, fileUrl(r.path)) : fileUrl(r.path); }),
-        mode === "both" ? [] : list.filter(function (r) { return r.tid; }).map(function (r) {
+        list.filter(function (r) { return r.tid; }).map(function (r) {
           return fetch("/assets/pages/" + r.tid + ".json").then(function (x) { return x.ok ? x.json() : {}; }).then(function (m) { maps[r.tid] = m; });
         })))
         .then(function (urls) {
-          var items = list.map(function (r, i) { return { url: urls[i], label: name + " " + r.label, meta: r.tid && maps[r.tid] ? maps[r.tid][r.year] : null }; });
-          return joinPdfs(items, mode, function (i) { get.textContent = "Preparing " + i + " of " + items.length + "…"; });
+          var items = list.slice().sort(function (a, b) { return a.year - b.year; }).map(function (r) { return { url: urls[list.indexOf(r)], year: r.label, count: r.count, meta: r.tid && maps[r.tid] ? maps[r.tid][r.year] : null }; });
+          var questions = list.reduce(function (a, r) { return a + (r.count || 0); }, 0), marks = list.reduce(function (a, r) { return a + (r.marks || 0); }, 0);
+          var info = { cover: { title: name, subject: SUBJECT_LINE[p.subject] || s.name, kicker: { both: "TOPICAL PAST PAPERS", q: "TOPICAL QUESTIONS ONLY", m: "TOPICAL MARK SCHEMES ONLY" }[mode],
+            fields: [["EXAM BOARD", "Cambridge"], ["SYLLABUS CODE", p.subject === "cs" ? "9608 and 9618" : s.code], ["PAPERS COVERED", groupName(s, p.component).replace(/\s*\(.*\)$/, "")],
+              ["YEARS", yearsText(list.map(function (r) { return r.year; }))], ["QUESTIONS", questions + (marks && mode !== "m" ? " (" + marks + " marks)" : "")], ["CONTENTS", { both: "With mark schemes", q: "Questions only", m: "Mark schemes only" }[mode]]] } };
+          return joinPdfs(items, mode, function (i) { get.textContent = "Preparing " + i + " of " + items.length + "…"; }, info);
         })
         .then(function (bytes) {
           var a = document.createElement("a"), url = URL.createObjectURL(new Blob([bytes], { type: "application/pdf" }));
@@ -735,7 +820,7 @@
         })
         .catch(function (e) {
           if (e && e.message === "login") { var g = document.getElementById("tyGate"); gateBox(g, function () { g.innerHTML = ""; get.click(); }); }
-          else err.textContent = "Those PDFs could not be joined just now. Check your connection and try again.";
+          else { console.error("join failed", e); err.textContent = "Those PDFs could not be joined just now. Check your connection and try again."; }
         })
         .then(function () { get.textContent = label; get.disabled = !picked().length; });
     });
@@ -834,7 +919,7 @@
     lock: function (p) { lockedView(p, "Paper " + paperNo(p), subj(p.subject).name + " " + p.code, window.BE_auth.user() ? "#/account" : "#/"); },
     guestOpen: function (id) { return guestFor === id; },
     baseName: baseName, topicGroup: topicGroup, topicRows: topicRows, fileUrl: fileUrl, icon: function (n) { return I[n]; },
-    topicals: function () { return TOPICALS; }, groupName: groupName, loadPdfLib: loadPdfLib, gateBox: gateBox, shake: shake, toast: toast,
+    topicals: function () { return TOPICALS; }, groupName: groupName, loadPdfLib: loadPdfLib, gateBox: gateBox, shake: shake, toast: toast, makeCover: makeCover, yearsText: yearsText,
     esc: esc, subj: subj, levelOf: levelOf, paperNo: paperNo, SESSION: SESSION, footer: footer, render: render, store: store, pane: pane, hydratePanes: hydratePanes,
     data: function () { return DATA; }, papers: function () { return PAPERS; }, byId: function (id) { return BY_ID[id] || null; },
     itemLabel: function (p) { return p.kind === "topical" ? p.name : "Paper " + paperNo(p) + ", " + SESSION[p.session] + " " + p.year; }

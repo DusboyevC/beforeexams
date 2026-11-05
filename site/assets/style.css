@@ -194,11 +194,21 @@ footer.foot { border-top: 1px solid var(--border); padding: 24px 0 40px; font-si
 .ws-go .st-note, .ws-go .st-error { margin: 4px 0 0; } .ws-go .st-note:empty, .ws-go .st-error:empty { display: none; }
 .ws-btns { display: flex; gap: 8px; flex-wrap: wrap; }
 .ws-btns .mini[hidden] { display: none; }
+/* account page: multiple choice practice results */
+.pc-topics { display: grid; gap: 10px; margin-top: 14px; }
+.pc-topic { padding: 14px 16px; border: 1px solid var(--border); border-radius: 14px; background: var(--surface-2); }
+.pc-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.pc-head b { display: block; font-size: .95rem; } .pc-head small { color: var(--muted); font-size: .78rem; }
+.pc-bar { height: 8px; margin: 12px 0 10px; border-radius: 999px; background: var(--border); overflow: hidden; } .pc-bar i { display: block; height: 100%; border-radius: inherit; background: var(--forest); }
+.pc-figs { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: .82rem; color: var(--muted); } .pc-figs b { color: var(--ink); }
+.pc-h { margin: 22px 0 0; font-size: .95rem; }
 /* online multiple choice practice */
 .practice { max-width: 820px; }
 .practice .back { display: inline-flex; align-items: center; gap: 6px; font-size: .85rem; font-weight: 600; color: var(--muted); margin-bottom: 18px; }
 .pr-top { display: flex; justify-content: space-between; align-items: center; }
-.pr-score { font-weight: 700; color: var(--forest); }
+.pr-score { font-weight: 700; color: var(--forest); margin-left: auto; margin-right: 12px; }
+.pr-top { gap: 8px; }
+.pr-stop { flex: none; }
 .pr-bar { height: 6px; margin-top: 10px; border-radius: 999px; background: var(--surface-2); overflow: hidden; } .pr-bar i { display: block; height: 100%; background: var(--forest); border-radius: inherit; transition: width .3s; }
 .pr-card { margin-top: 14px; padding: 16px; }
 .pr-q { background: #fff; border-radius: 12px; overflow: hidden; min-height: 90px; display: grid; place-items: center; }
@@ -266,6 +276,7 @@ footer.foot { border-top: 1px solid var(--border); padding: 24px 0 40px; font-si
 .topic-years { margin-top: 24px; padding: 0; overflow: hidden; }
 .ty-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 14px 18px; background: var(--surface-2); }
 .ty-get { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.ty-bar > .ty-check { flex: none; white-space: nowrap; }
 .ty-get .field { width: auto; padding: 7px 12px; font-size: .84rem; }
 .topic-years .st-error:empty { display: none; }
 .topic-years .st-error { margin: 0; padding: 10px 18px 0; }

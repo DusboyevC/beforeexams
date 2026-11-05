@@ -52,23 +52,17 @@
     page.drawText(text, { x: 19, y: y + 3.6, size: 7, font: fonts.bold, color: window.PDFLib.rgb(1, 1, 1) });
     if (sub) page.drawText(sub, { x: 14 + tw + 6, y: y + 3.6, size: 7, font: fonts.reg, color: window.PDFLib.rgb(0.45, 0.45, 0.45) });
   }
+  /* the same cover as the topicals; a worksheet with several topics lists them on the next page */
   function cover(out, fonts, info) {
-    var P = window.PDFLib, page = out.addPage(A4), y = 760;
-    page.drawRectangle({ x: 0, y: 0, width: A4[0], height: A4[1], color: P.rgb(1, 1, 1) });
-    page.drawText("BeforeExams", { x: 48, y: 790, size: 12, font: fonts.bold, color: P.rgb(GREEN[0], GREEN[1], GREEN[2]) });
-    page.drawText("WORKSHEET", { x: 48, y: y - 40, size: 9, font: fonts.bold, color: P.rgb(0.5, 0.5, 0.5) });
-    page.drawText(info.subject, { x: 48, y: y - 80, size: 26, font: fonts.bold, color: P.rgb(0.1, 0.1, 0.1) });
-    y -= 120;
-    [["Questions", String(info.count)], ["Contents", MODES[info.mode]], ["Order", info.shuffled ? "Shuffled" : "By topic, newest year first"], ["Years", info.years]].forEach(function (r) {
-      page.drawText(r[0].toUpperCase(), { x: 48, y: y, size: 7, font: fonts.bold, color: P.rgb(0.5, 0.5, 0.5) });
-      page.drawText(r[1], { x: 150, y: y, size: 10, font: fonts.reg, color: P.rgb(0.1, 0.1, 0.1) });
-      y -= 22;
+    var P = window.PDFLib;
+    return L().makeCover(P, out, { series: "WORKSHEET", kicker: "WORKSHEET · " + MODES[info.mode].toUpperCase(), title: info.topics.length === 1 ? info.topics[0].replace(/^\S+\s+/, "") : info.topics.length + " topics, mixed",
+      subject: info.subjectLine, fields: [["EXAM BOARD", "Cambridge"], ["SYLLABUS CODE", info.code], ["PAPERS COVERED", info.papers], ["YEARS", info.years], ["QUESTIONS", String(info.count)], ["ORDER", info.shuffled ? "Shuffled" : "By topic"]],
+      footer: "Name ________________________     Date ____________     Score ______ / " + info.count }).then(function () {
+      if (info.topics.length < 2) return;
+      var page = out.addPage(A4), y = 780;
+      page.drawText("Topics in this worksheet", { x: 48, y: y, size: 15, font: fonts.bold, color: P.rgb(0.1, 0.1, 0.1) }); y -= 30;
+      info.topics.forEach(function (t) { if (y < 50) { page = out.addPage(A4); y = 790; } page.drawText(t, { x: 48, y: y, size: 10.5, font: fonts.reg, color: P.rgb(0.2, 0.2, 0.2) }); y -= 18; });
     });
-    y -= 10;
-    page.drawText("TOPICS", { x: 48, y: y, size: 7, font: fonts.bold, color: P.rgb(0.5, 0.5, 0.5) });
-    info.topics.slice(0, 26).forEach(function (t) { y -= 16; page.drawText(t, { x: 150, y: y + 16 - 16, size: 9.5, font: fonts.reg, color: P.rgb(0.15, 0.15, 0.15) }); });
-    if (info.topics.length > 26) page.drawText("and " + (info.topics.length - 26) + " more", { x: 150, y: y - 16, size: 9, font: fonts.reg, color: P.rgb(0.45, 0.45, 0.45) });
-    page.drawText("Name ____________________________     Date ______________     Score ______ / " + info.count, { x: 48, y: 70, size: 9, font: fonts.reg, color: P.rgb(0.3, 0.3, 0.3) });
   }
 
   function build(units, info, step) {
@@ -77,10 +71,9 @@
       return P.PDFDocument.create().then(function (out) {
         return Promise.all([out.embedFont(P.StandardFonts.Helvetica), out.embedFont(P.StandardFonts.HelveticaBold)]).then(function (f) {
           var fonts = { reg: f[0], bold: f[1] }, page = null, y = 0, key = [];
-          cover(out, fonts, info);
           var urls = [];
           units.forEach(function (u) { if (urls.indexOf(u.row.url) < 0) urls.push(u.row.url); });
-          return urls.reduce(function (c, u, i) {
+          return cover(out, fonts, info).then(function () { return urls.reduce(function (c, u, i) {
             return c.then(function () {
               step("Loading " + (i + 1) + " of " + urls.length + " PDFs…");
               return fetch(u).then(function (r) { if (!r.ok) throw new Error("fetch"); return r.arrayBuffer(); }).then(function (b) { return P.PDFDocument.load(b); }).then(function (d) { docs[u] = d; });
@@ -126,7 +119,7 @@
               }
               return out.save();
             });
-          });
+          }); });
         });
       });
     });
@@ -262,8 +255,10 @@
         if (shuffled) shuffle(units);
         if (want) units = units.slice(0, want);
         var s = lib.subj(key), ys = list.map(function (r) { return r.year; }).filter(function (y, i, a) { return a.indexOf(y) === i; }).sort(function (a, b) { return b - a; });
-        var info = { subject: (lib.levelOf(s) === "ig" ? "IGCSE " : "A Level ") + s.name + " " + s.code, count: units.length, mode: mode, shuffled: shuffled,
-          years: ys.length > 6 ? ys[ys.length - 1] + " to " + ys[0] : ys.join(", "), topics: picked().map(function (t) { return t.topic + "  " + t.name; }) };
+        var comps = picked().map(function (t) { return t.component; }).filter(function (c, i, a) { return a.indexOf(c) === i; }).sort();
+        var info = { subjectLine: (lib.levelOf(s) === "ig" ? "IGCSE " : "A-Level ") + s.name, code: key === "cs" ? "9608 and 9618" : s.code,
+          papers: comps.length > 2 ? comps.length + " papers" : comps.map(function (c) { return lib.groupName(s, c).replace(/\s*\(.*\)$/, ""); }).join(", "), count: units.length, mode: mode, shuffled: shuffled,
+          years: lib.yearsText(ys), topics: picked().map(function (t) { return t.topic + "  " + t.name; }) };
         return build(units, info, status).then(function (bytes) {
           var a = document.createElement("a"), url = URL.createObjectURL(new Blob([bytes], { type: "application/pdf" }));
           a.href = url; a.download = "Worksheet - " + s.name + " - " + units.length + " questions" + { both: "", q: " (questions only)", m: " (mark schemes only)" }[mode] + ".pdf";
