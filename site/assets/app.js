@@ -722,15 +722,17 @@
     var m = String(src || "").match(/\d{4}\/(\d\d)\/([FMO]\/[MJN])\/(\d\d)\s+Q(\d+)/);
     return m ? "Paper " + m[1] + " · " + (SESSION_LONG[m[2]] || m[2]) + " 20" + m[3] + " · Q" + m[4] : "";
   }
-  function drawLabel(L, pg, reg, bold, y, n, kind, src, answer) {   // answer: the letter, for multiple choice mark schemes   // kind: "q", "q+" (continued) or "m"
+  /* y is the bottom of the old 12 point label row. Everything stays inside that row (x 14 to 330), which is empty
+     on every page apart from the old label, so nothing of the question itself is painted over. */
+  function drawLabel(L, pg, reg, bold, y, n, kind, src, answer) {   // kind: "q" or "m", "+" when continued; answer: the letter, for multiple choice
     var text = (kind.charAt(0) === "m" ? "Mark scheme · Question " : "Question ") + n + (kind.charAt(1) === "+" ? " (continued)" : "");
-    pg.drawRectangle({ x: 10, y: y - 2.5, width: 380, height: 17, color: L.rgb(1, 1, 1) });   // the old small label and its paper code
-    var w = bold.widthOfTextAtSize(text, 8.5) + 12;
-    pg.drawRectangle({ x: 14, y: y - 1, width: w, height: 14, color: L.rgb(0.18, 0.49, 0.36) });
-    pg.drawText(text, { x: 20, y: y + 2.8, size: 8.5, font: bold, color: L.rgb(1, 1, 1) });
+    pg.drawRectangle({ x: 14, y: y, width: 316, height: 12, color: L.rgb(1, 1, 1) });   // the old small label and its paper code
+    var w = bold.widthOfTextAtSize(text, 8) + 10;
+    pg.drawRectangle({ x: 14, y: y, width: w, height: 12, color: L.rgb(0.18, 0.49, 0.36) });
+    pg.drawText(text, { x: 19, y: y + 3.4, size: 8, font: bold, color: L.rgb(1, 1, 1) });
     var st = answer ? "" : sourceText(src);
-    if (st) pg.drawText(st, { x: 14 + w + 8, y: y + 2.8, size: 8.5, font: reg, color: L.rgb(0.22, 0.22, 0.22) });
-    if (answer) pg.drawText("Answer: " + answer, { x: 14 + w + 8, y: y + 2.5, size: 9.5, font: bold, color: L.rgb(0.1, 0.1, 0.1) });
+    if (st) pg.drawText(st, { x: 14 + w + 7, y: y + 3.4, size: 8, font: reg, color: L.rgb(0.2, 0.2, 0.2) });
+    if (answer) pg.drawText("Answer: " + answer, { x: 14 + w + 7, y: y + 3, size: 9, font: bold, color: L.rgb(0.1, 0.1, 0.1) });
   }
   /* multiple choice mark schemes are only letters, so they become an answer key: number, letter, where it came from */
   function keyPages(L, out, font, bold, title, answers) {

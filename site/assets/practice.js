@@ -42,7 +42,7 @@
         c.width = vp.width; c.height = h;
         var ctx = c.getContext("2d");
         ctx.drawImage(full, 0, y0, vp.width, h, 0, 0, vp.width, h);
-        if (q.ly != null) { ctx.fillStyle = "#fff"; ctx.fillRect(10 * scale, (q.top - q.ly - 14.5) * scale, 380 * scale, 17 * scale); }
+        if (q.ly != null) { ctx.fillStyle = "#fff"; ctx.fillRect(14 * scale, (q.top - q.ly - 12) * scale, 316 * scale, 12 * scale); }
         c.className = "pr-img"; box.innerHTML = ""; box.appendChild(c);
       });
     });
