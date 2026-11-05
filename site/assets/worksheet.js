@@ -31,8 +31,9 @@
         if (meta.p.charAt(i) !== "x") continue;
         var top = 804;
         (meta.s[i] || []).forEach(function (y) {
-          var a = meta.a[k++] || [];
-          units.push({ mcq: true, row: row, page: i, top: top, bottom: y + 14, answer: a[2] || "-", src: a[1] || "" });
+          var a = meta.a[k++] || [], b = y + 14;
+          var old = ((meta.l || {})[i] || []).filter(function (l) { return /QUESTION/.test(l[1]) && l[0] > b && l[0] < top; })[0];   // its small label inside the cut
+          units.push({ mcq: true, row: row, page: i, top: top, bottom: b, ly: old ? old[0] : null, answer: a[2] || "-", src: a[1] || "" });
           top = y - 32;
         });
       }
@@ -46,12 +47,7 @@
     return units;
   }
 
-  function label(page, fonts, y, text, sub) {
-    var tw = text.length * 4.3 + 10;
-    page.drawRectangle({ x: 14, y: y, width: tw, height: 12, color: window.PDFLib.rgb(GREEN[0], GREEN[1], GREEN[2]) });
-    page.drawText(text, { x: 19, y: y + 3.6, size: 7, font: fonts.bold, color: window.PDFLib.rgb(1, 1, 1) });
-    if (sub) page.drawText(sub, { x: 14 + tw + 6, y: y + 3.6, size: 7, font: fonts.reg, color: window.PDFLib.rgb(0.45, 0.45, 0.45) });
-  }
+  function label(page, fonts, y, n, kind, src) { L().drawLabel(window.PDFLib, page, fonts.reg, fonts.bold, y, n, kind, src); }
   /* the same cover as the topicals; a worksheet with several topics lists them on the next page */
   function cover(out, fonts, info) {
     var P = window.PDFLib;
@@ -87,11 +83,13 @@
                 if (u.mcq) {
                   if (info.mode === "m") { key.push([n, u.src, u.answer]); return; }
                   return out.embedPage(src.getPage(u.page), { left: 0, bottom: u.bottom, right: A4[0], top: u.top }).then(function (emb) {
-                    var h = u.top - u.bottom, need = h + 22 + (info.mode === "both" ? 18 : 0);
+                    var h = u.top - u.bottom, inside = u.ly != null, need = h + (inside ? 6 : 22) + (info.mode === "both" ? 18 : 0);
                     if (!page || y - need < 30) { page = out.addPage(A4); y = A4[1] - 34; }
-                    label(page, fonts, y - 12, "Q" + n, u.src); y -= 16;
-                    page.drawPage(emb, { x: 0, y: y - h, width: A4[0], height: h }); y -= h + 4;
-                    if (info.mode === "both") { label(page, fonts, y - 12, "Q" + n + " MARK SCHEME"); page.drawText("Answer: " + u.answer, { x: 14 + ("Q" + n + " MARK SCHEME").length * 4.3 + 18, y: y - 9, size: 9, font: fonts.bold, color: P.rgb(0.1, 0.1, 0.1) }); y -= 18; }
+                    if (!inside) { label(page, fonts, y - 14, n, "q", u.src); y -= 20; }
+                    page.drawPage(emb, { x: 0, y: y - h, width: A4[0], height: h });
+                    if (inside) label(page, fonts, y - h + (u.ly - u.bottom), n, "q", u.src);   // written over the old small label
+                    y -= h + 4;
+                    if (info.mode === "both") { L().drawLabel(P, page, fonts.reg, fonts.bold, y - 14, n, "m", "", u.answer); y -= 20; }
                     y -= 10;
                   });
                 }
@@ -101,9 +99,7 @@
                   pages.forEach(function (pg, j) {
                     out.addPage(pg);
                     (u.meta.l[keep[j]] || []).forEach(function (l) {
-                      var text = l[1].replace(/^Q\d+/, "Q" + n), w = Math.max(l[1].length, text.length) * 4.3 + 10;
-                      pg.drawRectangle({ x: 14, y: l[0], width: w, height: 12, color: P.rgb(GREEN[0], GREEN[1], GREEN[2]) });
-                      pg.drawText(text, { x: 19, y: l[0] + 3.6, size: 7, font: fonts.bold, color: P.rgb(1, 1, 1) });
+                      label(pg, fonts, l[0], n, (/MARK SCHEME/.test(l[1]) ? "m" : "q") + (/cont/.test(l[1]) ? "+" : ""), u.src);
                     });
                   });
                 });

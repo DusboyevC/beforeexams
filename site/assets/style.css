@@ -208,6 +208,7 @@ footer.foot { border-top: 1px solid var(--border); padding: 24px 0 40px; font-si
 .pr-top { display: flex; justify-content: space-between; align-items: center; }
 .pr-score { font-weight: 700; color: var(--forest); margin-left: auto; margin-right: 12px; }
 .pr-top { gap: 8px; }
+.pr-src { margin: 0 0 6px; font-size: 13px; font-weight: 600; color: var(--ink-2, #555); }
 .pr-stop { flex: none; }
 .pr-bar { height: 6px; margin-top: 10px; border-radius: 999px; background: var(--surface-2); overflow: hidden; } .pr-bar i { display: block; height: 100%; background: var(--forest); border-radius: inherit; transition: width .3s; }
 .pr-card { margin-top: 14px; padding: 16px; }

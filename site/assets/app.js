@@ -716,6 +716,22 @@
     var run = n.every(function (y, i) { return !i || y === n[i - 1] + 1; });
     return n.length > 2 && run ? "[" + n[0] + " – " + n[n.length - 1] + "]" : "[" + n.join(", ") + "]";
   }
+  /* question labels written out clearly: "Question 3" and "Paper 22 · Oct/Nov 2015 · Q1", in place of the tiny grey "Q3 QUESTION 9702/22/O/N/15 Q1" */
+  var SESSION_LONG = { "F/M": "Feb/March", "M/J": "May/June", "O/N": "Oct/Nov" };
+  function sourceText(src) {
+    var m = String(src || "").match(/\d{4}\/(\d\d)\/([FMO]\/[MJN])\/(\d\d)\s+Q(\d+)/);
+    return m ? "Paper " + m[1] + " · " + (SESSION_LONG[m[2]] || m[2]) + " 20" + m[3] + " · Q" + m[4] : "";
+  }
+  function drawLabel(L, pg, reg, bold, y, n, kind, src, answer) {   // answer: the letter, for multiple choice mark schemes   // kind: "q", "q+" (continued) or "m"
+    var text = (kind.charAt(0) === "m" ? "Mark scheme · Question " : "Question ") + n + (kind.charAt(1) === "+" ? " (continued)" : "");
+    pg.drawRectangle({ x: 10, y: y - 2.5, width: 380, height: 17, color: L.rgb(1, 1, 1) });   // the old small label and its paper code
+    var w = bold.widthOfTextAtSize(text, 8.5) + 12;
+    pg.drawRectangle({ x: 14, y: y - 1, width: w, height: 14, color: L.rgb(0.18, 0.49, 0.36) });
+    pg.drawText(text, { x: 20, y: y + 2.8, size: 8.5, font: bold, color: L.rgb(1, 1, 1) });
+    var st = answer ? "" : sourceText(src);
+    if (st) pg.drawText(st, { x: 14 + w + 8, y: y + 2.8, size: 8.5, font: reg, color: L.rgb(0.22, 0.22, 0.22) });
+    if (answer) pg.drawText("Answer: " + answer, { x: 14 + w + 8, y: y + 2.5, size: 9.5, font: bold, color: L.rgb(0.1, 0.1, 0.1) });
+  }
   /* multiple choice mark schemes are only letters, so they become an answer key: number, letter, where it came from */
   function keyPages(L, out, font, bold, title, answers) {
     var y = 0, page = null;
@@ -742,11 +758,11 @@
                   return out.copyPages(src, keep).then(function (pages) {
                     pages.forEach(function (pg, j) {
                       out.addPage(pg);
-                      if (meta && shift) (meta.l[keep[j]] || []).forEach(function (l) {
-                        if (mode === "q" && /MARK SCHEME/.test(l[1])) return;   // that strip is covered below
-                        var text = l[1].replace(/^Q(\d+)/, function (m, d) { return "Q" + (+d + shift); }), w = Math.max(l[1].length, text.length) * 4.3 + 10;
-                        pg.drawRectangle({ x: 14, y: l[0], width: w, height: 12, color: L.rgb(0.18, 0.49, 0.36) });
-                        pg.drawText(text, { x: 19, y: l[0] + 3.6, size: 7, font: fonts[1], color: L.rgb(1, 1, 1) });
+                      if (meta) (meta.l[keep[j]] || []).forEach(function (l) {
+                        var ms = /MARK SCHEME/.test(l[1]), n = +(l[1].match(/^Q(\d+)/) || [0, 0])[1];
+                        if (mode === "q" && ms) return;   // that strip is covered below
+                        var ans = ms && meta.p.charAt(keep[j]) === "x" ? (meta.a.filter(function (a) { return a[0] === n; })[0] || [])[2] || "-" : "";
+                        drawLabel(L, pg, fonts[0], fonts[1], l[0], n + shift, (ms ? "m" : "q") + (/cont/.test(l[1]) ? "+" : ""), (it.srcs || {})[n], ans);
                       });
                       var strips = meta && mode === "q" && meta.s[keep[j]];
                       if (strips) strips.forEach(function (y) { pg.drawRectangle({ x: 0, y: y - 3, width: pg.getWidth(), height: 17, color: L.rgb(1, 1, 1) }); });
@@ -804,9 +820,12 @@
         list.map(function (r) { return window.BE_auth ? window.BE_auth.signedUrl(r.path, fileUrl(r.path)) : fileUrl(r.path); }),
         list.filter(function (r) { return r.tid; }).map(function (r) {
           return fetch("/assets/pages/" + r.tid + ".json").then(function (x) { return x.ok ? x.json() : {}; }).then(function (m) { maps[r.tid] = m; });
+        }),
+        list.filter(function (r) { return r.tid; }).map(function (r) {   // which paper each question came from, for its label
+          return fetch("/assets/jump/" + r.tid + "-" + r.year + ".json").then(function (x) { return x.ok ? x.json() : []; }).then(function (rows) { var o = {}; rows.forEach(function (q) { o[q[0]] = q[1]; }); r.srcs = o; });
         })))
         .then(function (urls) {
-          var items = list.slice().sort(function (a, b) { return a.year - b.year; }).map(function (r) { return { url: urls[list.indexOf(r)], year: r.label, count: r.count, meta: r.tid && maps[r.tid] ? maps[r.tid][r.year] : null }; });
+          var items = list.slice().sort(function (a, b) { return a.year - b.year; }).map(function (r) { return { url: urls[list.indexOf(r)], year: r.label, count: r.count, srcs: r.srcs, meta: r.tid && maps[r.tid] ? maps[r.tid][r.year] : null }; });
           var questions = list.reduce(function (a, r) { return a + (r.count || 0); }, 0), marks = list.reduce(function (a, r) { return a + (r.marks || 0); }, 0);
           var info = { cover: { title: name, subject: SUBJECT_LINE[p.subject] || s.name, kicker: { both: "TOPICAL PAST PAPERS", q: "TOPICAL QUESTIONS ONLY", m: "TOPICAL MARK SCHEMES ONLY" }[mode],
             fields: [["EXAM BOARD", "Cambridge"], ["SYLLABUS CODE", p.subject === "cs" ? "9608 and 9618" : s.code], ["PAPERS COVERED", groupName(s, p.component).replace(/\s*\(.*\)$/, "")],
@@ -919,7 +938,7 @@
     lock: function (p) { lockedView(p, "Paper " + paperNo(p), subj(p.subject).name + " " + p.code, window.BE_auth.user() ? "#/account" : "#/"); },
     guestOpen: function (id) { return guestFor === id; },
     baseName: baseName, topicGroup: topicGroup, topicRows: topicRows, fileUrl: fileUrl, icon: function (n) { return I[n]; },
-    topicals: function () { return TOPICALS; }, groupName: groupName, loadPdfLib: loadPdfLib, gateBox: gateBox, shake: shake, toast: toast, makeCover: makeCover, yearsText: yearsText,
+    topicals: function () { return TOPICALS; }, groupName: groupName, loadPdfLib: loadPdfLib, gateBox: gateBox, shake: shake, toast: toast, makeCover: makeCover, yearsText: yearsText, drawLabel: drawLabel, sourceText: sourceText,
     esc: esc, subj: subj, levelOf: levelOf, paperNo: paperNo, SESSION: SESSION, footer: footer, render: render, store: store, pane: pane, hydratePanes: hydratePanes,
     data: function () { return DATA; }, papers: function () { return PAPERS; }, byId: function (id) { return BY_ID[id] || null; },
     itemLabel: function (p) { return p.kind === "topical" ? p.name : "Paper " + paperNo(p) + ", " + SESSION[p.session] + " " + p.year; }

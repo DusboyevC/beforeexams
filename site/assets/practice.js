@@ -21,8 +21,9 @@
       if (meta.p.charAt(i) !== "x") continue;
       var top = 830;
       (meta.s[i] || []).forEach(function (y) {
-        var a = meta.a[k++];
-        if (a && /^[A-D]$/.test(a[2])) out.push({ url: url, page: i + 1, top: top, bottom: y + 15, answer: a[2], src: a[1] });
+        var a = meta.a[k++], b = y + 15;
+        var old = ((meta.l || {})[i] || []).filter(function (l) { return /QUESTION/.test(l[1]) && l[0] > b && l[0] < top; })[0];   // the small printed label, hidden in the picture
+        if (a && /^[A-D]$/.test(a[2])) out.push({ url: url, page: i + 1, top: top, bottom: b, ly: old ? old[0] : null, answer: a[2], src: a[1] });
         top = y - 3;
       });
     }
@@ -39,7 +40,9 @@
       return page.render({ canvasContext: full.getContext("2d"), viewport: vp }).promise.then(function () {
         var y0 = (842 - q.top) * scale, h = Math.max(40, (q.top - q.bottom) * scale), c = document.createElement("canvas");
         c.width = vp.width; c.height = h;
-        c.getContext("2d").drawImage(full, 0, y0, vp.width, h, 0, 0, vp.width, h);
+        var ctx = c.getContext("2d");
+        ctx.drawImage(full, 0, y0, vp.width, h, 0, 0, vp.width, h);
+        if (q.ly != null) { ctx.fillStyle = "#fff"; ctx.fillRect(10 * scale, (q.top - q.ly - 14.5) * scale, 380 * scale, 17 * scale); }
         c.className = "pr-img"; box.innerHTML = ""; box.appendChild(c);
       });
     });
@@ -80,7 +83,7 @@
         var q = qs[at];
         box.innerHTML = '<div class="pr-top"><span class="label-caps">Question ' + (at + 1) + ' of ' + qs.length + '</span><span class="pr-score">' + right + ' correct</span><button class="mini pr-stop" id="prStop" type="button">Finish and save</button></div>' +
           '<div class="pr-bar"><i style="width:' + (at / qs.length * 100) + '%"></i></div>' +
-          '<section class="panel pr-card"><div class="pr-q" id="prQ"><p class="lede">Loading…</p></div>' +
+          '<section class="panel pr-card">' + (L().sourceText(q.src) ? '<p class="pr-src">' + esc(L().sourceText(q.src)) + '</p>' : '') + '<div class="pr-q" id="prQ"><p class="lede">Loading…</p></div>' +
           '<div class="pr-opts">' + "ABCD".split("").map(function (o) { return '<button type="button" class="pr-opt" data-o="' + o + '">' + o + '</button>'; }).join("") + '</div>' +
           '<p class="pr-msg" id="prMsg" role="status"></p><p class="pr-keys">Tip: press A, B, C or D on your keyboard, then Enter.</p><div class="pr-next"><span class="pr-src">' + esc(q.src) + '</span><button class="mini primary" id="prNext" type="button" hidden>' + (at + 1 < qs.length ? "Next question" : "See my score") + '</button></div></section>';
         draw(q, document.getElementById("prQ")).catch(function () { document.getElementById("prQ").innerHTML = '<p class="st-error">This question could not be shown.</p>'; });
