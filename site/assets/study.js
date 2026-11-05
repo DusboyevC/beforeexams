@@ -228,7 +228,7 @@
       var row = { id: S.uid, level: lv, subjects: subs, exam_session: f.session.value || null, target_percent: target, updated_at: new Date().toISOString() };
       db("profiles").upsert(row).select().single().then(function (r) {
         if (r.error) { console.error("Study plan save failed", r.error); err.textContent = "That could not be saved. Try again. (" + [r.error.code, r.error.message].filter(Boolean).join(": ") + ")"; return; }
-        S.profile = r.data; S.editing = false; S.draftLevel = null; S.draftSubjects = null; L().store("be-level", lv); L().store("be-last", ""); refresh();
+        S.profile = r.data; S.editing = false; S.draftLevel = null; S.draftSubjects = null; L().store("be-level", lv); L().store("be-last", ""); refresh(); L().toast("Study plan saved");
       });
     });
     on("dateForm", "submit", function (e) {
@@ -237,7 +237,7 @@
       if (!f.date.value) { err.textContent = "Choose a date."; return; }
       db("exam_dates").insert({ subject: f.subject.value, paper: f.paper.value.trim() || null, exam_date: f.date.value }).select().single().then(function (r) {
         if (r.error) { err.textContent = "That could not be saved. Try again."; return; }
-        S.dates.push(r.data); S.dates.sort(function (a, b) { return a.exam_date < b.exam_date ? -1 : 1; }); refresh();
+        S.dates.push(r.data); S.dates.sort(function (a, b) { return a.exam_date < b.exam_date ? -1 : 1; }); refresh(); L().toast("Exam date added");
       });
     });
     var logF = document.getElementById("logForm");
@@ -251,7 +251,7 @@
       db("scores").insert({ subject: f.subject.value, kind: f.kind.value, item_id: params.get("log") || null, label: f.label.value.trim(), topic: f.kind.value === "topical" && f.topic.value ? f.topic.value : null, marks: marks, total: total, taken_on: f.date.value }).select().single().then(function (r) {
         if (r.error) { err.textContent = "That could not be saved. Try again."; return; }
         S.scores.unshift(r.data); S.scores.sort(function (a, b) { return a.taken_on < b.taken_on ? 1 : a.taken_on > b.taken_on ? -1 : 0; });
-        history.replaceState(null, "", "#/account"); refresh();
+        history.replaceState(null, "", "#/account"); refresh(); L().toast("Score saved");
       });
     });
     on("mockForm", "submit", function (e) {

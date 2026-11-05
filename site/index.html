@@ -30,13 +30,18 @@
         <div class="nav-menu" id="libMenu">
           <a href="#/" class="nav-link nav-menu-btn" id="libBtn" aria-haspopup="true" aria-expanded="false">Library <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
           <div class="nav-drop"><div class="nav-drop-box">
-            <a href="#/" data-goto="topicals"><b>Topical questions</b><small>Every past question, sorted by topic</small></a>
-            <a href="#/" data-goto="papers"><b>Past papers</b><small>Full exams with mark schemes, 2015–2026</small></a>
+            <div class="nav-col"><p class="nav-head">Study</p>
+            <a href="#/" data-goto="topicals"><b>Topical questions</b><small>Every past question by chapter, split by year</small></a>
+            <a href="#/" data-goto="papers"><b>Past papers</b><small>Full exams with mark schemes, 2015&ndash;2026</small></a>
             <a href="#/" data-goto="notes"><b>Revision notes</b><small>Short notes for every topic you need</small></a>
             <a href="#/" data-goto="guide"><b>Exam guide</b><small>Paper times, marks, weightings and topics</small></a>
-            <a href="#/" data-goto="trends"><b>Topic trends</b><small>Which topics and question types are rising</small></a>
+            <a href="#/" data-goto="trends"><b>Topic trends</b><small>Which topics come up most, year by year</small></a></div>
+            <div class="nav-col"><p class="nav-head">Tools</p>
+            <a href="#/practice"><b>Multiple choice practice</b><small>Answer online, marked as you go</small></a>
+            <a href="#/worksheet"><b>Worksheet maker</b><small>Mix topics and years into one PDF</small></a>
+            <a href="#/grades"><b>Grade calculator</b><small>Your marks against real grade thresholds</small></a>
             <a href="#/account"><b>Mock tests and score tracking</b><small>Timed papers, progress charts, exam dates</small></a>
-            <a href="#/admin" id="adminLink" hidden><b>Admin</b><small>Accounts and site visits</small></a>
+            <a href="#/admin" id="adminLink" hidden><b>Admin</b><small>Accounts and site visits</small></a></div>
           </div></div>
         </div>
         <a href="#/about" class="nav-link">About</a>
@@ -56,7 +61,7 @@
       <div class="cine-step cine-intro" data-in="-1" data-out="0.13">
         <div class="wrap">
           <h1 class="cine-title">Before the exam, open the right page.</h1>
-          <p class="cine-sub">Cambridge IGCSE and AS &amp; A Level past papers from 2015 to 2026, with their mark schemes, every question sorted by topic, revision notes, timed mock tests and score tracking.</p>
+          <p class="cine-sub">Cambridge IGCSE and AS &amp; A Level topical questions sorted by chapter and by year, past papers from 2015 to 2026 with mark schemes, online multiple choice practice, a worksheet maker, a grade calculator, revision notes and timed mock tests.</p>
           <div class="cine-actions">
             <a href="#library" class="cine-btn primary" id="heroOpen">Open the library</a>
             <a href="#/about" class="cine-btn">How it works</a>
@@ -103,6 +108,9 @@
   <script src="/assets/study.js"></script>
   <script src="/assets/admin.js"></script>
   <script src="/assets/trends.js"></script>
+  <script src="/assets/grades.js"></script>
+  <script src="/assets/practice.js"></script>
+  <script src="/assets/worksheet.js"></script>
   <script src="/assets/find.js"></script>
   <script src="/assets/footer.js"></script>
   <script src="/assets/app.js"></script>

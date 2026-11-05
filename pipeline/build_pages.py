@@ -22,7 +22,7 @@ FOOTER = ('<footer class="foot"><div class="wrap"><div class="foot-grid"><div cl
           f'<a class="brand" href="/" aria-label="BeforeExams home">{BRAND_SVG}<span class="font-brand brand-word">Before<span>Exams</span></span></a>'
           '<p>Free revision for Cambridge IGCSE and AS &amp; A Level students.</p>'
           '<p class="foot-mail">Email: <a href="mailto:dusboyevc@gmail.com">dusboyevc@gmail.com</a></p></div>'
-          + foot_col('Library', [(n, '/#/?mode=' + m, f' data-foot-mode="{m}"') for n, m in (('Topical questions', 'topicals'), ('Past papers', 'papers'), ('Revision notes', 'notes'), ('Exam guide', 'guide'), ('Topic trends', 'trends'))])
+          + foot_col('Library', [(n, '/#/?mode=' + m, f' data-foot-mode="{m}"') for n, m in (('Topical questions', 'topicals'), ('Past papers', 'papers'), ('Revision notes', 'notes'), ('Exam guide', 'guide'), ('Topic trends', 'trends'))] + [('Multiple choice practice', '/#/practice', ''), ('Worksheet maker', '/#/worksheet', ''), ('Grade calculator', '/#/grades', '')])
           + foot_col('IGCSE', [(n, f'/subjects/igcse-{s}/', '') for n, s in (('Physics', 'physics-0625'), ('Chemistry', 'chemistry-0620'), ('Biology', 'biology-0610'), ('Mathematics', 'mathematics-0580'), ('Computer Science', 'computer-science-0478'))])
           + foot_col('AS & A Level', [(n, f'/subjects/a-level-{s}/', '') for n, s in (('Physics', 'physics-9702'), ('Chemistry', 'chemistry-9701'), ('Biology', 'biology-9700'), ('Mathematics', 'mathematics-9709'), ('Computer Science', 'computer-science-9618'))])
           + foot_col('BeforeExams', [('About and authors', '/about/', ''), ('All revision notes', '/revision-notes/', ''), ('My account', '/#/account', ''), ('Mock tests', '/#/account', '')])

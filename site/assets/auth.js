@@ -12,6 +12,7 @@
   var client = null, user = null, session = null, listeners = [], pendingAfterLogin = null, guestPw = "";
   function store(k, v) { try { if (v === undefined) return localStorage.getItem(k); if (v === null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch (e) { return null; } }
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+  function shake(el) { if (!el) return; el.classList.remove("shake"); void el.offsetWidth; el.classList.add("shake"); }   // motion that means no
   function emit() { listeners.forEach(function (f) { try { f(user); } catch (e) {} }); renderAccount(); }
 
   var ready = new Promise(function (resolve) {
@@ -73,6 +74,7 @@
   function msg(text, ok) {
     if (!ok && (!text || text === "{}")) text = "We could not send your email just now. Try again in a minute.";
     var m = modal.querySelector(".auth-msg"); m.textContent = text; m.className = "auth-msg" + (ok ? " ok" : "");
+    if (!ok) shake(modal.querySelector(".auth-card"));
   }
   /* the boxes only show what is in the one real input, so autofill, paste and screen readers keep working */
   function drawCode() {

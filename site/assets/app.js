@@ -159,7 +159,10 @@
         '<button role="tab" data-mode="papers" aria-selected="' + (mode === "papers") + '"><span class="tab-long">Past papers</span><span class="tab-short">Papers</span></button>' +
         '<button role="tab" data-mode="notes" aria-selected="' + (mode === "notes") + '"><span class="tab-long">Revision notes</span><span class="tab-short">Notes</span></button>' +
         '<button role="tab" data-mode="guide" aria-selected="' + (mode === "guide") + '"><span class="tab-long">Exam guide</span><span class="tab-short">Guide</span></button>' +
-        '<button role="tab" data-mode="trends" aria-selected="' + (mode === "trends") + '">Trends</button></div></div>' +
+        '<button role="tab" data-mode="trends" aria-selected="' + (mode === "trends") + '">Trends</button>' +
+        (["ig-biology", "ig-chemistry", "ig-physics", "biology", "chemistry", "physics"].indexOf(s.key) >= 0 ? '<button role="tab" data-go="#/practice?subject=' + s.key + '" aria-selected="false"><span class="tab-long">Practice</span><span class="tab-short">Practice</span></button>' : '') +
+        '<button role="tab" data-go="#/worksheet?subject=' + s.key + '" aria-selected="false"><span class="tab-long">Worksheet maker</span><span class="tab-short">Worksheets</span></button>' +
+        '<button role="tab" data-go="#/grades?subject=' + s.key + '" aria-selected="false"><span class="tab-long">Grade calculator</span><span class="tab-short">Grades</span></button></div></div>' +
         (mode === "trends" ? '<div id="trendsBox" class="trends"><p class="lede">Loading trends…</p></div>' : mode === "guide" ? guideView(s) : s.comingSoon && mode !== "notes" ? comingSoon(s) : mode === "topicals" ? topicalsView(s, params) : mode === "papers" ? papersView(s, params) : notesList(s)) + '</section>';
     }
     html += howItWorks() + '</div></main>' + footer();
@@ -177,6 +180,7 @@
     app.querySelectorAll("[data-mode]").forEach(function (b) {
       b.addEventListener("click", function () { var p = new URLSearchParams(); p.set("subject", s.key); if (b.dataset.mode !== "topicals") p.set("mode", b.dataset.mode); store("be-last", p.toString()); go("/", p); });
     });
+    app.querySelectorAll("[data-go]").forEach(function (b) { b.addEventListener("click", function () { location.hash = b.dataset.go; }); });
     app.querySelectorAll("[data-level]").forEach(function (b) {
       b.addEventListener("click", function () { setLevel(b.dataset.level, false); });
     });
@@ -321,7 +325,8 @@
     var g = (window.BE_EXAMS || {})[s.key];
     if (!g) return '<div class="panel empty"><h3>The exam guide is coming</h3></div>';
     var alevel = g.papers[0].as !== undefined;
-    return '<div class="guide"><section class="panel st-box"><h2>Who takes which papers</h2><ul class="static-list">' + g.routes.map(function (r) { return '<li>' + esc(r) + '</li>'; }).join("") + '</ul></section>' +
+    return '<div class="guide"><section class="panel st-box gc-cta"><div><h2>Grade calculator</h2><p class="st-note">Type your marks and see the grade they would get, using Cambridge&rsquo;s real thresholds.</p></div><a class="mini primary" href="#/grades?subject=' + s.key + '">Open the calculator</a></section>' +
+      '<section class="panel st-box"><h2>Who takes which papers</h2><ul class="static-list">' + g.routes.map(function (r) { return '<li>' + esc(r) + '</li>'; }).join("") + '</ul></section>' +
       '<section class="panel st-box"><h2>The papers</h2><div class="table-wrap"><table class="tbl"><thead><tr><th>Paper</th><th>Time</th><th>Marks</th>' +
       (alevel ? '<th>AS weight</th><th>A Level weight</th>' : '<th>Weight</th>') + '<th>Covers</th></tr></thead><tbody>' +
       g.papers.map(function (p) {
@@ -388,8 +393,21 @@
     return { papers: PAPERS.length, topicals: TOPICALS.length, ms: PAPERS.filter(function (p) { return p.ms; }).length };
   }
   function locked() { return Boolean(window.BE_auth && window.BE_auth.enabled); }
+  /* what the site has, each with a small picture of the feature itself */
+  function features() {
+    var years = [2026, 2025, 2024, 2023, 2022].map(function (y, i) { return '<i' + (i === 1 || i === 2 ? ' class="on"' : '') + '>' + y + '</i>'; }).join("");
+    var card = function (href, attr, title, text, pic) { return '<a class="panel feat" href="' + href + '"' + attr + '><div class="feat-pic">' + pic + '</div><h3>' + title + '</h3><p>' + text + '</p></a>'; };
+    return '<section class="explain feats-wrap"><p class="label-caps eyebrow">What you get</p><h2 class="explain-title">Everything for one exam, in one place.</h2><div class="feats">' +
+      card("/#/?mode=topicals", ' data-foot-mode="topicals"', "Topical questions by chapter and year", "Every past question sorted by chapter, then split by year. Open one year or join several into one PDF.", '<div class="fp-chips">' + years + '</div><div class="fp-line"><b>Ch 4</b> Biological molecules</div>') +
+      card("/#/?mode=topicals", ' data-foot-mode="topicals"', "Three ways to download", "Questions with their mark schemes, questions only for a test, or mark schemes only for checking.", '<div class="fp-modes"><span class="on">Questions + mark schemes</span><span>Questions only</span><span>Mark schemes only</span></div>') +
+      card("#/practice", "", "Multiple choice practice online", "Answer on screen, see right or wrong straight away and get your score at the end.", '<div class="fp-abcd"><i>A</i><i class="good">B</i><i>C</i><i class="bad">D</i></div>') +
+      card("#/grades", "", "Grade calculator", "Type your marks and see the grade, using Cambridge&rsquo;s real thresholds for each exam series.", '<div class="fp-grade"><b>A*</b><span><i style="width:78%"></i></span></div>') +
+      card("#/account", "", "Timed mock tests", "Sit a real past paper against the clock, mark it with the mark scheme and track your scores.", '<div class="fp-timer">1:14:59</div>') +
+      card("#/worksheet", "", "Worksheet maker", "Mix any topics and years into one PDF, shuffled and numbered from 1, with or without mark schemes.", '<div class="fp-sheet"><i><b>1</b></i><i><b>2</b></i><i><b>3</b></i></div>') +
+      '</div></section>';
+  }
   function howItWorks() {
-    return '<section class="explain" id="how">' +
+    return features() + '<section class="explain" id="how">' +
       '<p class="label-caps eyebrow">How it works</p>' +
       '<h2 class="explain-title">Four steps from revision to exam day.</h2>' +
       '<div class="steps">' +
@@ -483,9 +501,17 @@
     });
     return '<div id="coverGrid" class="topic-groups">' + groups.map(function (g) {
       var c = comp(s, g.component), name = groupName(s, g.component), title = c && c.title && c.title !== name ? c.title : "";
-      return '<section><h3 class="topic-head">' + esc(name) + (title ? '<small>' + esc(title) + '</small>' : '') + '</h3><div class="topic-list">' + g.items.map(function (t) {
-        var meta = [t.years, t.questions ? t.questions + " questions" : ""].filter(Boolean).join(" · ");
-        return '<a class="topic-row" href="#/view/' + t.id + '"><span class="pnum">' + esc(t.topic) + '</span><span class="row-main"><span class="row-title">' + esc(t.name) + '</span><span class="row-sub">' + esc(meta) + '</span></span>' + I.arrow + '</a>';
+      var topics = [];   // a topic split into year ranges shows as one row
+      g.items.forEach(function (t) {
+        var last = topics[topics.length - 1];
+        if (last && baseName(last[0]) === baseName(t)) last.push(t); else topics.push([t]);
+      });
+      return '<section><h3 class="topic-head">' + esc(name) + (title ? '<small>' + esc(title) + '</small>' : '') + '</h3><div class="topic-list">' + topics.map(function (all) {
+        var t = all[0], ys = [].concat.apply([], all.map(function (x) { return String(x.years || "").match(/\d{4}/g) || []; })).map(Number);
+        var span = ys.length ? Math.min.apply(null, ys) + (Math.max.apply(null, ys) > Math.min.apply(null, ys) ? "–" + Math.max.apply(null, ys) : "") : "";
+        var count = all.reduce(function (a, x) { return a + (x.questions || 0); }, 0);
+        var meta = [span, count ? count + " questions" : ""].filter(Boolean).join(" · ");
+        return '<a class="topic-row" href="#/topic/' + topicGroup(t)[0].id + '"><span class="pnum">' + esc(t.topic) + '</span><span class="row-main"><span class="row-title">' + esc(baseName(t)) + '</span><span class="row-sub">' + esc(meta) + '</span></span>' + I.arrow + '</a>';
       }).join("") + '</div></section>';
     }).join("") + '</div>';
   }
@@ -548,7 +574,7 @@
       var pw = document.getElementById("gatePw").value, err = document.getElementById("gateErr");
       if (!pw) { err.textContent = "Enter the password."; return; }
       window.BE_auth.checkPassword(pw).then(function (ok) {
-        if (!ok) { err.textContent = "That password is not right."; return; }
+        if (!ok) { err.textContent = "That password is not right."; shake(document.getElementById("gateForm")); return; }
         window.BE_auth.passGate(pw); if (!member) guestFor = p.id; render();
       }).catch(function () { err.textContent = "We could not check that just now. Try again in a minute."; });
     });
@@ -571,6 +597,150 @@
       });
     });
   }
+  function shake(el) { if (!el) return; el.classList.remove("shake"); void el.offsetWidth; el.classList.add("shake"); }
+  /* a short note at the bottom of the screen, so a save never goes unconfirmed */
+  function toast(text) {
+    var t = document.getElementById("toast") || document.body.appendChild(Object.assign(document.createElement("div"), { id: "toast", className: "toast" }));
+    t.setAttribute("role", "status"); t.textContent = text; t.classList.add("on");
+    clearTimeout(t._h); t._h = setTimeout(function () { t.classList.remove("on"); }, 2400);
+  }
+  /* the site password asked in place, for practice, worksheets and joined downloads; onOk runs once it is accepted */
+  function gateBox(el, onOk) {
+    el.innerHTML = '<div class="gate-inline"><h3>Enter the site password to continue</h3>' +
+      '<form class="gate-form"><input class="field gate-field" type="password" autocomplete="off" aria-label="Site password" placeholder="Password"><button class="mini primary" type="submit">Continue</button></form>' +
+      '<p class="st-error" role="alert"></p><p class="st-note">Or <button class="auth-link" type="button">log in</button> to be asked only once every 15 days.</p></div>';
+    var form = el.querySelector("form"), input = el.querySelector("input"), err = el.querySelector(".st-error");
+    input.focus();
+    el.querySelector(".auth-link").addEventListener("click", function () { window.BE_auth.open(onOk); });
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (!input.value) { err.textContent = "Enter the password."; return; }
+      window.BE_auth.checkPassword(input.value).then(function (ok) {
+        if (!ok) { err.textContent = "That password is not right."; shake(form); return; }
+        window.BE_auth.passGate(input.value); onOk();
+      }).catch(function () { err.textContent = "We could not check that just now. Try again in a minute."; });
+    });
+  }
+
+  /* one topic: every year as its own PDF, and any years joined into one download */
+  function baseName(t) { return t.name.replace(/\s*\(\d{4}(?:[–-]\d{4})?\)$/, ""); }
+  function topicGroup(t) { return TOPICALS.filter(function (x) { return x.subject === t.subject && x.component === t.component && baseName(x) === baseName(t); }); }
+  function topicRows(group) {
+    var rows = [];
+    group.forEach(function (t) {
+      var yrs = (DATA.years || {})[t.id];
+      if (yrs && yrs.length) yrs.forEach(function (y) { rows.push({ label: String(y[0]), year: y[0], href: "#/view/" + t.id + "?y=" + y[0], path: y[1], count: y[2], marks: y[3], tid: t.id }); });
+      else rows.push({ label: t.years || "All years", year: +(String(t.years).match(/\d{4}$/) || [0])[0], href: "#/view/" + t.id, path: t.qp, count: t.questions });
+    });
+    return rows.sort(function (a, b) { return b.year - a.year; });
+  }
+  var pdfLib = null;
+  function loadPdfLib() {
+    return pdfLib = pdfLib || new Promise(function (ok, fail) {
+      var s = document.createElement("script");
+      s.src = "https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js";
+      s.onload = function () { ok(window.PDFLib); }; s.onerror = function () { pdfLib = null; fail(new Error("lib")); };
+      document.head.appendChild(s);
+    });
+  }
+  /* mode "both" keeps every page. "q" drops mark scheme pages and covers each multiple choice answer line;
+     "m" keeps the covers and mark scheme pages, and turns multiple choice answers into an answer key page */
+  function keyPages(L, out, font, bold, title, answers) {
+    var lines = answers.map(function (a) { return ["Q" + a[0], a[2] || "-", a[1]]; }), y = 0, page = null;
+    lines.forEach(function (l, i) {
+      if (!page || y < 50) { page = out.addPage([595.28, 841.89]); page.drawText(title + (i ? " (cont.)" : ""), { x: 40, y: 790, size: 13, font: bold }); y = 760; }
+      page.drawText(l[0], { x: 40, y: y, size: 10, font: bold }); page.drawText(l[1], { x: 90, y: y, size: 10, font: bold }); page.drawText(l[2], { x: 120, y: y, size: 9, font: font, color: L.rgb(0.4, 0.4, 0.4) });
+      y -= 17;
+    });
+  }
+  function joinPdfs(items, mode, step) {
+    return loadPdfLib().then(function (L) {
+      return L.PDFDocument.create().then(function (out) {
+        return Promise.all([out.embedFont(L.StandardFonts.Helvetica), out.embedFont(L.StandardFonts.HelveticaBold)]).then(function (fonts) {
+          return items.reduce(function (chain, it, i) {
+            return chain.then(function () {
+              step(i + 1);
+              return fetch(it.url).then(function (r) { if (!r.ok) throw new Error("fetch"); return r.arrayBuffer(); })
+                .then(function (b) { return L.PDFDocument.load(b); })
+                .then(function (src) {
+                  var meta = mode === "both" ? null : it.meta, all = src.getPageIndices();
+                  var keep = !meta ? all : all.filter(function (n) { var k = meta.p.charAt(n); return mode === "q" ? k !== "m" : k === "c" || k === "m"; });
+                  return out.copyPages(src, keep).then(function (pages) {
+                    pages.forEach(function (pg, j) {
+                      out.addPage(pg);
+                      var strips = meta && mode === "q" && meta.s[keep[j]];
+                      if (strips) strips.forEach(function (y) { pg.drawRectangle({ x: 0, y: y - 3, width: pg.getWidth(), height: 17, color: L.rgb(1, 1, 1) }); });
+                    });
+                    if (meta && mode === "m" && meta.a.length) keyPages(L, out, fonts[0], fonts[1], "Answer key - " + it.label, meta.a);
+                  });
+                });
+            });
+          }, Promise.resolve()).then(function () { return out.save(); });
+        });
+      });
+    });
+  }
+  function topicView(id) {
+    var p = BY_ID[id];
+    if (!p || p.kind !== "topical") { location.hash = "#/"; return; }
+    var s = subj(p.subject), rows = topicRows(topicGroup(p)), name = baseName(p);
+    var total = rows.reduce(function (a, r) { return a + (r.count || 0); }, 0), marks = rows.reduce(function (a, r) { return a + (r.marks || 0); }, 0);
+    document.body.setAttribute("data-glow", p.subject.replace(/^ig-/, ""));
+    app.innerHTML = '<main class="page"><div class="wrap topic-page"><a class="back" href="' + backTo(p) + '">' + I.back + ' Library</a>' +
+      '<p class="label-caps eyebrow">' + esc(LEVEL_NAME[levelOf(s)] + " · " + s.name + " · " + groupName(s, p.component)) + '</p>' +
+      '<h1 class="font-brand topic-title">' + esc(name) + '</h1><p class="lede">' + rows.length + (rows[0] && rows[0].tid ? (rows.length === 1 ? " year" : " years") : (rows.length === 1 ? " PDF" : " PDFs")) + (total ? " · " + total + " questions" : "") + (marks ? " · " + marks + " marks" : "") + '. Open one year, or tick several and download them as one PDF.</p>' +
+      '<section class="panel topic-years"><div class="ty-bar"><label class="ty-check"><input type="checkbox" id="tyAll"> <span id="tyAllText">Select all</span></label>' +
+        '<span class="ty-get"><select class="field" id="tyMode" aria-label="What to include"><option value="both">Questions and mark schemes</option><option value="q">Questions only</option><option value="m">Mark schemes only</option></select>' +
+        '<button class="mini primary" id="tyGet" type="button" disabled>Download selected</button><button class="mini" id="tyPractise" type="button" hidden>Practise online</button></span></div>' +
+      '<p class="st-error" id="tyErr" role="alert"></p><div id="tyGate"></div>' +
+      rows.map(function (r, i) {
+        return '<div class="ty-row"><label class="ty-check"><input type="checkbox" data-i="' + i + '"><b>' + esc(r.label) + '</b><span>' + [r.count ? r.count + (r.count === 1 ? " question" : " questions") : "", r.marks ? r.marks + " marks" : ""].filter(Boolean).join(" · ") + '</span></label><a class="mini" href="' + r.href + '">Open</a></div>';
+      }).join("") + '</section></div></main>' + footer();
+    window.scrollTo(0, 0);
+    var boxes = [].slice.call(app.querySelectorAll(".ty-row input")), all = document.getElementById("tyAll"), get = document.getElementById("tyGet"), err = document.getElementById("tyErr");
+    function picked() { return boxes.filter(function (b) { return b.checked; }).map(function (b) { return rows[+b.dataset.i]; }); }
+    function sync() {
+      var n = picked().length;
+      get.disabled = !n; get.textContent = !n ? "Download selected" : n === 1 ? "Download " + picked()[0].label : "Download " + n + " years as one PDF";
+      all.checked = n === boxes.length; all.indeterminate = n > 0 && n < boxes.length;
+      document.getElementById("tyAllText").textContent = all.checked ? "Deselect all" : "Select all";
+    }
+    boxes.forEach(function (b) { b.addEventListener("change", sync); });
+    var first = rows.filter(function (r) { return r.tid; })[0], prac = document.getElementById("tyPractise");
+    if (first) fetch("/assets/pages/" + first.tid + ".json").then(function (x) { return x.json(); }).then(function (m) {
+      if (Object.keys(m).some(function (y) { return m[y].p.indexOf("x") >= 0; })) prac.hidden = false;   // multiple choice topics only
+    }).catch(function () {});
+    prac.addEventListener("click", function () {
+      var ys = picked().map(function (r) { return r.year; });
+      location.hash = "#/practice/" + id + (ys.length ? "?y=" + ys.join(",") : "");
+    });
+    all.addEventListener("change", function () { boxes.forEach(function (b) { b.checked = all.checked; }); sync(); });
+    get.addEventListener("click", function () {
+      var list = picked(), label = get.textContent, mode = document.getElementById("tyMode").value;
+      get.disabled = true; err.textContent = "";
+      var maps = {};
+      Promise.all([].concat(
+        list.map(function (r) { return window.BE_auth ? window.BE_auth.signedUrl(r.path, fileUrl(r.path)) : fileUrl(r.path); }),
+        mode === "both" ? [] : list.filter(function (r) { return r.tid; }).map(function (r) {
+          return fetch("/assets/pages/" + r.tid + ".json").then(function (x) { return x.ok ? x.json() : {}; }).then(function (m) { maps[r.tid] = m; });
+        })))
+        .then(function (urls) {
+          var items = list.map(function (r, i) { return { url: urls[i], label: name + " " + r.label, meta: r.tid && maps[r.tid] ? maps[r.tid][r.year] : null }; });
+          return joinPdfs(items, mode, function (i) { get.textContent = "Preparing " + i + " of " + items.length + "…"; });
+        })
+        .then(function (bytes) {
+          var a = document.createElement("a"), url = URL.createObjectURL(new Blob([bytes], { type: "application/pdf" }));
+          a.href = url; a.download = name + " - " + list.map(function (r) { return r.label; }).join(", ") + { both: "", q: " (questions only)", m: " (mark schemes only)" }[mode] + ".pdf";
+          document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(url); }, 60000);
+        })
+        .catch(function (e) {
+          if (e && e.message === "login") { var g = document.getElementById("tyGate"); gateBox(g, function () { g.innerHTML = ""; get.click(); }); }
+          else err.textContent = "Those PDFs could not be joined just now. Check your connection and try again.";
+        })
+        .then(function () { get.textContent = label; get.disabled = !picked().length; });
+    });
+  }
+
   function viewer(id, params) {
     var p = BY_ID[id];
     if (!p) { app.innerHTML = '<main class="page"><div class="wrap"><div class="panel empty"><h3>Paper not found</h3><p>This link does not match anything in the library.</p><p><a class="mini primary" href="#/">Back to the library</a></p></div></div></main>'; return; }
@@ -579,11 +749,17 @@
       lockedView(p, p.kind === "topical" ? p.name : "Paper " + paperNo(p), s.name + " " + p.code, backTo(p));
       return;
     }
-    var backHref = backTo(p);
+    var backHref = p.kind === "topical" ? "#/topic/" + topicGroup(p)[0].id : backTo(p);
     var title, sub, body;
+    var yrs = p.kind === "topical" ? (DATA.years || {})[p.id] || [] : [];
+    var pick = yrs.filter(function (r) { return String(r[0]) === params.get("y"); })[0];
     if (p.kind === "topical") {
-      title = p.name; sub = s.name + " " + p.code + " · Topical · " + groupName(s, p.component) + (p.years ? " · " + p.years : "");
-      body = '<div class="viewer-body">' + pane("Questions with mark schemes", p.qp, p.qp.split("/").pop()) + '</div>';
+      var file = pick ? pick[1] : p.qp;
+      title = p.name; sub = s.name + " " + p.code + " · Topical · " + groupName(s, p.component) + (pick ? " · " + pick[0] : p.years ? " · " + p.years : "");
+      var yearBar = yrs.length > 1 ? '<div class="wrap year-bar"><span class="label-caps">Year</span><div class="seg year-seg" role="tablist" aria-label="Year">' +
+        '<a role="tab" class="seg-a" href="#/view/' + p.id + '" aria-selected="' + !pick + '">All years</a>' +
+        yrs.map(function (r) { return '<a role="tab" class="seg-a" href="#/view/' + p.id + '?y=' + r[0] + '" aria-selected="' + (pick === r) + '">' + r[0] + '</a>'; }).join("") + '</div></div>' : '';
+      body = '<div class="viewer-body">' + pane("Questions with mark schemes", file, file.split("/").pop()) + '</div>';
     } else {
       var c = comp(s, p.component);
       title = "Paper " + paperNo(p) + (c ? " · " + c.title : "");
@@ -603,13 +779,13 @@
     }
     var logLink = window.BE_auth && window.BE_auth.enabled ? '<a class="mini" href="#/account?log=' + p.id + '">Log my score</a>' : '';
     app.innerHTML = '<div class="viewer"><div class="viewer-bar"><div class="wrap"><div class="viewer-title"><a class="back" href="' + backHref + '">' + I.back + ' Library</a><b>' + esc(title) + '</b><small>' + esc(sub) + '</small>' + logLink + '<button class="mini report-btn" id="reportBtn" type="button">Report a mistake</button></div></div></div>' +
-      (p.kind === "topical" ? '<div class="jump wrap" id="jumpBar"></div>' : '') + '<p class="mobile-tip" style="margin-top:12px">On a phone, tap <b>Open</b> to read the PDF full screen.</p>' + body + '</div>';
+      (p.kind === "topical" ? yearBar + '<div class="jump wrap" id="jumpBar"></div>' : '') + '<p class="mobile-tip" style="margin-top:12px">On a phone, tap <b>Open</b> to read the PDF full screen.</p>' + body + '</div>';
     window.scrollTo(0, 0);
     document.getElementById("reportBtn").addEventListener("click", function () { window.BE_admin.report(id, title + ", " + sub); });
     var startPane = document.querySelector(".pane[data-path]");
     if (startPane && +params.get("page")) startPane.dataset.page = params.get("page");
     hydratePanes();
-    if (p.kind === "topical") window.BE_find.jump(id, params.get("page"));
+    if (p.kind === "topical") window.BE_find.jump(pick ? id + "-" + pick[0] : id, params.get("page"));
   }
 
   window.BE_openSubject = function (key) {
@@ -623,22 +799,28 @@
   function render(e) {
     if (!DATA) return;
     var r = parse();
-    var isLib = !/^\/(view|mock|notes)\/|^\/(about|account|admin)$/.test(r.path), cameBack = isLib && !wasLib && location.hash === libHash;
+    var isLib = !/^\/(view|mock|notes|topic|practice)\/|^\/(about|account|admin|grades|worksheet|practice)$/.test(r.path), cameBack = isLib && !wasLib && location.hash === libHash;
     if (wasLib && !isLib) { libScroll = window.scrollY; if (e && e.oldURL) libHash = new URL(e.oldURL).hash; }
     wasLib = isLib;
     document.body.setAttribute("data-glow", (r.params.get("subject") || (r.path.match(/^\/notes\/([a-z-]+)/) || [])[1] || "site").replace(/^ig-/, ""));
     window.BE_study.stop();
-    document.body.setAttribute("data-view", /^\/(view|mock)\//.test(r.path) ? "viewer" : (r.path === "/about" ? "about" : r.path === "/account" || r.path === "/admin" ? "account" : /^\/notes\//.test(r.path) ? "notes" : "library"));
+    document.body.setAttribute("data-view", /^\/(view|mock)\//.test(r.path) ? "viewer" : (r.path === "/about" ? "about" : r.path === "/account" || r.path === "/admin" ? "account" : /^\/notes\//.test(r.path) ? "notes" : /^\/(topic|practice)\//.test(r.path) ? "topic" : r.path === "/grades" || r.path === "/worksheet" || r.path === "/practice" ? "grades" : "library"));
     var mk = r.path.match(/^\/mock\/([0-9a-f]{8})$/);
     if (mk) { window.BE_study.mock(app, mk[1]); return; }
     var m = r.path.match(/^\/view\/([0-9a-f]{8})$/);
     if (m) { viewer(m[1], r.params); return; }
     guestFor = null;
-    var nm = r.path.match(/^\/notes\/([a-z-]+)\/([a-z0-9-]+)$/);
+    var tp = r.path.match(/^\/topic\/([0-9a-f]{8})$/);
+    if (tp) { topicView(tp[1]); return; }
+    var pr = r.path.match(/^\/practice(?:\/([0-9a-f]{8}))?$/);
+    if (pr) { window.BE_practice.view(app, pr[1] || null, r.params); return; }
+    if (r.path === "/worksheet") { window.BE_worksheet.view(app, r.params); return; }
+    var nm =r.path.match(/^\/notes\/([a-z-]+)\/([a-z0-9-]+)$/);
     if (nm) { notesView(nm[1], nm[2]); return; }
     if (r.path === "/about") { aboutView(); return; }
     if (r.path === "/account") { accountView(r.params); return; }
     if (r.path === "/admin") { window.BE_admin.view(app); return; }
+    if (r.path === "/grades") { window.BE_grades.view(app, r.params); return; }
     if (r.path === "/" && !r.params.toString()) {
       var last = store("be-last");
       if (last) { history.replaceState(null, "", "#/?" + last); r = parse(); }
@@ -651,6 +833,8 @@
   window.BE_lib = {
     lock: function (p) { lockedView(p, "Paper " + paperNo(p), subj(p.subject).name + " " + p.code, window.BE_auth.user() ? "#/account" : "#/"); },
     guestOpen: function (id) { return guestFor === id; },
+    baseName: baseName, topicGroup: topicGroup, topicRows: topicRows, fileUrl: fileUrl, icon: function (n) { return I[n]; },
+    topicals: function () { return TOPICALS; }, groupName: groupName, loadPdfLib: loadPdfLib, gateBox: gateBox, shake: shake, toast: toast,
     esc: esc, subj: subj, levelOf: levelOf, paperNo: paperNo, SESSION: SESSION, footer: footer, render: render, store: store, pane: pane, hydratePanes: hydratePanes,
     data: function () { return DATA; }, papers: function () { return PAPERS; }, byId: function (id) { return BY_ID[id] || null; },
     itemLabel: function (p) { return p.kind === "topical" ? p.name : "Paper " + paperNo(p) + ", " + SESSION[p.session] + " " + p.year; }
