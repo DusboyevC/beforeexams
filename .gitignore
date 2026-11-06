@@ -30,3 +30,7 @@ PROGRESS.md
 supabase_admin_copy_this.txt
 pipeline/years/
 pipeline/gt/
+pipeline/changed_files.txt
+pipeline/changed_unique.txt
+pipeline/label_report.json
+pipeline/*.log

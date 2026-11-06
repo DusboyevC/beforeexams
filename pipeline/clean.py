@@ -33,7 +33,8 @@ def nchars(op, operands):
     return len(bytes(s)) if isinstance(s, pikepdf.String) else 1
 
 
-THIN = re.compile(r'\+TT\d+o00$')   # TrueType fonts converted to Type 1 in older papers: screens draw them thin and grey
+THIN = re.compile(r'\+TT[0-9A-F]+o00$')   # TrueType fonts converted to Type 1 in older papers: screens draw them thin and grey
+BOLDEN_OTHER = 13   # other compact Type 1 fonts (old Times and symbol fonts), matched to the newer papers' weight
 BOLDEN = 29   # thousandths of the letter size the thin old fonts are thickened by, half on each side of every stroke
 
 
@@ -130,13 +131,15 @@ def _bolden_cff(data, amount):
     fm = top.rawDict.get('FontMatrix', [0.001])[0] or 0.001
     amount = amount * 0.001 / fm   # amount is in thousandths of the letter size; fonts use 1000 or 2048 units
     cs = top.CharStrings; priv = top.Private
+    if len([g for g in cs.keys() if g != '.notdef']) == 0:
+        return data   # no real glyphs, nothing to thicken
     gsubrs = fs.GlobalSubrs; lsubrs = getattr(priv, 'Subrs', [])
     nominal, default = getattr(priv, 'nominalWidthX', 0), getattr(priv, 'defaultWidthX', 0)
     new = {}
     for name in list(cs.keys()):
         c = cs[name]
         ext = T2WidthExtractor(lsubrs, gsubrs, nominal, default); ext.execute(c)
-        width = ext.width
+        width = ext.width if ext.width is not None else default   # a glyph with no width of its own uses the default
         path = pathops.Path(); c.draw(path.getPen())
         if amount and path.area:
             grown = pathops.Path(path)
@@ -149,12 +152,18 @@ def _bolden_cff(data, amount):
         new[name] = pen.getCharString(private=priv, globalSubrs=gsubrs)
     for name, c in new.items():
         cs[name] = c
+    enc = top.rawDict.get('Encoding') if 'Encoding' in top.rawDict else None
+    if enc is not None and not isinstance(enc, int):   # a custom code table: codes pointing at missing glyphs can't be saved
+        names = set(cs.keys())
+        top.Encoding = [g if g in names else '.notdef' for g in top.Encoding]
     out = io.BytesIO(); fs.compile(out, type('NoTT', (), {'recalcBBoxes': False})())
     return out.getvalue()
 
 
-def bolden_fonts(pdf):
-    """Thicken every thin old font in the file once. Returns how many fonts were changed."""
+def bolden_fonts(pdf, skip_thin=False):
+    """Thicken every embedded compact (CFF) Type 1 font once: screens draw these thin and grey next to TrueType text.
+    Each thickened font is marked /BEBold. skip_thin leaves the +TT####o00 fonts, which the first clean of
+    2026-11-05 already thickened without a mark. Returns how many fonts were changed."""
     done, n = set(), 0
 
     def fonts():
@@ -173,14 +182,16 @@ def bolden_fonts(pdf):
             yield from walk(pg.obj.get('/Resources'), 0)
 
     for obj in fonts():
-        if not THIN.search(str(obj.get('/BaseFont', ''))):
+        if skip_thin and THIN.search(str(obj.get('/BaseFont', ''))):
             continue
         fd = obj.get('/FontDescriptor'); ff = fd.get('/FontFile3') if fd is not None else None
-        if ff is None or ff.objgen in done or str(ff.get('/Subtype')) != '/Type1C':
+        if ff is None or ff.objgen in done or str(ff.get('/Subtype')) != '/Type1C' or '/BEBold' in ff:
             continue
         done.add(ff.objgen)
         try:
-            ff.write(bolden_cff(ff.read_bytes(), BOLDEN))
+            amount = BOLDEN if THIN.search(str(obj.get('/BaseFont', ''))) else BOLDEN_OTHER
+            ff.write(bolden_cff(ff.read_bytes(), amount))
+            ff['/BEBold'] = True
             n += 1
         except Exception as e:
             print('font left as it was:', obj.get('/BaseFont'), e, flush=True)
@@ -243,6 +254,18 @@ def R_stream(pg):
     return b''.join(p.read_bytes() for p in parts)
 
 
+def fonts_only(path):
+    """Second pass for files cleaned on 2026-11-05: thicken the compact fonts that pass left thin."""
+    with pikepdf.open(path, allow_overwriting_input=True) as pdf:
+        if '/BEFonts2' in pdf.Root or not ('/BEClean' in pdf.Root or any(DONE.search(R_stream(pg)) for pg in pdf.pages[:3])):
+            return 0, 0
+        n = bolden_fonts(pdf, skip_thin=True)
+        pdf.Root['/BEFonts2'] = True
+        if n:
+            pdf.save(path, compress_streams=True, object_stream_mode=pikepdf.ObjectStreamMode.generate)
+        return n, 0
+
+
 def one(f):
     try:
         return f, clean(f), None
@@ -250,23 +273,37 @@ def one(f):
         return f, (0, 0), str(e)
 
 
-def main(args):
+def one_fonts(f):
+    try:
+        return f, fonts_only(f), None
+    except Exception as e:
+        return f, (0, 0), str(e)
+
+
+def main(args, fonts=False):
     files = []
     for a in args:
         files += [a] if a.lower().endswith('.pdf') else glob.glob(os.path.join(a, '**', '*.pdf'), recursive=True)
     tot = fails = 0
+    changed = open(os.path.join(HERE_DIR, 'changed_files.txt'), 'a', encoding='utf8')
     import multiprocessing
     with multiprocessing.Pool(min(4, os.cpu_count() or 1)) as pool:
-        results = pool.imap_unordered(one, files, chunksize=4)
+        results = pool.imap_unordered(one_fonts if fonts else one, files, chunksize=4)
         for i, (f, (c, fl), err) in enumerate(results, 1):
             if err:
                 print('ERROR', f, err, flush=True)
             tot += c; fails += fl
+            if c:
+                changed.write(os.path.abspath(f) + chr(10)); changed.flush()
             if fl:
                 print('kept as it was (could not read):', fl, f, flush=True)
             if i % 100 == 0 or i == len(files):
                 print(f'{i}/{len(files)} files, {tot} questions cleaned, {fails} left as they were', flush=True)
 
 
+HERE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 if __name__ == '__main__':
-    main(sys.argv[1:])
+    args = sys.argv[1:]
+    fonts = bool(args) and args[0] == '--fonts'   # only the second font pass, on files already cleaned
+    main(args[1:] if fonts else args, fonts)

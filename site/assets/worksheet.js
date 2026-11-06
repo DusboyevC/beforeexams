@@ -82,6 +82,8 @@
                 var src = docs[u.row.url];
                 if (u.mcq) {
                   if (info.mode === "m") { key.push([n, u.src, u.answer]); return; }
+                  if (!src.__stripped) src.__stripped = {};
+                  if (!src.__stripped[u.page]) { src.__stripped[u.page] = 1; L().stripLabels(P, src, src.getPage(u.page)); }
                   return out.embedPage(src.getPage(u.page), { left: 0, bottom: u.bottom, right: A4[0], top: u.top }).then(function (emb) {
                     var h = u.top - u.bottom, inside = u.ly != null, need = h + (inside ? 6 : 22) + (info.mode === "both" ? 18 : 0);
                     if (!page || y - need < 30) { page = out.addPage(A4); y = A4[1] - 34; }
@@ -98,6 +100,7 @@
                 return out.copyPages(src, keep).then(function (pages) {
                   pages.forEach(function (pg, j) {
                     out.addPage(pg);
+                    L().stripLabels(P, out, pg);
                     (u.meta.l[keep[j]] || []).forEach(function (l) {
                       label(pg, fonts, l[0], n, (/MARK SCHEME/.test(l[1]) ? "m" : "q") + (/cont/.test(l[1]) ? "+" : ""), u.src);
                     });

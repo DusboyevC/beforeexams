@@ -712,8 +712,8 @@
     });
   }
   function yearsText(ys) {
-    var n = ys.map(Number).sort(function (a, b) { return a - b; });
-    var run = n.every(function (y, i) { return !i || y === n[i - 1] + 1; });
+    var n = ys.map(Number).sort(function (a, b) { return b - a; });
+    var run = n.every(function (y, i) { return !i || y === n[i - 1] - 1; });
     return n.length > 2 && run ? "[" + n[0] + " – " + n[n.length - 1] + "]" : "[" + n.join(", ") + "]";
   }
   /* question labels written out clearly: "Question 3" and "Paper 22 · Oct/Nov 2015 · Q1", in place of the tiny grey "Q3 QUESTION 9702/22/O/N/15 Q1" */
@@ -721,6 +721,29 @@
   function sourceText(src) {
     var m = String(src || "").match(/\d{4}\/(\d\d)\/([FMO]\/[MJN])\/(\d\d)\s+Q(\d+)/);
     return m ? "Paper " + m[1] + " · " + (SESSION_LONG[m[2]] || m[2]) + " 20" + m[3] + " · Q" + m[4] : "";
+  }
+  /* take the question labels (old small ones or the clear ones the PDFs now carry, and a multiple choice answer next
+     to them) out of a page's content, so a relabelled page has no hidden text left under the new label */
+  var LABEL_OPS = /q 0\.18 0\.49 0\.36 rg 14 [\d.]+ [\d.]+ 12 re f Q\s*BT \/F1 [78] Tf 1 1 1 rg [\d.]+ [\d.]+ Td \((?:[^()\\]|\\.|\([^()]*\))*\) Tj ET(?:\s*BT \/F[12] [789] Tf [\d. ]+ rg [\d.]+ [\d.]+ Td \((?:[^()\\]|\\.)*\) Tj ET)?/g;
+  function stripLabels(L, doc, page) {
+    var node = page.node, c = node.Contents();
+    if (!c) return 0;
+    var parts = c instanceof L.PDFArray ? c.asArray().map(function (r) { return doc.context.lookup(r); }) : [c];
+    var text = "";
+    for (var i = 0; i < parts.length; i++) {
+      var s = parts[i], bytes;
+      if (s instanceof L.PDFRawStream) bytes = L.decodePDFRawStream(s).decode();
+      else if (s && s.getContents) bytes = s.getContents();
+      else return 0;
+      for (var k = 0; k < bytes.length; k += 8192) text += String.fromCharCode.apply(null, bytes.subarray(k, k + 8192));
+      text += "\n";
+    }
+    var n = 0, out = text.replace(LABEL_OPS, function () { n++; return ""; });
+    if (!n) return 0;
+    var raw = new Uint8Array(out.length);
+    for (var j = 0; j < out.length; j++) raw[j] = out.charCodeAt(j) & 255;
+    node.set(L.PDFName.of("Contents"), doc.context.register(doc.context.flateStream(raw)));
+    return n;
   }
   /* y is the bottom of the old 12 point label row. Everything stays inside that row (x 14 to 330), which is empty
      on every page apart from the old label, so nothing of the question itself is painted over. */
@@ -760,6 +783,7 @@
                   return out.copyPages(src, keep).then(function (pages) {
                     pages.forEach(function (pg, j) {
                       out.addPage(pg);
+                      if (meta) stripLabels(L, out, pg);
                       if (meta) (meta.l[keep[j]] || []).forEach(function (l) {
                         var ms = /MARK SCHEME/.test(l[1]), n = +(l[1].match(/^Q(\d+)/) || [0, 0])[1];
                         if (mode === "q" && ms) return;   // that strip is covered below
@@ -827,7 +851,7 @@
           return fetch("/assets/jump/" + r.tid + "-" + r.year + ".json").then(function (x) { return x.ok ? x.json() : []; }).then(function (rows) { var o = {}; rows.forEach(function (q) { o[q[0]] = q[1]; }); r.srcs = o; });
         })))
         .then(function (urls) {
-          var items = list.slice().sort(function (a, b) { return a.year - b.year; }).map(function (r) { return { url: urls[list.indexOf(r)], year: r.label, count: r.count, srcs: r.srcs, meta: r.tid && maps[r.tid] ? maps[r.tid][r.year] : null }; });
+          var items = list.slice().sort(function (a, b) { return b.year - a.year; }).map(function (r) { return { url: urls[list.indexOf(r)], year: r.label, count: r.count, srcs: r.srcs, meta: r.tid && maps[r.tid] ? maps[r.tid][r.year] : null }; });
           var questions = list.reduce(function (a, r) { return a + (r.count || 0); }, 0), marks = list.reduce(function (a, r) { return a + (r.marks || 0); }, 0);
           var info = { cover: { title: name, subject: SUBJECT_LINE[p.subject] || s.name, kicker: { both: "TOPICAL PAST PAPERS", q: "TOPICAL QUESTIONS ONLY", m: "TOPICAL MARK SCHEMES ONLY" }[mode],
             fields: [["EXAM BOARD", "Cambridge"], ["SYLLABUS CODE", p.subject === "cs" ? "9608 and 9618" : s.code], ["PAPERS COVERED", groupName(s, p.component).replace(/\s*\(.*\)$/, "")],
@@ -940,7 +964,7 @@
     lock: function (p) { lockedView(p, "Paper " + paperNo(p), subj(p.subject).name + " " + p.code, window.BE_auth.user() ? "#/account" : "#/"); },
     guestOpen: function (id) { return guestFor === id; },
     baseName: baseName, topicGroup: topicGroup, topicRows: topicRows, fileUrl: fileUrl, icon: function (n) { return I[n]; },
-    topicals: function () { return TOPICALS; }, groupName: groupName, loadPdfLib: loadPdfLib, gateBox: gateBox, shake: shake, toast: toast, makeCover: makeCover, yearsText: yearsText, drawLabel: drawLabel, sourceText: sourceText,
+    topicals: function () { return TOPICALS; }, groupName: groupName, loadPdfLib: loadPdfLib, gateBox: gateBox, shake: shake, toast: toast, makeCover: makeCover, yearsText: yearsText, drawLabel: drawLabel, sourceText: sourceText, stripLabels: stripLabels,
     esc: esc, subj: subj, levelOf: levelOf, paperNo: paperNo, SESSION: SESSION, footer: footer, render: render, store: store, pane: pane, hydratePanes: hydratePanes,
     data: function () { return DATA; }, papers: function () { return PAPERS; }, byId: function (id) { return BY_ID[id] || null; },
     itemLabel: function (p) { return p.kind === "topical" ? p.name : "Paper " + paperNo(p) + ", " + SESSION[p.session] + " " + p.year; }
